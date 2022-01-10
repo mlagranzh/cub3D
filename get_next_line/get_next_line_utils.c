@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-size_t	ft_strlen (const char *str)
+size_t	gnl_strlen (const char *str)
 {
 	size_t	k;
 
@@ -10,7 +10,7 @@ size_t	ft_strlen (const char *str)
 	return (k);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*p;
 	size_t			count_byte;
@@ -19,16 +19,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	i = 0;
-	if (ft_strlen(s) < start)
+	if (gnl_strlen(s) < start)
 		count_byte = 1;
-	else if (ft_strlen(s) - start >= len)
+	else if (gnl_strlen(s) - start >= len)
 		count_byte = (len + 1) * sizeof(char);
 	else
-		count_byte = (ft_strlen(s) - start + 1) * sizeof(char);
+		count_byte = (gnl_strlen(s) - start + 1) * sizeof(char);
 	p = malloc (count_byte);
 	if (p == NULL)
 		return (NULL);
-	while (i < len && s[start + i] != '\0' && ft_strlen(s) >= start)
+	while (i < len && s[start + i] != '\0' && gnl_strlen(s) >= start)
 	{
 		p[i] = s[start + i];
 		i++;
@@ -37,7 +37,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (p);
 }
 
-size_t	ft_strchr(const char *s, int c)
+size_t	gnl_strchr(const char *s, int c)
 {
 	int	output;
 
@@ -56,7 +56,7 @@ size_t	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*gnl_strjoin(char const *s1, char const *s2)
 {
 	char	*p;
 	int		i;
@@ -64,7 +64,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	i = 0;
-	p = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	p = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
 	if (p == NULL)
 		return (NULL);
 	while (*s1 != '\0')
@@ -83,14 +83,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (p);
 }
 
-char	*ft_strdup(char *s)
+char	*gnl_strdup(char *s)
 {
 	char	*p;
 	size_t	len;
 	size_t	i;
 
 	i = 0;
-	len = ft_strlen(s);
+	len = gnl_strlen(s);
 	p = malloc((len + 1) * sizeof(char));
 	if (p == NULL)
 		return (NULL);

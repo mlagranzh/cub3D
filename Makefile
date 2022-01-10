@@ -16,7 +16,8 @@ GCC			=	gcc -g#-Wall -Wextra -Werror
 #SRC_UTILS	=	utils0.c utils1.c utils2.c utils3.c utils4.c utils5.c utils6.c utils7.c
 #SRC_EXECUTE	=	pipex.c cd.c exit.c unset.c echo.c pwd.c env.c export.c execute.c
 
-SRCS		= main.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+#SRCS		= main.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+SRCS		= cleonia/vse_huinia_davai_po_novoi.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 #SRCS_PARSER	=	$(addprefix $(DIR_PARSER), $(SRC_PARSER))
 #UTILS		=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
@@ -35,7 +36,7 @@ $(NAME): $(OBJ)
 #	@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
 	$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 #	@echo "DONE! Запускаю..."
-	@./cub3d
+#	@./cub3d
 
 libft:
 #	@echo "\033[0;35mКомпилю libft... \033[0;32m"

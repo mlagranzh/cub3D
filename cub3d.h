@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 02:19:21 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 02:38:22 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-# include "LIBFT/libft.h"
+# include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
@@ -25,6 +25,12 @@
 #define CEL_SIZE 6
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 600
+
+enum    e_retvals
+{
+    ERROR = 1,
+    SUCCESS = 0
+};
 
 typedef struct	s_data
 {
@@ -37,9 +43,10 @@ typedef struct	s_data
 
 typedef struct	s_player
 {
-	int	x;
-	int y;
-	int color;
+	int		pos_x;				// Позиция по х
+	int		pos_y;				// Позиция по у
+	int		dir_x;				// Направление по х
+	int		dir_y;				// Направление по у
 }	t_player;
 
 typedef struct s_all

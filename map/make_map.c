@@ -24,17 +24,17 @@ typedef struct s_map
 	char	**map;
 }	t_map;
 
-typedef struct	s_player
-{
-	int		pos_x;				// Позиция по х
-	int		pos_y;				// Позиция по у
-	int		dir_x;				// Направление по х
-	int		dir_y;				// Направление по у
-}	t_player;
+// typedef struct	s_player
+// {
+// 	int		pos_x;				// Позиция по х
+// 	int		pos_y;				// Позиция по у
+// 	int		dir_x;				// Направление по х
+// 	int		dir_y;				// Направление по у
+// }	t_player;
 
 int		print_return(int retval, char *print_message)
 {
-	printf(print_message);
+	printf("%s", print_message);
 	return (retval);
 }
 
@@ -127,9 +127,31 @@ int	check_for_file_permission(char *file_name)
 	return (ERROR);
 }
 
+void	change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char)
+{
+	int i;
+
+	i = 0;
+	while (str && *str)
+	{
+		while (change_sumbols[i] != '\0')
+		{
+			if (change_sumbols[i] == *str)
+				*str = replacement_char;
+			i++;
+		}
+		str++;
+	}
+}
+
+
+
 int	read_map_param(t_map *map, int fd)
 {
 	char	*line;
+	char	**buf;
+	char	*mark;
+	char	*permission;
 	int		i;
 
 	line = NULL;
@@ -138,11 +160,11 @@ int	read_map_param(t_map *map, int fd)
 	{
 		if (!line)
 			return (ERROR);
-		while (line[i] == ' ' || line[i] == '	')
-			i++;
-		while (line[i] != '\0' && line[i] != ' ' && line[i] != '	')
+		if (*line == '\0')
+			continue ;
+		change_sumbols_in_str(line, "\t", ' ');
+		buf = ft_split(line, ' ');
 
-		free (line);
 	}
 }
 
@@ -157,10 +179,17 @@ int	read_cub_file(t_map *map, t_player *player, char *file_name)
 	return (0);
 }
 
+void	initialize_map(t_map *map)
+{
+	
+}
+
 int main(int argc, char **argv)
 {
 	t_map		map;
 	t_player	player;
-    printf("%i\n", read_cub_file(&map, &player, argv[1]));
+    
+
+	printf("{%s}\n", ft_strtrim(" 1     2   3    ", " 	"));
     return (0);
 }

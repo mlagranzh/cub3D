@@ -1,64 +1,16 @@
-# include "../mlx/mlx.h"
-# include "../LIBFT/libft.h"
-# include "../get_next_line/get_next_line.h"
-# include <stdio.h>
-# include <math.h>
-# include <stdlib.h>
-# include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/11 18:30:59 by celys             #+#    #+#             */
+/*   Updated: 2022/01/11 18:37:18 by celys            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
-
-int world_map[MAP_WIDTH][MAP_HEIGHT]=
-{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
-typedef struct	s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct s_all
-{
-	void		*mlx;
-	void		*win;
-	t_data		img;
-	char		**map;
-}	t_all;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color);
-int		destroy(t_all *all);
+#include "cub3d.h"
 
 void	draw_screen(t_all *all)
 {
@@ -140,7 +92,7 @@ void	draw_screen(t_all *all)
 				side = 1;
 			}
 			//Проверить, не попал ли луч в стену
-			if (world_map[map_x][map_y] > 0)
+			if (all->map[map_x][map_y] != '0')
 				hit = 1;
 		}
 
@@ -164,25 +116,17 @@ void	draw_screen(t_all *all)
 
 		//выбираем цвет
 		int color;
-		switch (world_map[map_x][map_y])
-		{
-		case 1:
+		
+		if (all->map[map_x][map_y] == '1')
 			color = 0xFF0F0F;
-			break;
-		case 2:
+		else if (all->map[map_x][map_y] == '2')
 			color = 0xFF0000;
-			break;
-		case 3:
+		else if (all->map[map_x][map_y] == '3')
 			color = 0x00FF00;
-			break;
-		case 4:
+		else if (all->map[map_x][map_y] == '4')
 			color = 0x0000FF;
-			break;
-		default:
-			color = 0xFFFFFF;
-			break;
-		}
-			
+		else
+			color = 0xFFFFFF;			
 		//придать сторонам x и y разную яркость
   		if(side == 1)
 			color = color / 2;
@@ -191,61 +135,4 @@ void	draw_screen(t_all *all)
 		// printf("x = %i %i < y < %i\n", x, draw_start, draw_end);
 		x++;
 	}
-}
-
-int		my_hook(int key, t_all *all)
-{
-	// if (key == 13)
-	// 	all->player.y -= 4;
-	// if (key == 1)
-	// 	all->player.y += 4;
-	// if (key == 0)
-	// 	all->player.x -= 4;
-	// if (key == 2)
-	// 	all->player.x += 4;
-	if (key == 53)
-		exit(0);
-	// draw_ver_line(all, 100, 0, 100, 0xFFFFFF);
-	return (0);
-}
-
-int main()
-{
-	t_all	all;
-
-	all.mlx = mlx_init();
-	// all.map = make_map("map.cub");
-	all.win = mlx_new_window(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
-	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);
-	draw_screen(&all);
-	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
-	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
-
-	mlx_loop(all.mlx);
-	return (0);
-}
-
-void draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color)
-{
-	while (draw_start < draw_end)
-	{
-		my_mlx_pixel_put(&all->img, x, draw_start, color);
-		draw_start++;
-	}
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int	destroy(t_all *all)
-{
-	exit (0);
-	return (0);
 }

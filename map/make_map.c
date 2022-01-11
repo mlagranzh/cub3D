@@ -1,5 +1,43 @@
 #include "../cub3d.h"
 
+/*
+   
+   NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+F 220,100,0
+C 225,30,0
+
+North South West East
+Север Юг Запад Восток
+*/
+
+typedef struct s_map
+{
+	char	*no_texture; 		// Север	(90)
+	char	*so_texture; 		// Юг 		(270)
+	char	*we_texture; 		// Запад 	(180)
+	char	*ea_texture; 		// Восток 	(0)
+	char	*floor_color; 		// Пол
+	char	*ceilling_color;	// Потолок
+	char	**map;
+}	t_map;
+
+typedef struct	s_player
+{
+	int		pos_x;				// Позиция по х
+	int		pos_y;				// Позиция по у
+	int		dir_x;				// Направление по х
+	int		dir_y;				// Направление по у
+}	t_player;
+
+int		print_return(int retval, char *print_message)
+{
+	printf(print_message);
+	return (retval);
+}
+
 char **ft_realloc(char **mas, char *new_line)
 {
 	char **new_mas;
@@ -69,8 +107,60 @@ char **make_map(char *file_name)
 	return (map);
 }
 
-int main()
+int	check_for_file_permission(char *file_name)
 {
-    make_map("map.cub");
+	char	*permission;
+	int		counter;
+
+	permission = ".cub";
+	counter = 0;
+	while (*file_name)
+	{
+		if (*file_name != permission[counter])
+			counter = 0;
+		if (*file_name == permission[counter])
+			counter++;
+		file_name++;
+	}
+	if (counter == 4)
+		return (SUCCESS);
+	return (ERROR);
+}
+
+int	read_map_param(t_map *map, int fd)
+{
+	char	*line;
+	int		i;
+
+	line = NULL;
+	i = 0;
+	while (get_next_line(fd, &line) == 1)
+	{
+		if (!line)
+			return (ERROR);
+		while (line[i] == ' ' || line[i] == '	')
+			i++;
+		while (line[i] != '\0' && line[i] != ' ' && line[i] != '	')
+
+		free (line);
+	}
+}
+
+int	read_cub_file(t_map *map, t_player *player, char *file_name)
+{
+	int fd;
+
+	if (check_for_file_permission(file_name) == ERROR)
+		return (print_return(ERROR, "File permission is invalid"));
+	// read_map_param(map, fd);
+	// read_map(map, player, fd);
+	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	t_map		map;
+	t_player	player;
+    printf("%i\n", read_cub_file(&map, &player, argv[1]));
     return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/11 01:39:49 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/01/11 17:58:12 by cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,11 @@
 # include <math.h>
 # include <stdlib.h>
 # include <fcntl.h>
+
+enum    e_retvals
+{
+    ERROR = 1,
+    SUCCESS = 0
+};
 
 #endif

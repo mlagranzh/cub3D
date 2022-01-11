@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/11 18:47:22 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 02:19:21 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ typedef struct s_all
 	t_data		img;
 	t_player	player;
 	char		**map;
+	double		pos_x;
+	double		pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
 }	t_all;
 
-void	draw_screen(t_all *all);
 
 //utils0
 char **ft_realloc(char **mas, char *new_line);
@@ -65,5 +70,8 @@ int	    destroy(t_all *all);
 int     my_hook(int key, t_all *all);
 
 //draw
-
+void	draw_map(t_data *img, char **map);
+void	draw_screen(t_all *all);
+void	draw_square(t_data *img, int y, int x, int size);
+void	draw_player(t_all *all);
 #endif

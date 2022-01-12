@@ -71,6 +71,7 @@ void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char repla
 int		print_return(int retval, char *print_message);
 char	*delete_space_line(char *line);
 void	printf_array(char **arr);
+char **ft_realloc(char **mas, char *new_line);
 
 //utils1.c
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);

@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/11 18:44:50 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 14:14:58 by cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char **make_map(char *file_name)
-{
-	char *line;
-	char **map;
-	int fd;
-	int i;
+// char **make_map(char *file_name)
+// {
+// 	char *line;
+// 	char **map;
+// 	int fd;
+// 	int i;
 
-	fd = open(file_name, O_RDONLY);
-	line = NULL;
-	map = NULL;
-	i = 1;
-	while (get_next_line(fd, &line) == 1)
-	{
-		map = ft_realloc(map, delete_space_line(line));
-		i++;
-	}
-	map = ft_realloc(map, delete_space_line(line));
-	// ft_print_cchar(map);
-	return (map);
-}
+// 	fd = open(file_name, O_RDONLY);
+// 	line = NULL;
+// 	map = NULL;
+// 	i = 1;
+// 	while (get_next_line(fd, &line) == 1)
+// 	{
+// 		map = ft_realloc(map, delete_space_line(line));
+// 		i++;
+// 	}
+// 	map = ft_realloc(map, delete_space_line(line));
+// 	// ft_print_cchar(map);
+// 	return (map);
+// }
 
 void	draw_square(t_data *img, int y, int x, int size)
 {
@@ -70,50 +70,50 @@ void	draw_map(t_data *img, char **map)
 	}
 }
 
-void	draw_player(t_all *all)
-{
-	int i;
-	int j;
-	int size;
+// void	draw_player(t_all *all)
+// {
+// 	int i;
+// 	int j;
+// 	int size;
 
-	i = 0;
-	size = 4;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(&(all->img), all->player.x + i, all->player.y + j, 0xFF00FF);
-			j++;
-		}
-		i++;
-	}
-	float player_a = 0;
-	float start = player_a - 3.14/4;
-	float end = player_a + 3.14/4;
-	while (start < end)
-	{
-		float x_2 = all->player.x;
-		float y_2 = all->player.y;
-		while (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] != '1')
-		{
-			x_2 += cos(start);
-			y_2 += sin(start);
-			my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
-		}
-		//Рассчитываем высоту линии для рисования на экране
-      	int line_height = (int)(SCREEN_HEIGHT / (y_2 - all->player.y));
+// 	i = 0;
+// 	size = 4;
+// 	while (i < size)
+// 	{
+// 		j = 0;
+// 		while (j < size)
+// 		{
+// 			my_mlx_pixel_put(&(all->img), all->player.x + i, all->player.y + j, 0xFF00FF);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	float player_a = 0;
+// 	float start = player_a - 3.14/4;
+// 	float end = player_a + 3.14/4;
+// 	while (start < end)
+// 	{
+// 		float x_2 = all->player.x;
+// 		float y_2 = all->player.y;
+// 		while (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] != '1')
+// 		{
+// 			x_2 += cos(start);
+// 			y_2 += sin(start);
+// 			my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
+// 		}
+// 		//Рассчитываем высоту линии для рисования на экране
+//       	int line_height = (int)(SCREEN_HEIGHT / (y_2 - all->player.y));
 
-		start += 3.14/20;
-	}
-}
+// 		start += 3.14/20;
+// 	}
+// }
 
 int main()
 {
 	t_all	all;
 
 	all.mlx = mlx_init();
-	all.map = make_map("map.cub");
+	// all.map = make_map("map.cub");
 	// printf_array(all.map);
 	all.win = mlx_new_window(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);

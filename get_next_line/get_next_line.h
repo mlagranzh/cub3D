@@ -1,22 +1,26 @@
-#ifndef GET_NEXT_LINE
-# define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-// #include "../libft/libft.h"
+# include			<stdio.h>
+# include			<stdlib.h>
+# include			<fcntl.h>
+# include			<unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
+# define BUFFER_SIZE 10
 
-int		get_next_line(int fd, char **line);
-size_t	gnl_strlen (const char *str);
-char	*gnl_substr(char const *s, unsigned int start, size_t len);
-size_t	gnl_strchr(const char *s, int c);
-char	*gnl_strjoin(char const *s1, char const *s2);
-char	*gnl_strdup(char *s);
-int error(char *buf, char *ostatok);
+typedef struct s_list
+{
+	char			*static_line;
+	int				fd;
+	struct s_list	*next;
+}					t_list;
+
+size_t				gnl_strlen(const char *str);
+void				*gnl_calloc(size_t count, size_t size);
+char				*gnl_strchr(char *s, int c);
+int					gnl_strjoin(const char **line, const char *static_line);
+int					get_next_line(int fd, char **line);
+int					gnl_tail_cutting(char **str);
+int					gnl_free(char **s, int i);
 
 #endif

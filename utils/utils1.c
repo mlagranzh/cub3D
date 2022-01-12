@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:28:52 by celys             #+#    #+#             */
-/*   Updated: 2022/01/11 18:32:10 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 14:11:12 by cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		my_hook(int key, t_all *all)
 {
-	if (key == 13)
-		all->player.y -= 4;
-	if (key == 1)
-		all->player.y += 4;
-	if (key == 0)
-		all->player.x -= 4;
-	if (key == 2)
-		all->player.x += 4;
+	// if (key == 13)
+	// 	all->player.y -= 4;
+	// if (key == 1)
+	// 	all->player.y += 4;
+	// if (key == 0)
+	// 	all->player.x -= 4;
+	// if (key == 2)
+	// 	all->player.x += 4;
 	if (key == 53)
 		exit(0);
 	return (0);

@@ -1,106 +1,80 @@
 #include "get_next_line.h"
 
-void	*gnl_memset(void *b, int c, size_t len)
+int	gnl_strjoin(const char **line, const char *static_line)
 {
-	unsigned char	*p;
-	size_t			k;
+	char	*new_str;
+	int		i;
+	int		j;
 
-	k = 0;
-	p = (unsigned char *) b;
-	while (k != len)
+	i = 0;
+	new_str = (char *)malloc(gnl_strlen(*line) + gnl_strlen(static_line) + 1);
+	if (new_str == NULL)
+		return (-1);
+	while (line[0][i] != '\0')
 	{
-		p[k] = (unsigned char)c;
-		k++;
+		new_str[i] = line[0][i];
+		i++;
 	}
-	return (b);
+	j = 0;
+	while (static_line[j] != '\0' && static_line[j] != '\n')
+	{
+		new_str[i] = static_line[j];
+		i++;
+		j++;
+	}
+	new_str[i] = '\0';
+	free ((char *)*line);
+	*line = new_str;
+	return (1);
 }
 
-void	*gnl_calloc(size_t nmemb, size_t size)
-{
-	char	*p;
-
-	p = malloc(nmemb * size);
-	if (p)
-		gnl_memset(p, 0, nmemb * size);
-	return (p);
-}
-
-char	*return_ostatok(char *buf, char *ostatok, int rs, char **line)
+int	gnl_tail_cutting(char **str)
 {
 	char	*tmp;
+	int		i;
+	int		j;
 
-	if (rs == -2)
+	i = 1;
+	while (str[0][i - 1] != '\n')
+		i++;
+	tmp = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
+	if (tmp == NULL)
+		return (gnl_free(str, -1));
+	j = 0;
+	while (str[0][i] != '\0')
 	{
-		*line = gnl_substr(ostatok, 0, gnl_strchr(ostatok, '\n') - 1);
-		tmp = gnl_strdup(ostatok + gnl_strchr(ostatok, '\n'));
-		free(ostatok);
-		return (tmp);
+		tmp[j] = str[0][i];
+		i++;
+		j++;
 	}
-	if (rs == -1)
-	{
-		ostatok = NULL;
-		return (ostatok);
-	}
-	if (rs > 0)
-	{
-		buf[rs] = '\0';
-		tmp = gnl_strdup(ostatok);
-		free(ostatok);
-		ostatok = gnl_strjoin(tmp, buf);
-		free(tmp);
-		free(buf);
-		return (ostatok);
-	}
-	return (NULL);
-}
-
-int	return_flag (char *buf, char *ostatok, int rs, char **line)
-{
-	if (rs < 0)
-	{
-		free(buf);
-		free(ostatok);
-		return (-1);
-	}
-	if (rs == 0)
-	{
-		*line = gnl_substr(ostatok, 0, gnl_strchr(ostatok, '\0'));
-		free(ostatok);
-		free(buf);
-		return (0);
-	}
-	return (0);
+	tmp[j] = '\0';
+	free (*str);
+	*str = tmp;
+	return (1);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	char		*buf;
-	static char	*ostatok;
-	int			rs;
-	int			flag;
+	static char	*static_line;
+	int			sumbol_read;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
+	if (fd < 0 || line == 0 || fd > 100)
 		return (-1);
-	if (ostatok == NULL)
-		ostatok = gnl_calloc(1, 1);
-	while (1)
+	sumbol_read = 1;
+	*line = (char *)gnl_calloc(sizeof(char), 1);
+	if (static_line == NULL)
+		static_line = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
+	while (static_line != NULL && *line != NULL && sumbol_read != 0)
 	{
-		if (gnl_strchr(ostatok, '\n') != 0)
-		{
-			ostatok = return_ostatok(buf, ostatok, -2, line);
-			return (1);
-		}
-		buf = malloc(BUFFER_SIZE + 1);
-		rs = read(fd, buf, BUFFER_SIZE);
-		flag = return_flag(buf, ostatok, rs, line);
-		ostatok = return_ostatok(buf, ostatok, rs, line);
-		if (rs == 0 || rs < 0)
-			return (flag);
+		if (gnl_strjoin((const char **)line, static_line) != -1)
+			if (gnl_strchr(static_line, '\n'))
+				return (gnl_tail_cutting(&static_line));
+		sumbol_read = read(fd, static_line, BUFFER_SIZE);
+		if (sumbol_read < 0)
+			return (gnl_free(&static_line, -1));
+		static_line[sumbol_read] = '\0';
 	}
-
+	if (sumbol_read == 0)
+		return (gnl_free(&static_line, 0));
+	return (-1);
 }
-// int main()
-// {
-// 	char *line = NULL;
-// 	get_next_line(0, &line);
-// }

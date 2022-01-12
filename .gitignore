@@ -1,3 +1,6 @@
 */.o
 *.o
 */.a
+.vscode
+cub3d
+mlx/libmlx.a

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 18:58:22 by cleonia          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -67,9 +55,14 @@ typedef struct s_all
 	t_data		img;
 	t_player	player;
 	char		**map;
+	double		pos_x;
+	double		pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
 }	t_all;
 
-void	draw_screen(t_all *all);
 
 //map functions
 int		read_map_param(t_map *map, int fd);
@@ -88,5 +81,8 @@ int	    destroy(t_all *all);
 int     my_hook(int key, t_all *all);
 
 //draw
-
+void	draw_map(t_data *img, char **map);
+void	draw_screen(t_all *all);
+void	draw_square(t_data *img, int y, int x, int size);
+void	draw_player(t_all *all);
 #endif

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 14:14:58 by cleonia          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
 // char **make_map(char *file_name)
@@ -118,8 +106,19 @@ int main()
 	all.win = mlx_new_window(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);
+
+	all.pos_x = 7;
+	all.pos_y = 12;
+	all.dir_x = 0;
+	all.dir_y = 1;
+	all.plane_x = 1;
+	all.plane_y = 0.66;//2D-лучевая версия плоскости камеры
+	
 	draw_screen(&all);
+
+	
 	draw_map(&all.img, all.map);
+	draw_player(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);

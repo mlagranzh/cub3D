@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: cleonia <cleonia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/11 18:28:56 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 15:16:28 by cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,26 @@ char *delete_space_line(char *line)
 	return (new_line);
 }
 
-char **ft_realloc(char **mas, char *new_line)
+int		print_return(int retval, char *print_message)
 {
-	char **new_mas;
-	int mas_len;
+	printf("%s\n", print_message);
+	return (retval);
+}
+
+void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char)
+{
 	int i;
 
-	if (!mas)
+	i = 0;
+	while (change_str && *change_str)
 	{
-		mas_len = 2;
-		new_mas = (char **)malloc(sizeof(char *) * mas_len);
-		new_mas[0] = new_line;
-		new_mas[1] = NULL;
+		while (change_sumbols[i] != '\0')
+		{
+			if (change_sumbols[i] == *change_str)
+				*change_str = replacement_char;
+			i++;
+		}
+		change_str++;
 	}
-	else
-	{
-		mas_len = 0;
-		while (mas && mas[mas_len])
-			mas_len++;
-		mas_len++;
-		new_mas = (char **)malloc(sizeof(char *) * (mas_len + 1));
-		i = -1;
-		while (++i < mas_len - 1)
-			new_mas[i] = mas[i];
-		new_mas[i] = new_line;
-		new_mas[i + 1] = NULL;
-		free (mas);
-	}
-	return (new_mas);
 }
+

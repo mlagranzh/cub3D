@@ -1,65 +1,65 @@
-NAME		=	cub3d
+NAME			=	cub3d
 
-DIR_MINILIBX	=	minilibx/
+HEADER			=	cub3d.h
+
+GCC				=	gcc -g3#-Wall -Wextra -Werror
+
 DIR_LIBA		=	libft/
+DIR_MINILIBX	=	mlx/
+DIR_UTILS		=	utils/
+DIR_MAP			=	analysis_cub_file/
+DIR_GNL			=	get_next_line/
 
-HEADER		=	cub3d.h
+SRC				=	main.c draw.c
+SRC_UTILS		=	utils0.c utils1.c
+SRC_MAP			=	read_cub_file.c read_map_param.c checking_map_for_closure.c
+SRC_GNL			=	get_next_line.c get_next_line_utils.c
 
-GCC			=	gcc -g#-Wall -Wextra -Werror
+UTILS			=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
+MAP				=	$(addprefix $(DIR_MAP), $(SRC_MAP))
+GNL				=	$(addprefix $(DIR_GNL), $(SRC_GNL))
 
-#DIR_PARSER 	= 	parser_utils/
-DIR_UTILS	=	utils/
-DIR_GNL		=	get_next_line/
+OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 
-#SRC_PARSER	= 	preparser.c quotes.c dollar.c args.c redirect.c comm_args.c control_symbol.c \
-				pars_pipe.c redirect_utils1.c redirect_delimiter.c dollar_utils.c
-#SRC_EXECUTE	=	pipex.c cd.c exit.c unset.c echo.c pwd.c env.c export.c execute.c
+MAP_OBJ			=	$(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 
-SRCS_GNL	= get_next_line.c get_next_line_utils.c
-SRC_UTILS	= utils0.c utils1.c
-SRCS		= main.c draw.c
-# SRCS		= cleonia/vse_huinia_davai_po_novoi.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+all				:	libft mlx $(NAME)
 
-UTILS		=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
-GNL			=	$(addprefix $(DIR_GNL), $(SRCS_GNL))
-EXECUTE		=	$(addprefix $(DIR_EXECUTE), $(SRC_EXECUTE))
+%.o				:	%.c $(HEADER)
+					$(GCC) -Imlx -c $< -o $@
 
-OBJ			=	$(SRCS:.c=.o) $(UTILS:.c=.o) $(GNL:.c=.o)
+$(NAME)			:	$(OBJ)
+#					@echo "\033[0;35mКомпилю cub3d...\033[0;32m"
+#					@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
+					$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
+#					@echo "DONE! Запускаю..."
+#					@./cub3d
 
-all: libft mlx $(NAME)
+map				:	clean $(MAP_OBJ)
+					$(GCC) -o $(NAME) $(MAP_OBJ) libft/libft.a
 
-%.o: %.c $(HEADER)
-	$(GCC) -Imlx -c $< -o $@
+libft			:
+#					@echo "\033[0;35mКомпилю libft... \033[0;32m"
+					make -C $(DIR_LIBA)
 
-$(NAME): $(OBJ)
-#	@echo "\033[0;35mКомпилю cub3d...\033[0;32m"
-#	@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
-	$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
-#	@echo "DONE! Запускаю..."
-	@./cub3d
+mlx				:
+#					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
+					make -C $(DIR_MINILIBX)
 
-libft:
-#	@echo "\033[0;35mКомпилю libft... \033[0;32m"
-	make -C $(DIR_LIBA)
-	
-mlx:
-#	@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
-	make -C $(DIR_MINILIBX)
+clean			:
+#					@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"
+					make clean -C $(DIR_LIBA)
+					make clean -C $(DIR_MINILIBX)
+#					@echo "\033[0;35mcub3d: ЧИСТКА ОБЪЕКТНИКОВ...\033[0;31m"
+					rm -f $(OBJ)
 
-clean:
-#	@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"
-	make clean -C $(DIR_LIBA)
-	make clean -C $(DIR_MINILIBX)
-#	@echo "\033[0;35mcub3d: ЧИСТКА ОБЪЕКТНИКОВ...\033[0;31m"
-	rm -f $(OBJ)
+fclean			:	clean
+#					@echo "\033[0;35mУдаляю исполняемый файл...\033[0;31m"
+					rm -f $(NAME)
+					make fclean -C $(DIR_LIBA)
+					make clean -C $(DIR_MINILIBX)
 
-fclean: clean
-#	@echo "\033[0;35mУдаляю исполняемый файл...\033[0;31m"
-	rm -f $(NAME)
-	make fclean -C $(DIR_LIBA)
-	make fclean -C $(DIR_MINILIBX)
+re				:	fclean all
 
-re: fclean all
-
-.PHONY: all libft clean fclean re
+.PHONY			:	all libft clean fclean re
 

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 19:38:49 by celys            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -53,6 +41,17 @@ typedef struct	s_player
 	double	old_time;
 }	t_player;
 
+typedef struct s_map
+{
+	char	*no_texture; 		// Север	(90)
+	char	*so_texture; 		// Юг 		(270)
+	char	*we_texture; 		// Запад 	(180)
+	char	*ea_texture; 		// Восток 	(0)
+	int		floor_color[3]; 	// Пол
+	int		ceilling_color[3];	// Потолок
+	char	**map;
+}	t_map;
+
 typedef struct s_all
 {
 	void		*mlx;
@@ -63,10 +62,15 @@ typedef struct s_all
 }	t_all;
 
 
+//map functions
+int		read_map_param(t_map *map, int fd);
+int		checking_map_for_closure(char **map);
+
 //utils0
-char **ft_realloc(char **mas, char *new_line);
-char *delete_space_line(char *line);
-void printf_array(char **arr);
+void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char);
+int		print_return(int retval, char *print_message);
+char	*delete_space_line(char *line);
+void	printf_array(char **arr);
 
 //utils1.c
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);

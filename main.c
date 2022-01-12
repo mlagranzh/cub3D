@@ -1,36 +1,61 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 19:36:16 by celys            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
-char **make_map(char *file_name)
-{
-	char *line;
-	char **map;
-	int fd;
-	int i;
+// char **make_map(char *file_name)
+// {
+// 	char *line;
+// 	char **map;
+// 	int fd;
+// 	int i;
 
-	fd = open(file_name, O_RDONLY);
-	line = NULL;
-	map = NULL;
-	i = 1;
-	while (get_next_line(fd, &line) == 1)
+// 	fd = open(file_name, O_RDONLY);
+// 	line = NULL;
+// 	map = NULL;
+// 	i = 1;
+// 	while (get_next_line(fd, &line) == 1)
+// 	{
+// 		map = ft_realloc(map, delete_space_line(line));
+// 		i++;
+// 	}
+// 	map = ft_realloc(map, delete_space_line(line));
+// 	// ft_print_cchar(map);
+// 	return (map);
+// }
+
+void	draw_square(t_data *img, int y, int x, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)
 	{
-		map = ft_realloc(map, delete_space_line(line));
+		j = 0;
+		while (j < size)
+		{
+			my_mlx_pixel_put(img, x * size + i, y * size + j, 0xFFFFFF);
+			j++;
+		}
 		i++;
 	}
-	map = ft_realloc(map, delete_space_line(line));
-	// ft_print_cchar(map);
-	return (map);
+}
+
+void	draw_map(t_data *img, char **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '0')
+				draw_square(img, i, j, CEL_SIZE);
+			j++;
+		}
+		i++;
+	}
 }
 
 time_t programstart;
@@ -40,7 +65,8 @@ int main()
 	t_all	all;
 
 	all.mlx = mlx_init();
-	all.map = make_map("map.cub");
+	// all.map = make_map("map.cub");
+	// printf_array(all.map);
 	all.win = mlx_new_window(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);

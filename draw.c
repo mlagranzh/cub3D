@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:30:59 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 02:20:54 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 19:38:07 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,16 @@
 
 void	draw_screen(t_all *all)
 {
-	double time = 0;//время текущего кадра
-	double oldTime = 0;//время предыдущего кадра
-
 	int x = 0;
 	while (x < SCREEN_HEIGHT)
 	{
 		//вычисляем положение и направление луча
 		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x-координата в пространстве камеры
-		double ray_dir_x = all->dir_x + all->plane_x * camera_x;
-		double ray_dir_y = all->dir_y + all->plane_y * camera_x;
+		double ray_dir_x = all->player.dir_x + all->player.plane_x * camera_x;
+		double ray_dir_y = all->player.dir_y + all->player.plane_y * camera_x;
 		//в какой ячейке карты мы находимся
-		int map_x = (int)all->pos_x;
-		int map_y = (int)all->pos_y;
+		int map_x = (int)all->player.pos_x;
+		int map_y = (int)all->player.pos_y;
 
 		//длина луча от текущей позиции до следующей стороны x или y
 		double side_dist_x;
@@ -52,22 +49,22 @@ void	draw_screen(t_all *all)
 		if(ray_dir_x < 0)
 		{
 			step_x = -1;
-			side_dist_x = (all->pos_x - map_x) * delta_dist_x;
+			side_dist_x = (all->player.pos_x - map_x) * delta_dist_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist_x = (map_x + 1.0 - all->pos_x) * delta_dist_x;
+			side_dist_x = (map_x + 1.0 - all->player.pos_x) * delta_dist_x;
 		}
 		if(ray_dir_y < 0)
 		{
 			step_y = -1;
-			side_dist_y = (all->pos_y - map_y) * delta_dist_y;
+			side_dist_y = (all->player.pos_y - map_y) * delta_dist_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist_y = (map_y + 1.0 - all->pos_y) * delta_dist_y;
+			side_dist_y = (map_y + 1.0 - all->player.pos_y) * delta_dist_y;
 		}
 
 		//ДДА - бежим пока не ударимся в стену
@@ -163,7 +160,7 @@ void	draw_map(t_data *img, char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '0')
-				draw_square(img, i, j, CEL_SIZE);
+				draw_square(img, j, i, CEL_SIZE);
 			j++;
 		}
 		i++;
@@ -183,28 +180,23 @@ void	draw_player(t_all *all)
 		j = 0;
 		while (j < size)
 		{
-			my_mlx_pixel_put(&(all->img), all->pos_x*CEL_SIZE + i, all->pos_y*CEL_SIZE + j, 0xFF00FF);
+			my_mlx_pixel_put(&(all->img), all->player.pos_x * CEL_SIZE + i, all->player.pos_y*CEL_SIZE + j, 0xFF00FF);
 			j++;
 		}
 		i++;
 	}
-	// float player_a = 0;
-	// float start = player_a - 3.14/4;
-	// float end = player_a + 3.14/4;
-	// while (start < end)
-	// {
-	// 	float x_2 = all->pos_x;
-	// 	float y_2 = all->pos_y;
-	// 	while (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] != '1')
-	// 	{
-	// 		x_2 += cos(start);
-	// 		y_2 += sin(start);
-	// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
-	// 	}
-	// 	//Рассчитываем высоту линии для рисования на экране
-    //   	int line_height = (int)(SCREEN_HEIGHT / (y_2 - all->player.y));
-
-	// 	start += 3.14/20;
-	// }
+		// float player_a = all->player.plane_x;
+		// float x_2 = all->player.pos_x* CEL_SIZE;
+		// float y_2 = all->player.pos_y* CEL_SIZE;
+		// for (int i = 0; i < 15; i++)
+		// {
+		// 	x_2 += cos(player_a);
+		// 	y_2 += sin(player_a);
+		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
+		// 	if (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
+		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
+		// 	else
+		// 		break;
+		// }
 }
 

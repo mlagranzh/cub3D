@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 02:19:40 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 19:36:16 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char **make_map(char *file_name)
 	return (map);
 }
 
+time_t programstart;
+
 int main()
 {
 	t_all	all;
@@ -43,13 +45,15 @@ int main()
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);
 
-	all.pos_x = 7;
-	all.pos_y = 12;
-	all.dir_x = 0;
-	all.dir_y = 1;
-	all.plane_x = 1;
-	all.plane_y = 0.66;//2D-лучевая версия плоскости камеры
-	
+	all.player.pos_x = 7;
+	all.player.pos_y = 12;
+	all.player.dir_x = 0;
+	all.player.dir_y = 1;
+	all.player.plane_x = 1;
+	all.player.plane_y = 0.66;//2D-лучевая версия плоскости камеры
+	time(&programstart);
+	all.player.time = 0;
+
 	draw_screen(&all);
 
 	

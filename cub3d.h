@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 15:41:43 by celys             #+#    #+#             */
-/*   Updated: 2022/01/12 02:38:22 by celys            ###   ########.fr       */
+/*   Updated: 2022/01/12 19:38:49 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-# include "libft/libft.h"
+# include "LIBFT/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
+# include <time.h>
 
 #define CEL_SIZE 6
 #define SCREEN_WIDTH 1280
@@ -43,10 +43,14 @@ typedef struct	s_data
 
 typedef struct	s_player
 {
-	int		pos_x;				// Позиция по х
-	int		pos_y;				// Позиция по у
-	int		dir_x;				// Направление по х
-	int		dir_y;				// Направление по у
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	time;
+	double	old_time;
 }	t_player;
 
 typedef struct s_all
@@ -56,12 +60,6 @@ typedef struct s_all
 	t_data		img;
 	t_player	player;
 	char		**map;
-	double		pos_x;
-	double		pos_y;
-	double dir_x;
-	double dir_y;
-	double plane_x;
-	double plane_y;
 }	t_all;
 
 

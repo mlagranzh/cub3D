@@ -96,6 +96,7 @@ void	draw_screen(t_all *all)
 			draw_end = SCREEN_HEIGHT - 1;
 
 		//выбираем цвет
+
 		int color;
 		
 		if (all->map[map_x][map_y] == '1')
@@ -108,11 +109,13 @@ void	draw_screen(t_all *all)
 			color = 0x0000FF;
 		else
 			color = 0xFFFFFF;			
-		//придать сторонам x и y разную яркость
+		// придать сторонам x и y разную яркость
   		if(side == 1)
 			color = color / 2;
+		draw_ver_line(all, x, draw_start, draw_end, color);
 
-		draw_ver_line(all, x, draw_start, draw_end, color);//
+		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
+					line_height, draw_start, draw_end, x, texture_load(all));
 		// printf("x = %i %i < y < %i\n", x, draw_start, draw_end);
 		x++;
 	}

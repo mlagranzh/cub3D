@@ -7,7 +7,7 @@ int		my_hook(int key, t_all *all)
 	all->player.old_time = all -> player.time;
 	all -> player.time += 20; //НАДО ПОПРАВИТЬ
     double frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    printf("%f\n", all -> player.time); //FPS counter
+    // printf("%f\n", all -> player.time); //FPS counter
     //speed modifiers
     double moveSpeed = frameTime * 15.0; //the constant value is in squares/second
     double rotSpeed = frameTime * 8.0; //the constant value is in radians/second
@@ -54,7 +54,8 @@ int		my_hook(int key, t_all *all)
 
 	}
 	// if (key == 126) //вверх
-	// 	all->player.dir_y += 0.1;
+	// {
+	// }
 	// if (key == 125) //вниз
 	// 	all->player.dir_y -= 0.1;
 	if (key == 123) //влево
@@ -81,6 +82,9 @@ int		my_hook(int key, t_all *all)
 
 	if (key == 53)
 		exit(0);
+ 
+	//	for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0; 
+	//  может лучше использовать это? 
 	all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 	draw_screen(all);

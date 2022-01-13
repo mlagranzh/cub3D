@@ -29,6 +29,15 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
+typedef struct	s_wall
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_wall;
+
 typedef struct	s_player
 {
 	double	pos_x;
@@ -58,6 +67,7 @@ typedef struct s_all
 	void		*win;
 	t_data		img;
 	t_player	player;
+	t_wall		wall;
 	char		**map;
 }	t_all;
 
@@ -84,4 +94,11 @@ void	draw_map(t_data *img, char **map);
 void	draw_screen(t_all *all);
 void	draw_square(t_data *img, int y, int x, int size);
 void	draw_player(t_all *all);
+
+
+char	*texture_load(t_all *all);
+void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
+                double rayDirX, double rayDirY, int lineHeight, int drawStart, int drawEnd, int x, \
+                char	*texture);
+
 #endif

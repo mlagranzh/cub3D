@@ -13,43 +13,43 @@ int		my_hook(int key, t_all *all)
     double rotSpeed = frameTime * 8.0; //the constant value is in radians/second
 	if (key == 13) //W
 	{
-		if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x += all->player.dir_x * moveSpeed;
-		if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y += all->player.dir_y * moveSpeed;
 	}
 	if (key == 1)  //S
 	{
 		// double moveSpeed = 0.1;
-		if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x -= all->player.dir_x * moveSpeed;
-		if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y -= all->player.dir_y * moveSpeed;
 	}
 	if (key == 0) //A
 	{
-		if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x -= all->player.dir_y * moveSpeed;
-		if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y -= all->player.dir_x * moveSpeed;
 		
-		// if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		// if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 		// 	all->player.pos_x += all->player.dir_x * moveSpeed;
-		// if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		// if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  	// 	all->player.pos_y += all->player.dir_y * moveSpeed;
 	}
 	if (key == 2) //D
 	{
 		// double rotSpeed = 0.1;
-		if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x += all->player.dir_y * moveSpeed;
-		if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y += all->player.dir_x * moveSpeed;
 
 		// // double moveSpeed = 1;
-		// if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+		// if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 		// 	all->player.pos_x += all->player.dir_x * moveSpeed;
-		// if(all->map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+		// if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  	// 	all->player.pos_y += all->player.dir_y * moveSpeed;
 
 	}
@@ -89,7 +89,7 @@ int		my_hook(int key, t_all *all)
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 	draw_screen(all);
 	
-	draw_map(&all->img, all->map);
+	draw_map(&all->img, all->map.map);
 	draw_player(all);
 	
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);

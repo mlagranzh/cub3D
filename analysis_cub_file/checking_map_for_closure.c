@@ -96,7 +96,7 @@ int	checking_map_for_closure(char **map)
 			return (ERROR);
 		i++;
 	}
-	// if (check_second_line(map, i - 1) == ERROR)
-	//     return (ERROR);
+	if (check_second_line(map, i - 1) == ERROR)
+	    return (ERROR);
 	return (SUCCESS);
 }

@@ -1,35 +1,23 @@
 #include "cub3d.h"
 
-char **make_map_0(char *file_name)
-{
-	char *line;
-	char **map;
-	int fd;
-	int i;
-
-	fd = open(file_name, O_RDONLY);
-	line = NULL;
-	map = NULL;
-	i = 1;
-	while (get_next_line(fd, &line) == 1)
-	{
-		map = ft_realloc(map, delete_space_line(line));
-		i++;
-	}
-	map = ft_realloc(map, delete_space_line(line));
-	// ft_print_cchar(map);
-	return (map);
-}
-
 time_t programstart;
 
-int main()
+int main(int argc, char **argv)
 {
 	t_all	all;
+	char	*file_name;
+
+	file_name = "maps/map.cub";
+	if (argc == 2)
+		file_name = argv[1];
+	if (read_cub_file(&all.map, &all.player, file_name) != SUCCESS)
+		return (1);
+	ft_print_cchar(all.map.map);
+
+	// all.map = make_map_0("map.cub");
+	// printf_array(all.map);
 
 	all.mlx = mlx_init();
-	all.map = make_map_0("map.cub");
-	// printf_array(all.map);
 	all.win = mlx_new_window(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);
@@ -46,7 +34,7 @@ int main()
 	draw_screen(&all);
 
 	
-	draw_map(&all.img, all.map);
+	draw_map(&all.img, all.map.map);
 	draw_player(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);

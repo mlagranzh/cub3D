@@ -73,7 +73,7 @@ void	draw_screen(t_all *all)
 				side = 1;
 			}
 			//Проверить, не попал ли луч в стену
-			if (all->map[map_x][map_y] != '0')
+			if (all->map.map[map_x][map_y] != '0')
 				hit = 1;
 		}
 
@@ -99,13 +99,13 @@ void	draw_screen(t_all *all)
 
 		int color;
 		
-		if (all->map[map_x][map_y] == '1')
+		if (all->map.map[map_x][map_y] == '1')
 			color = 0xFF0F0F;
-		else if (all->map[map_x][map_y] == '2')
+		else if (all->map.map[map_x][map_y] == '2')
 			color = 0xFF0000;
-		else if (all->map[map_x][map_y] == '3')
+		else if (all->map.map[map_x][map_y] == '3')
 			color = 0x00FF00;
-		else if (all->map[map_x][map_y] == '4')
+		else if (all->map.map[map_x][map_y] == '4')
 			color = 0x0000FF;
 		else
 			color = 0xFFFFFF;			
@@ -184,7 +184,7 @@ void	draw_player(t_all *all)
 		// 	x_2 += cos(player_a);
 		// 	y_2 += sin(player_a);
 		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
-		// 	if (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
+		// 	if (all->map.map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
 		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
 		// 	else
 		// 		break;

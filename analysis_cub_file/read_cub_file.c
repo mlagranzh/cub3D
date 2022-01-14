@@ -13,6 +13,12 @@ North South West East
 Север Юг Запад Восток
 */
 
+typedef struct s_map_list
+{
+	char *line;
+	struct s_map_list *next;
+}	t_map_list;
+
 void	print_map_param(t_map *map)
 {
 	printf("no = {%s}\n", map->no_texture);
@@ -59,7 +65,7 @@ void	ft_print_cchar(char **mas)
 
 	while(mas && mas[i])
 	{
-		printf("%s\n", mas[i]);
+		printf("{%s}\n", mas[i]);
 		i++;
 	}
 	// printf("%s\n", mas[i]);
@@ -68,11 +74,20 @@ void	ft_print_cchar(char **mas)
 char **make_map(int fd)
 {
 	char *line;
+	t_map_list *map_list;
+	t_map_list *first_map_list;
+	int line_num;
+	int	max_line_len;
 	char **map;
 	int retval;
 	int i;
+	int j;
 
 	map = NULL;
+	map_list = (t_map_list *)malloc(sizeof(t_map_list));
+	first_map_list = map_list;
+	line_num = 0;
+	max_line_len = 0;
 	while (1)
 	{
 		i = 0;
@@ -84,30 +99,106 @@ char **make_map(int fd)
 			i++;
         if (line[i] == '\0' || line[i] == '\n')
 		{
-			if (retval == 0 || map != NULL)
+			if (retval == 0 || line_num != 0)// || map != NULL)
 				break ;
             continue ;
 		}
-		map = ft_realloc(map, line);
+		line_num++;
+		if (max_line_len < ft_strlen(line))
+			max_line_len = ft_strlen(line);
+		map_list->line = line;
+		map_list->next = (t_map_list *)malloc(sizeof(t_map_list));
+		map_list = map_list->next;
+		// map = ft_realloc(map, line);
 		if (retval == 0)
             break ;
 	}
-    if (!map || !*map)
+    if (line_num == 0)
         return (NULL);
+	map = (char **)malloc(sizeof(char *) * (line_num + 1));
+	map[line_num] = NULL;
+	i = 0;
+	while (i < line_num)
+	{
+		map[i] = (char *)malloc(sizeof(char) * (max_line_len + 1));
+		map[i][max_line_len] = '\0';
+		j = 0;
+		while (j < ft_strlen(first_map_list->line))
+		{
+			map[i][j] = first_map_list->line[j];
+			j++;
+		}
+		while (j < max_line_len)
+		{
+			map[i][j] = ' ';
+			j++;
+		}
+		first_map_list = first_map_list->next;
+		i++;
+	}
 	return (map);
 }
 
+int checking_map_for_invalid_sumbol(char **map)
+{
+	int i;
+	int j;
 
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] != '\0') // N,S,E or W
+		{
+			if (map[i][j] != ' ' && map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E'
+				&& map[i][j] != 'W')
+				return (ERROR);
+			j++;
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
+int search_player_pos_in_map(char **map, t_player *player)
+{
+	int	pos_num;
+	int i;
+	int j;
+
+	pos_num = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			{
+				player->pos_x = i * CEL_SIZE;
+				player->pos_y = j * CEL_SIZE;
+				pos_num++;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (pos_num != 1)
+		return (ERROR);
+	return (SUCCESS);
+}
 
 int	read_map(t_map *map, t_player *player, int fd)
 {
 	map->map = make_map(fd);
 	if (!map->map)
 		return (ERROR);
-	if (checking_map_for_closure(map->map) == ERROR)
+	if (checking_map_for_closure(map->map) == ERROR
+		|| checking_map_for_invalid_sumbol(map->map) == ERROR
+		|| search_player_pos_in_map(map->map, player) == ERROR)
 		return (ERROR);
-	// checking_map_for_invalid_sumbol(map->map);
-	// search_player_pos_in_map(map->map, player);
 	return (SUCCESS);
 }
 
@@ -131,10 +222,20 @@ int	check_for_file_permission(char *file_name)
 	return (ERROR);
 }
 
+void	initialize_map(t_map *map)
+{
+	map->ea_texture = NULL;
+	map->map = NULL;
+	map->no_texture = NULL;
+	map->so_texture = NULL;
+	map->we_texture = NULL;
+}
+
 int	read_cub_file(t_map *map, t_player *player, char *file_name)
 {
 	int fd;
 
+	initialize_map(map);
 	if (check_for_file_permission(file_name) == ERROR)
 		return (print_return(ERROR, "File permission is invalid"));
 	fd = open(file_name, O_RDONLY);
@@ -145,15 +246,6 @@ int	read_cub_file(t_map *map, t_player *player, char *file_name)
 	if (read_map(map, player, fd) == ERROR)
 		return (print_return(ERROR, "Map field error"));
 	return (SUCCESS);
-}
-
-void	initialize_map(t_map *map)
-{
-	map->ea_texture = NULL;
-	map->map = NULL;
-	map->no_texture = NULL;
-	map->so_texture = NULL;
-	map->we_texture = NULL;
 }
 
 // int main(int argc, char **argv)

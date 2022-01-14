@@ -10,7 +10,7 @@ void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
                 char	*texture)
 {
     //texturing calculations
-      int texNum = all->map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+      int texNum = all->map.map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
       //calculate value of wallX
       double wallX; //where exactly the wall was hit

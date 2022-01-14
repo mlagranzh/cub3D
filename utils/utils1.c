@@ -6,7 +6,6 @@ int		my_hook(int key, t_all *all)
 {
 	all->player.old_time = all -> player.time;
 	all -> player.time += 30; //НАДО ПОПРАВИТЬ
-	printf("%f", all -> player.time);
     double frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
     // printf("%f\n", all -> player.time); //FPS counter
     //speed modifiers
@@ -21,7 +20,6 @@ int		my_hook(int key, t_all *all)
 	}
 	if (key == 1)  //S
 	{
-		// double moveSpeed = 0.1;
 		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x -= all->player.dir_x * moveSpeed;
 		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
@@ -33,26 +31,13 @@ int		my_hook(int key, t_all *all)
 			all->player.pos_x -= all->player.dir_y * moveSpeed;
 		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y -= all->player.dir_x * moveSpeed;
-		
-		// if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
-		// 	all->player.pos_x += all->player.dir_x * moveSpeed;
-		// if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
-	  	// 	all->player.pos_y += all->player.dir_y * moveSpeed;
 	}
 	if (key == 2) //D
 	{
-		// double rotSpeed = 0.1;
 		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
 			all->player.pos_x += all->player.dir_y * moveSpeed;
 		if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
 	  		all->player.pos_y += all->player.dir_x * moveSpeed;
-
-		// // double moveSpeed = 1;
-		// if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
-		// 	all->player.pos_x += all->player.dir_x * moveSpeed;
-		// if(all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
-	  	// 	all->player.pos_y += all->player.dir_y * moveSpeed;
-
 	}
 	// if (key == 126) //вверх
 	// {
@@ -61,18 +46,15 @@ int		my_hook(int key, t_all *all)
 	// 	all->player.dir_y -= 0.1;
 	if (key == 123) //влево
 	{
-		// double rotSpeed = 5;
 		double oldDirX = all->player.dir_x;
 		all->player.dir_x = all->player.dir_x * cos(rotSpeed) - all->player.dir_y * sin(rotSpeed);
       	all->player.dir_y = oldDirX * sin(rotSpeed) + all->player.dir_y * cos(rotSpeed);
       	double oldPlaneX = all -> player.plane_x;
 		all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
 		all -> player.plane_y = oldPlaneX * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
-
 	}
 	if (key == 124) //вправо
 	{
-		// double rotSpeed = 5;
 		double oldDirX = all->player.dir_x;
 		all->player.dir_x = all->player.dir_x * cos(-rotSpeed) - all->player.dir_y * sin(-rotSpeed);
       	all->player.dir_y = oldDirX * sin(-rotSpeed) + all->player.dir_y * cos(-rotSpeed);
@@ -94,7 +76,7 @@ int		my_hook(int key, t_all *all)
 	draw_player(all);
 	
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	all -> player.old_time = time(NULL);
+	// all -> player.old_time = time(NULL);
 	return (0);
 }
 

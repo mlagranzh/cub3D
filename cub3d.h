@@ -2,7 +2,7 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-# include "libft/libft.h"
+# include "LIBFT/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
@@ -71,6 +71,7 @@ typedef struct s_all
 	t_map		map;
 }	t_all;
 
+void	ft_print_cchar(char **mas);
 
 //map functions
 int		read_map_param(t_map *map, int fd);

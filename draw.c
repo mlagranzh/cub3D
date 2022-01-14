@@ -176,20 +176,20 @@ void	draw_player(t_all *all)
 		}
 		i++;
 	}
-		float player_a = all->player.dir_y;
-		float player_b = all->player.plane_x;
-		printf("%f\n", player_a);
-		float x_2 = all->player.pos_x * CEL_SIZE;
-		float y_2 = all->player.pos_y * CEL_SIZE;
-		for (int i = 0; i < 10; i++)
-		{
-			x_2 += cos(player_a);
-			y_2 += sin(player_a);
-			// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
-			if (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
-				my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
-			else
-				break;
-		}
+		// float player_a = all->player.dir_y;
+		// float player_b = all->player.plane_x;
+		// printf("%f\n", player_a);
+		// float x_2 = all->player.pos_x * CEL_SIZE;
+		// float y_2 = all->player.pos_y * CEL_SIZE;
+		// for (int i = 0; i < 10; i++)
+		// {
+		// 	x_2 += cos(player_a);
+		// 	y_2 += sin(player_a);
+		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
+		// 	if (all->map.map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
+		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
+		// 	else
+		// 		break;
+		// }
 }
 

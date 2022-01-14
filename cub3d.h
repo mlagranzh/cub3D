@@ -2,7 +2,7 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-# include "LIBFT/libft.h"
+# include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
@@ -68,13 +68,14 @@ typedef struct s_all
 	t_data		img;
 	t_player	player;
 	t_wall		wall;
-	char		**map;
+	t_map		map;
 }	t_all;
 
 
 //map functions
 int		read_map_param(t_map *map, int fd);
 int		checking_map_for_closure(char **map);
+int		read_cub_file(t_map *map, t_player *player, char *file_name);
 
 //utils0
 void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char);

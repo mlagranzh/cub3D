@@ -73,7 +73,7 @@ void	draw_screen(t_all *all)
 				side = 1;
 			}
 			//Проверить, не попал ли луч в стену
-			if (all->map[map_x][map_y] != '0')
+			if (all->map.map[map_x][map_y] != '0')
 				hit = 1;
 		}
 

@@ -3,6 +3,10 @@
 #define texWidth 64
 #define texHeight 64
 
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 
 void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
@@ -38,35 +42,36 @@ void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
         int texY = (int)texPos & (texHeight - 1);
         texPos += step;
 
-        int color = *(unsigned int*)(texture + texY*texHeight + texX);
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-        if(side == 1)
-             color = (color >> 1) & 8355711;
-        my_mlx_pixel_put(&all->img, x, y, color);
-      }
+       
+        int t =  *(unsigned int*)(texture + texY*texHeight + texX);
+        int r =  *(unsigned int*)(texture + texY*texHeight + texX + 1);
+        int g =  *(unsigned int*)(texture + texY*texHeight + texX + 2);
+        int b =  *(unsigned int*)(texture + texY*texHeight + texX + 3);
+
+        int color = create_trgb(t, r, g, b);
+        if (side == 1)
+            color = (color >> 1) & 8355711;
+        
+        int pixel = y * all->img.line_length + x * (all->img.bits_per_pixel / 8);
+        all->img.addr[pixel] = (color) & 0xFF;
+        all->img.addr[pixel + 1] = (color >> 8) & 0xFF;
+        all->img.addr[pixel + 2] = (color >> 16) & 0xFF;
+        all->img.addr[pixel + 3] = (color >> 24);
+        // my_mlx_pixel_put(&all->img, x, y, color);
     }
+}
 
 char	*texture_load(t_all *all)
 {
 	void	*img;
-	char	*relative_path = "./textures/mossy.xpm";
+	char	*relative_path = "./textures/redbrick.xpm";
 	int		img_width;
 	int		img_height;
     t_wall  wall;
 
 	img = mlx_xpm_file_to_image(all->mlx, relative_path, &img_width, &img_height);
-	char	*addr = mlx_get_data_addr(img,  &wall.bits_per_pixel, &wall.line_length, &wall.endian);
-    
-    // for(int x = 0; x < texWidth; x++)
-    // for(int y = 0; y < texHeight; y++)
-    // {
-    //     int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-    //     //int xcolor = x * 256 / texWidth;
-    //     int ycolor = y * 256 / texHeight;
-    //     int xycolor = y * 128 / texHeight + x * 128 / texWidth;
-    //     *(unsigned int*)(addr + texWidth * y + x) = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
-    // }
-
-    all->wall = wall;
+	char   *addr = mlx_get_data_addr(img,  &wall.bits_per_pixel, &wall.line_length, &wall.endian);
+    all -> wall = wall;
     return (addr);
 }

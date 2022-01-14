@@ -5,12 +5,13 @@ time_t programstart;
 int		my_hook(int key, t_all *all)
 {
 	all->player.old_time = all -> player.time;
-	all -> player.time += 20; //НАДО ПОПРАВИТЬ
+	all -> player.time += 30; //НАДО ПОПРАВИТЬ
+	printf("%f", all -> player.time);
     double frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
     // printf("%f\n", all -> player.time); //FPS counter
     //speed modifiers
-    double moveSpeed = frameTime * 15.0; //the constant value is in squares/second
-    double rotSpeed = frameTime * 8.0; //the constant value is in radians/second
+    double moveSpeed = frameTime * 7.0; //the constant value is in squares/second
+    double rotSpeed = frameTime * 4.0; //the constant value is in radians/second
 	if (key == 13) //W
 	{
 		if(all->map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')

@@ -97,22 +97,22 @@ void	draw_screen(t_all *all)
 
 		//выбираем цвет
 
-		int color;
+		// int color;
 		
-		if (all->map[map_x][map_y] == '1')
-			color = 0xFF0F0F;
-		else if (all->map[map_x][map_y] == '2')
-			color = 0xFF0000;
-		else if (all->map[map_x][map_y] == '3')
-			color = 0x00FF00;
-		else if (all->map[map_x][map_y] == '4')
-			color = 0x0000FF;
-		else
-			color = 0xFFFFFF;			
+		// if (all->map[map_x][map_y] == '1')
+		// 	color = 0x3914AF;
+		// else if (all->map[map_x][map_y] == '2')
+		// 	color = 0xFF0012;
+		// else if (all->map[map_x][map_y] == '3')
+		// 	color = 0x00FF00;
+		// else if (all->map[map_x][map_y] == '4')
+		// 	color = 0x0000FF;
+		// else
+		// 	color = 0xFFFFFF;			
 		// придать сторонам x и y разную яркость
-  		if(side == 1)
-			color = color / 2;
-		draw_ver_line(all, x, draw_start, draw_end, color);
+  		// if(side == 1)
+		// 	color = color / 2;
+		// draw_ver_line(all, x, draw_start, draw_end, color);
 
 		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
 					line_height, draw_start, draw_end, x, texture_load(all));
@@ -171,23 +171,25 @@ void	draw_player(t_all *all)
 		j = 0;
 		while (j < size)
 		{
-			my_mlx_pixel_put(&(all->img), all->player.pos_x * CEL_SIZE + i, all->player.pos_y*CEL_SIZE + j, 0xFF00FF);
+			my_mlx_pixel_put(&(all->img), all->player.pos_x * CEL_SIZE + i, all->player.pos_y * CEL_SIZE + j, 0xFF00FF);
 			j++;
 		}
 		i++;
 	}
-		// float player_a = all->player.plane_x;
-		// float x_2 = all->player.pos_x* CEL_SIZE;
-		// float y_2 = all->player.pos_y* CEL_SIZE;
-		// for (int i = 0; i < 15; i++)
-		// {
-		// 	x_2 += cos(player_a);
-		// 	y_2 += sin(player_a);
-		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
-		// 	if (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
-		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
-		// 	else
-		// 		break;
-		// }
+		float player_a = all->player.dir_y;
+		float player_b = all->player.plane_x;
+		printf("%f\n", player_a);
+		float x_2 = all->player.pos_x * CEL_SIZE;
+		float y_2 = all->player.pos_y * CEL_SIZE;
+		for (int i = 0; i < 10; i++)
+		{
+			x_2 += cos(player_a);
+			y_2 += sin(player_a);
+			// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
+			if (all->map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
+				my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
+			else
+				break;
+		}
 }
 

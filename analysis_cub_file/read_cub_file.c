@@ -177,8 +177,8 @@ int search_player_pos_in_map(char **map, t_player *player)
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				player->pos_x = i * CEL_SIZE;
-				player->pos_y = j * CEL_SIZE;
+				player->pos_x = i;
+				player->pos_y = j;
 				pos_num++;
 			}
 			j++;

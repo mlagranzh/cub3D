@@ -11,7 +11,7 @@
 # include <time.h>
 
 #define CEL_SIZE 6
-#define SCREEN_WIDTH 1280
+#define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 600
 
 enum    e_retvals
@@ -90,6 +90,10 @@ void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color);
 int	    destroy(t_all *all);
 int     my_hook(int key, t_all *all);
+
+//utils2
+int get_hex(int r, int g, int b);
+
 
 //draw
 void	draw_map(t_data *img, char **map);

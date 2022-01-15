@@ -18,8 +18,6 @@ int main(int argc, char **argv)
 	all.img.img = mlx_new_image(all.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bits_per_pixel, &all.img.line_length, &all.img.endian);
 
-	all.player.pos_x = 10;
-	all.player.pos_y = 20;
 	all.player.dir_x = 0;
 	all.player.dir_y = 1;
 	all.player.plane_x = 1;

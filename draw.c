@@ -73,7 +73,7 @@ void	draw_screen(t_all *all)
 				side = 1;
 			}
 			//Проверить, не попал ли луч в стену
-			if (all->map.map[map_x][map_y] != '0')
+			if (all->map.map[map_x][map_y] == '1')
 				hit = 1;
 		}
 
@@ -97,22 +97,26 @@ void	draw_screen(t_all *all)
 
 		//выбираем цвет
 
-		// int color;
+		int color;
 		
-		// if (all->map[map_x][map_y] == '1')
+		// if (all->map.map[map_x][map_y] == '1')
 		// 	color = 0x3914AF;
-		// else if (all->map[map_x][map_y] == '2')
+		// else if (all->map.map[map_x][map_y] == '2')
 		// 	color = 0xFF0012;
-		// else if (all->map[map_x][map_y] == '3')
+		// else if (all->map.map[map_x][map_y] == '3')
 		// 	color = 0x00FF00;
-		// else if (all->map[map_x][map_y] == '4')
+		// else if (all->map.map[map_x][map_y] == '4')
 		// 	color = 0x0000FF;
 		// else
 		// 	color = 0xFFFFFF;			
 		// придать сторонам x и y разную яркость
   		// if(side == 1)
 		// 	color = color / 2;
-		// draw_ver_line(all, x, draw_start, draw_end, color);
+		draw_ver_line(all, x, draw_start, draw_end, color);
+		draw_ver_line(all, x, 0, draw_start, get_hex(all->map.ceilling_color[0],all->map.ceilling_color[1],\
+		all->map.ceilling_color[2]));
+		draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, get_hex(all->map.floor_color[0],all->map.floor_color[1],\
+		all->map.floor_color[2]));
 
 		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
 					line_height, draw_start, draw_end, x, texture_load(all));
@@ -150,7 +154,7 @@ void	draw_map(t_data *img, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != '0')
+			if (map[i][j] == '1')
 				draw_square(img, j, i, CEL_SIZE);
 			j++;
 		}

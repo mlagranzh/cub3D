@@ -68,7 +68,7 @@ char	*texture_load(t_all *all)
 	char	*relative_path = "./textures/redbrick.xpm";
 	int		img_width;
 	int		img_height;
-    t_wall  wall;
+  t_wall  wall;
 
 	img = mlx_xpm_file_to_image(all->mlx, relative_path, &img_width, &img_height);
 	char   *addr = mlx_get_data_addr(img,  &wall.bits_per_pixel, &wall.line_length, &wall.endian);

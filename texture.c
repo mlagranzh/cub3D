@@ -43,22 +43,22 @@ void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
         texPos += step;
 
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-       
-        int t =  *(unsigned int*)(texture + texY*texHeight + texX);
-        int r =  *(unsigned int*)(texture + texY*texHeight + texX + 1);
-        int g =  *(unsigned int*)(texture + texY*texHeight + texX + 2);
-        int b =  *(unsigned int*)(texture + texY*texHeight + texX + 3);
 
-        int color = create_trgb(t, r, g, b);
-        if (side == 1)
-            color = (color >> 1) & 8355711;
-        
-        int pixel = y * all->img.line_length + x * (all->img.bits_per_pixel / 8);
-        all->img.addr[pixel] = (color) & 0xFF;
-        all->img.addr[pixel + 1] = (color >> 8) & 0xFF;
-        all->img.addr[pixel + 2] = (color >> 16) & 0xFF;
-        all->img.addr[pixel + 3] = (color >> 24);
-        // my_mlx_pixel_put(&all->img, x, y, color);
+        int r =  *(unsigned int*)(texture + texY*256 + texX*4);
+        int g =  *(unsigned int*)(texture + texY*256 + texX*4 + 1);
+        int b =  *(unsigned int*)(texture + texY*256 + texX*4 + 2);
+        int t =  *(unsigned int*)(texture + texY*256 + texX*4 + 3);
+//        int t =  *(unsigned int*)(texture + texY*texHeight + texX);
+        int color = create_trgb(0, r, g, b);
+        // if (side == 1)
+        //     color = (color >> 1) & 8355711;
+    
+        // int pixel = y * all->img.line_length + x * (all->img.bits_per_pixel / 8);
+        // all->img.addr[pixel] = (color) & 0xFF;
+        // all->img.addr[pixel + 1] = (color >> 8) & 0xFF;
+        // all->img.addr[pixel + 2] = (color >> 16) & 0xFF;
+        // all->img.addr[pixel + 3] = (color >> 24);
+        my_mlx_pixel_put(&all->img, x, y, color);
     }
 }
 
@@ -72,6 +72,7 @@ char	*texture_load(t_all *all)
 
 	img = mlx_xpm_file_to_image(all->mlx, relative_path, &img_width, &img_height);
 	char   *addr = mlx_get_data_addr(img,  &wall.bits_per_pixel, &wall.line_length, &wall.endian);
-    all -> wall = wall;
-    return (addr);
+  all -> wall = wall;
+  
+  return (addr);
 }

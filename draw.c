@@ -91,13 +91,14 @@ void	draw_screen(t_all *all)
 		int draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 		if(draw_start < 0)
 			draw_start = 0;
+		
 		int draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
 		if(draw_end >= SCREEN_HEIGHT)
 			draw_end = SCREEN_HEIGHT - 1;
 
 		//выбираем цвет
 
-		int color;
+		// int color;
 		
 		// if (all->map.map[map_x][map_y] == '1')
 		// 	color = 0x3914AF;
@@ -112,7 +113,8 @@ void	draw_screen(t_all *all)
 		// придать сторонам x и y разную яркость
   		// if(side == 1)
 		// 	color = color / 2;
-		draw_ver_line(all, x, draw_start, draw_end, color);
+		// draw_ver_line(all, x, draw_start, draw_end, color);
+		
 		draw_ver_line(all, x, 0, draw_start, get_hex(all->map.ceilling_color[0],all->map.ceilling_color[1],\
 		all->map.ceilling_color[2]));
 		draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, get_hex(all->map.floor_color[0],all->map.floor_color[1],\
@@ -180,20 +182,20 @@ void	draw_player(t_all *all)
 		}
 		i++;
 	}
-		// float player_a = all->player.dir_y;
-		// float player_b = all->player.plane_x;
-		// printf("%f\n", player_a);
+		// float a = all->player.dir_x;
+		// printf("%f\n", a);
 		// float x_2 = all->player.pos_x * CEL_SIZE;
 		// float y_2 = all->player.pos_y * CEL_SIZE;
-		// for (int i = 0; i < 10; i++)
+		// int number = 1;
+		// if (a < 0)
+		// 	number -= 2;
+		// for (int i = 0; i < 15; i++)
 		// {
-		// 	x_2 += cos(player_a);
-		// 	y_2 += sin(player_a);
+		// 	x_2 += sin(a);
+		// 	y_2 += cos(a);
 		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
 		// 	if (all->map.map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
-		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFF00FF);
-		// 	else
-		// 		break;
+		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFFFFFF);
 		// }
 }
 

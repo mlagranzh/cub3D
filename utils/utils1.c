@@ -2,15 +2,23 @@
 
 time_t programstart;
 
+
 int		my_hook(int key, t_all *all)
 {
-	all->player.old_time = all -> player.time;
-	all -> player.time += 30; //НАДО ПОПРАВИТЬ
-    double frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    // printf("%f\n", all -> player.time); //FPS counter
-    //speed modifiers
-    double moveSpeed = frameTime * 7.0; //the constant value is in squares/second
-    double rotSpeed = frameTime * 4.0; //the constant value is in radians/second
+	double frameTime;
+	double moveSpeed;
+	double rotSpeed;
+
+	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124)
+	{
+		all->player.old_time = all -> player.time;
+		all -> player.time += 30; //НАДО ПОПРАВИТЬ
+		frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
+		// printf("%f\n", all -> player.time); //FPS counter
+		//speed modifiers
+		moveSpeed = frameTime * 7.0; //the constant value is in squares/second
+		rotSpeed = frameTime * 7.0; //the constant value is in radians/second
+	}
 	if (key == 13) //W
 	{
 		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
@@ -65,17 +73,19 @@ int		my_hook(int key, t_all *all)
 
 	if (key == 53)
 		exit(0);
- 
-	//	for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0; 
-	//  может лучше использовать это? 
-	all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
-	draw_screen(all);
-	
-	draw_map(&all->img, all->map.map);
-	draw_player(all);
-	
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+ 	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124)
+	{
+		//	for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0; 
+		//  может лучше использовать это? 
+		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+		draw_screen(all);
+		
+		draw_map(&all->img, all->map.map);
+		draw_player(all);
+		
+		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	}
 	// all -> player.old_time = time(NULL);
 	return (0);
 }

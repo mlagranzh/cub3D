@@ -23,12 +23,13 @@ OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 
 MAP_OBJ			=	$(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 
-all				:	libft mlx $(NAME)
+all				:	mlx libft $(NAME)
 
 %.o				:	%.c $(HEADER)
 					$(GCC) -Imlx -c $< -o $@
 
 $(NAME)			:	$(OBJ)
+					make -C mlx/  #почему-то только так работает 
 #					@echo "\033[0;35mКомпилю cub3d...\033[0;32m"
 #					@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
 					$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -38,13 +39,13 @@ $(NAME)			:	$(OBJ)
 map				:	clean $(MAP_OBJ)
 					$(GCC) -o $(NAME) $(MAP_OBJ) libft/libft.a
 
+mlx				:
+#					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
+					make -C mlx/
 libft			:
 #					@echo "\033[0;35mКомпилю libft... \033[0;32m"
 					make -C $(DIR_LIBA)
 
-mlx				:
-#					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
-					make -C $(DIR_MINILIBX)
 
 clean			:
 #					@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"

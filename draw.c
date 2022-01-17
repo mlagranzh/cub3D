@@ -129,6 +129,9 @@ void	draw_screen(t_all *all)
 		// double sprite_x = 5;
 		// double sprite_y = 5;
 
+
+		
+
 		// // требуется для правильного умножения матриц
 		// double inv_det = 1.0 / (all->player.plane_x * all->player.dir_y
 		// 	- all->player.plane_y * all->player.dir_x);

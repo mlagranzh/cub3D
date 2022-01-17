@@ -4,4 +4,4 @@
 .vscode
 cub3d
 mlx/libmlx.a
-cleonia
+cleonia/*

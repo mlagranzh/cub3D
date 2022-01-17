@@ -1,6 +1,7 @@
-*/.o
+*/*.o
 *.o
-*/.a
+*/*.a
 .vscode
 cub3d
 mlx/libmlx.a
+cleonia/

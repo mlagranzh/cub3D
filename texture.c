@@ -49,7 +49,7 @@ void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
         int b =  *(unsigned int*)(texture + texY*256 + texX*4 + 2);
         int t =  *(unsigned int*)(texture + texY*256 + texX*4 + 3);
 //        int t =  *(unsigned int*)(texture + texY*texHeight + texX);
-        int color = create_trgb(r, g, b, t);
+        int color = create_trgb(t, r, g, b);
         // if (side == 1)
         //     color = (color >> 1) & 8355711;
     

@@ -182,18 +182,19 @@ void	draw_player(t_all *all)
 		}
 		i++;
 	}
-		// float a = all->player.dir_x;
-		// printf("%f\n", a);
-		// float x_2 = all->player.pos_x * CEL_SIZE;
-		// float y_2 = all->player.pos_y * CEL_SIZE;
+		float a = all->player.plane_y;
+		printf("%f\n", a);
+		float x_2 = (all->player.pos_x * CEL_SIZE);
+		float y_2 =(all->player.pos_x * CEL_SIZE);
+		// float x_2 = (all->player.pos_x * CEL_SIZE)*cos(M_PI) - (all->player.pos_y * CEL_SIZE) * sin(M_PI) ;
+		// float y_2 =(all->player.pos_x * CEL_SIZE)*sin(M_PI) + (all->player.pos_y * CEL_SIZE) * cos(M_PI) ;
 		// int number = 1;
 		// if (a < 0)
-		// 	number -= 2;
+			// number -= 2;
 		// for (int i = 0; i < 15; i++)
 		// {
-		// 	x_2 += sin(a);
-		// 	y_2 += cos(a);
-		// 	// if (y_2/CEL_SIZE < ) //тут проверить на валидность значений для массива
+		// 	x_2 += 1;
+		// 	y_2 += 1;
 		// 	if (all->map.map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
 		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFFFFFF);
 		// }

@@ -19,8 +19,18 @@ void	draw_screen(t_all *all)
 
 		//длина луча от одной стороны x или y до следующей стороны x или y
 		double delta_dist_x, delta_dist_y;
-		delta_dist_x = sqrt(1 + ((ray_dir_y * ray_dir_y) / (ray_dir_x * ray_dir_x)));
-		delta_dist_y = sqrt(1 + ((ray_dir_x * ray_dir_x) / (ray_dir_y * ray_dir_y)));
+
+		if (ray_dir_x == 0)
+			delta_dist_x = 1e30;
+		else
+			delta_dist_x = fabs(1 / ray_dir_x);
+		if (ray_dir_y == 0)
+			delta_dist_y = 1e30;
+		else
+			delta_dist_y = fabs(1 / ray_dir_y);
+
+		// delta_dist_x = sqrt(1 + ((ray_dir_y * ray_dir_y) / (ray_dir_x * ray_dir_x)));
+		// delta_dist_y = sqrt(1 + ((ray_dir_x * ray_dir_x) / (ray_dir_y * ray_dir_y)));
 		// 	delta_dist_x = fabs(1 /ray_dir_x); //то же самое
 		// delta_dist_y = fabs(1 / ray_dir_y);
 
@@ -79,16 +89,16 @@ void	draw_screen(t_all *all)
 
 		//Рассчитываем расстояние, проецируемое на направление камеры
 		if(side == 0)
-			perp_wall_dist = (side_dist_x - delta_dist_x);
+			perp_wall_dist = side_dist_x - delta_dist_x;
       	else
-			perp_wall_dist = (side_dist_y - delta_dist_y);
+			perp_wall_dist = side_dist_y - delta_dist_y;
 
 		//Рассчитываем высоту линии для рисования на экране
       	int line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
 
 		//вычисляем самый низкий и самый высокий пиксель,
 		//чтобы заполнить текущую полосу
-		int draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
+		int draw_start = SCREEN_HEIGHT / 2 - line_height / 2;
 		if(draw_start < 0)
 			draw_start = 0;
 		
@@ -98,30 +108,31 @@ void	draw_screen(t_all *all)
 
 		//выбираем цвет
 
-		// int color;
+		int color;
 		
-		// if (all->map.map[map_x][map_y] == '1')
-		// 	color = 0x3914AF;
-		// else if (all->map.map[map_x][map_y] == '0')
-		// 	color = 0xFF0012;
+		if (all->map.map[map_x][map_y] == '1')
+			color = 0x3914AF;
+		else if (all->map.map[map_x][map_y] == '0')
+			color = 0xFF0012;
 		// else if (all->map.map[map_x][map_y] == '3')
 		// 	color = 0x00FF00;
 		// else if (all->map.map[map_x][map_y] == '4')
 		// 	color = 0x0000FF;
-		// else
-		// 	color = 0xFFFFFF;			
+		else
+			color = 0xFFFFFF;			
 		// придать сторонам x и y разную яркость
-  		// if(side == 1)
-		// 	color = color / 2;
-		// draw_ver_line(all, x, draw_start, draw_end, color);
+  		if(side == 1)
+			color = color / 2;
+		draw_ver_line(all, x, draw_start, draw_end, color);
 		
-		draw_ver_line(all, x, 0, draw_start, get_hex(all->map.ceilling_color[0],all->map.ceilling_color[1],\
-		all->map.ceilling_color[2]));
-		draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, get_hex(all->map.floor_color[0],all->map.floor_color[1],\
-		all->map.floor_color[2]));
+		// draw_ver_line(all, x, 0, draw_start, get_hex(all->map.ceilling_color[0], all->map.ceilling_color[1],\
+		// 	all->map.ceilling_color[2]));
+		// draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, get_hex(all->map.floor_color[0], all->map.floor_color[1],\
+		// 	all->map.floor_color[2]));
 
-		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
-					line_height, draw_start, draw_end, x, texture_load(all));
+		// draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
+		// 			line_height, draw_start, draw_end, x, texture_load(all));
+
 		// printf("x = %i %i < y < %i\n", x, draw_start, draw_end);
 
 
@@ -130,7 +141,7 @@ void	draw_screen(t_all *all)
 		// double sprite_y = 5;
 
 
-		
+
 
 		// // требуется для правильного умножения матриц
 		// double inv_det = 1.0 / (all->player.plane_x * all->player.dir_y

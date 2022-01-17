@@ -19,6 +19,9 @@ int		my_hook(int key, t_all *all)
 		moveSpeed = frameTime * 7.0; //постоянное значение находится в квадратах/секунду
 		rotSpeed = frameTime * 7.0; //постоянное значение в радианах/секунду
 	}
+	double gg = all->player.pos_x + all->player.dir_x * moveSpeed;
+	printf("%f %i\n", gg, (int)gg);
+	printf("x = %f y = %f\n", all->player.pos_x, all->player.pos_y);
 	if (key == 13) //W
 	{
 		if(all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')

@@ -11,8 +11,8 @@
 # include <time.h>
 
 #define CEL_SIZE 6
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 enum    e_retvals
 {

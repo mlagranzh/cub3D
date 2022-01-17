@@ -180,6 +180,7 @@ int search_player_pos_in_map(char **map, t_player *player)
 				player->pos_x = i;
 				player->pos_y = j;
 				pos_num++;
+				map[i][j] = '0';
 			}
 			j++;
 		}

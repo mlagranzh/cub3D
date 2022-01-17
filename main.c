@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 	t_all	all;
 	char	*file_name;
 
-	file_name = "maps/map.cub";
+	file_name = "maps/map.cub";//ljrhbkjv
 	if (argc == 2)
 		file_name = argv[1];
 	if (read_cub_file(&all.map, &all.player, file_name) != SUCCESS)

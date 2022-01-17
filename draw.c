@@ -102,7 +102,7 @@ void	draw_screen(t_all *all)
 		
 		// if (all->map.map[map_x][map_y] == '1')
 		// 	color = 0x3914AF;
-		// else if (all->map.map[map_x][map_y] == '2')
+		// else if (all->map.map[map_x][map_y] == '0')
 		// 	color = 0xFF0012;
 		// else if (all->map.map[map_x][map_y] == '3')
 		// 	color = 0x00FF00;
@@ -123,6 +123,64 @@ void	draw_screen(t_all *all)
 		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
 					line_height, draw_start, draw_end, x, texture_load(all));
 		// printf("x = %i %i < y < %i\n", x, draw_start, draw_end);
+
+
+		// // спрайты
+		// double sprite_x = 5;
+		// double sprite_y = 5;
+
+		// // требуется для правильного умножения матриц
+		// double inv_det = 1.0 / (all->player.plane_x * all->player.dir_y
+		// 	- all->player.plane_y * all->player.dir_x);
+
+		// // Глубина внутри экрана
+		// double transform_x = inv_det * (all->player.dir_y * sprite_x - all->player.dir_x * sprite_y);
+		// double transform_y = inv_det * (all->player.plane_x * sprite_y - all->player.plane_y * sprite_x);
+
+		// int sprite_screen_x = (int)((SCREEN_WIDTH / 2) * (1 + transform_x / transform_y));
+
+		// // параметры для масштабирования и перемещения спрайтов
+		// #define U_DIV 1
+		// #define V_DIV 1
+		// #define V_MOVE 0.0
+		// int v_move_screen = (int)(V_MOVE / transform_y);
+
+		// // высота спрайта на экране 
+		// int sprite_height = ft_abs((int)(SCREEN_HEIGHT / transform_y)) / V_DIV;
+		// // самый низкий и самый высокий пиксель на экране
+		// int draw_start_y = -sprite_height / 2 + SCREEN_HEIGHT / 2 + v_move_screen;
+		// if (draw_start_y < 0)
+		// 	draw_start_y = 0;
+		// int draw_end_y = sprite_height / 2 + SCREEN_HEIGHT / 2 + v_move_screen;
+		// if (draw_end_y >= SCREEN_HEIGHT)
+		// 	draw_end_y = SCREEN_HEIGHT - 1;
+
+		// // ширина спрайта на экране
+		// int sprite_width = ft_abs((int)(SCREEN_HEIGHT / transform_y)) / U_DIV;
+		// // левый и правый пиксель на экране
+		// int draw_start_x = -sprite_width / 2 + sprite_screen_x;
+		// if (draw_start_x < 0)
+		// 	draw_start_x = 0;
+		// int draw_end_x = sprite_width / 2 + sprite_screen_x;
+		// if (draw_end_x >= SCREEN_WIDTH)
+		// 	draw_end_x = SCREEN_WIDTH;
+		
+		// int tex_wh = 64;
+		// int x;
+		// int y;
+		// while (x < draw_start_x)
+		// {
+		// 	int tex_x = (int)(256 * (x - (sprite_screen_x - sprite_width / 2)) * )
+
+
+
+		// 	x++;
+		// }
+
+
+
+
+
 		x++;
 	}
 }
@@ -199,3 +257,7 @@ void	draw_player(t_all *all)
 		// }
 }
 
+void	draw_sprite(t_all *all)
+{
+
+}

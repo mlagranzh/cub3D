@@ -87,7 +87,7 @@ int main(int /*argc*/, char */*argv*/[])
       double cameraX = 2 * x / (double)w - 1;//x-координата в пространстве камеры
       double rayDirX = dirX + planeX * cameraX;
       double rayDirY = dirY + planeY * cameraX;
-      //which box of the карта мы're in
+//в какой ячейке карты мы находимся
       int mapX = int(posX);
       int mapY = int(posY);
 

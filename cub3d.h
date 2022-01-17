@@ -2,7 +2,7 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-# include "LIBFT/libft.h"
+# include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
@@ -93,6 +93,7 @@ int     my_hook(int key, t_all *all);
 
 //utils2
 int get_hex(int r, int g, int b);
+int ft_abs(int num);
 
 
 //draw

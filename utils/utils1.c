@@ -16,8 +16,8 @@ int		my_hook(int key, t_all *all)
 		frameTime = (all -> player.time - all -> player.old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
 		// printf("%f\n", all -> player.time); //FPS counter
 		//speed modifiers
-		moveSpeed = frameTime * 7.0; //the constant value is in squares/second
-		rotSpeed = frameTime * 7.0; //the constant value is in radians/second
+		moveSpeed = frameTime * 7.0; //постоянное значение находится в квадратах/секунду
+		rotSpeed = frameTime * 7.0; //постоянное значение в радианах/секунду
 	}
 	if (key == 13) //W
 	{

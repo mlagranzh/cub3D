@@ -39,13 +39,9 @@ void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
 
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 
-        int r =  *(unsigned int*)(texture + texY*256 + texX*4);
-        int g =  *(unsigned int*)(texture + texY*256 + texX*4 + 1);
-        int b =  *(unsigned int*)(texture + texY*256 + texX*4 + 2);
-        int t =  *(unsigned int*)(texture + texY*256 + texX*4 + 3);
-        int color = create_trgb(t, r, g, b);
-        // if (side == 1)
-        //     color = (color >> 1) & 8355711;
+        int color = *(unsigned int*)(texture + texY*256 + texX*4);
+        if (color == 0)
+          color = 1;
         my_mlx_pixel_put(&all->img, x, y, color);
     }
 }

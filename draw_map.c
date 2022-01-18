@@ -43,13 +43,15 @@ void	draw_player(t_all *all)
 	float y;
 	int	i;
 
-	draw_square(&all->img, all->player.pos_y, all->player.pos_x, 6, 0xFF00FF);
+	// draw_square(&all->img, all->player.pos_y, all->player.pos_x, 6, 0xFF00FF);
 	x = all->player.pos_x;
 	y = all->player.pos_y;
 	i = 0;
 	while (++i < 5)
 	{
-		draw_square(&all->img, y, x, 3, 0xFFFFFF);
+		if (all->map.map[(int)x][(int)y] == '1')
+			break;
+		draw_square(&all->img, y, x, 4, 0xFF00FF);
 		x += all->player.dir_x;
 		y += all->player.dir_y;
 	}

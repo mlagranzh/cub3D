@@ -25,8 +25,8 @@ void	print_map_param(t_map *map)
 	printf("so = {%s}\n", map->so_texture);
 	printf("we = {%s}\n", map->we_texture);
 	printf("ea = {%s}\n", map->ea_texture);
-	printf("fl = %i,%i,%i\n", map->floor_color[0], map->floor_color[1], map->floor_color[2]);
-	printf("ce = %i,%i,%i\n", map->ceilling_color[0], map->ceilling_color[1], map->ceilling_color[2]);
+	printf("fl = %i\n", map->floor_color);
+	printf("ce = %i\n", map->ceilling_color);
 }
 
 char **ft_realloc(char **mas, char *new_line)
@@ -180,6 +180,7 @@ int search_player_pos_in_map(char **map, t_player *player)
 				player->pos_x = i;
 				player->pos_y = j;
 				pos_num++;
+				map[i][j] = '0';
 			}
 			j++;
 		}

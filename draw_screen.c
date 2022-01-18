@@ -2,7 +2,9 @@
 
 void	draw_screen(t_all *all)
 {
-	int x = 0;
+	int x;
+	
+	x = 0;
 	while (x < SCREEN_HEIGHT)
 	{
 		//вычисляем положение и направление луча
@@ -19,10 +21,15 @@ void	draw_screen(t_all *all)
 
 		//длина луча от одной стороны x или y до следующей стороны x или y
 		double delta_dist_x, delta_dist_y;
-		delta_dist_x = sqrt(1 + ((ray_dir_y * ray_dir_y) / (ray_dir_x * ray_dir_x)));
-		delta_dist_y = sqrt(1 + ((ray_dir_x * ray_dir_x) / (ray_dir_y * ray_dir_y)));
-		// 	delta_dist_x = fabs(1 /ray_dir_x); //то же самое
-		// delta_dist_y = fabs(1 / ray_dir_y);
+
+		if (ray_dir_x == 0)
+ 			delta_dist_x = 1e30;
+ 		else
+ 			delta_dist_x = fabs(1 / ray_dir_x);
+ 		if (ray_dir_y == 0)
+ 			delta_dist_y = 1e30;
+ 		else
+ 			delta_dist_y = fabs(1 / ray_dir_y);
 
 		double perp_wall_dist; // переменная для вычисления длинны луча
 
@@ -76,6 +83,7 @@ void	draw_screen(t_all *all)
 			if (all->map.map[map_x][map_y] == '1')
 				hit = 1;
 		}
+		int num = side * (step_y + 2) + (!side) * (step_x + 1);
 
 		//Рассчитываем расстояние, проецируемое на направление камеры
 		if(side == 0)
@@ -95,108 +103,12 @@ void	draw_screen(t_all *all)
 		int draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
 		if(draw_end >= SCREEN_HEIGHT)
 			draw_end = SCREEN_HEIGHT - 1;
-
-		//выбираем цвет
-
-		// int color;
 		
-		// if (all->map.map[map_x][map_y] == '1')
-		// 	color = 0x3914AF;
-		// else if (all->map.map[map_x][map_y] == '2')
-		// 	color = 0xFF0012;
-		// else if (all->map.map[map_x][map_y] == '3')
-		// 	color = 0x00FF00;
-		// else if (all->map.map[map_x][map_y] == '4')
-		// 	color = 0x0000FF;
-		// else
-		// 	color = 0xFFFFFF;			
-		// придать сторонам x и y разную яркость
-  		// if(side == 1)
-		// 	color = color / 2;
-		// draw_ver_line(all, x, draw_start, draw_end, color);
-		
-		draw_ver_line(all, x, 0, draw_start, get_hex(all->map.ceilling_color[0],all->map.ceilling_color[1],\
-		all->map.ceilling_color[2]));
-		draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, get_hex(all->map.floor_color[0],all->map.floor_color[1],\
-		all->map.floor_color[2]));
+		draw_ver_line(all, x, 0, draw_start, all->map.ceilling_color);
+		draw_ver_line(all, x, draw_end, SCREEN_HEIGHT, all->map.floor_color);
 
 		draw_wall(all, map_x, map_y, side, perp_wall_dist, ray_dir_x, ray_dir_y, \
-					line_height, draw_start, draw_end, x, texture_load(all));
-		// printf("x = %i %i < y < %i\n", x, draw_start, draw_end);
+					line_height, draw_start, draw_end, x, num);
 		x++;
 	}
 }
-
-void	draw_square(t_data *img, int y, int x, int size)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(img, x * size + i, y * size + j, 0xFFFFFF);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_map(t_data *img, char **map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == '1')
-				draw_square(img, j, i, CEL_SIZE);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_player(t_all *all)
-{
-	int i;
-	int j;
-	int size;
-
-	i = 0;
-	size = 4;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(&(all->img), all->player.pos_x * CEL_SIZE + i, all->player.pos_y * CEL_SIZE + j, 0xFF00FF);
-			j++;
-		}
-		i++;
-	}
-		float a = all->player.plane_y;
-		printf("%f\n", a);
-		float x_2 = (all->player.pos_x * CEL_SIZE);
-		float y_2 =(all->player.pos_x * CEL_SIZE);
-		// float x_2 = (all->player.pos_x * CEL_SIZE)*cos(M_PI) - (all->player.pos_y * CEL_SIZE) * sin(M_PI) ;
-		// float y_2 =(all->player.pos_x * CEL_SIZE)*sin(M_PI) + (all->player.pos_y * CEL_SIZE) * cos(M_PI) ;
-		// int number = 1;
-		// if (a < 0)
-			// number -= 2;
-		// for (int i = 0; i < 15; i++)
-		// {
-		// 	x_2 += 1;
-		// 	y_2 += 1;
-		// 	if (all->map.map[(int)(y_2/CEL_SIZE)][(int)(x_2/CEL_SIZE)] == '0')
-		// 		my_mlx_pixel_put(&all->img, x_2, y_2, 0xFFFFFF);
-		// }
-}
-

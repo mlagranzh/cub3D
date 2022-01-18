@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-time_t programstart;
-
-
 void cub_init(t_all *all)
 {
 	all->mlx = mlx_init();
@@ -13,6 +10,12 @@ void cub_init(t_all *all)
 	all->player.dir_y = 1;
 	all->player.plane_x = 1;
 	all->player.plane_y = 0.66;//2D-лучевая версия плоскости камеры
+	all->player.moveSpeed = 0.3;
+	all->player.rotSpeed = 0.3;
+	texture_load(all, all->map.no_texture);
+	texture_load(all, all->map.so_texture);
+	texture_load(all, all->map.we_texture);
+	texture_load(all, all->map.ea_texture);
 }
 
 int main(int argc, char **argv)
@@ -25,7 +28,6 @@ int main(int argc, char **argv)
 		file_name = argv[1];
 	if (read_cub_file(&all.map, &all.player, file_name) != SUCCESS)
 		return (1);
-	ft_print_cchar(all.map.map);
 	cub_init(&all);
 
 	draw_screen(&all);

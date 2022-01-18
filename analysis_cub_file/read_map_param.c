@@ -47,17 +47,11 @@ static int	write_color_param(t_map *map, char *param, char key)
 	if (!param_mas)
 		return (ERROR);
 	if (key == 'F')
-	{
-		map->floor_color[0] = ft_atoi(param_mas[0]);
-		map->floor_color[1] = ft_atoi(param_mas[1]);
-		map->floor_color[2] = ft_atoi(param_mas[2]);
-	}
+		map->floor_color = create_trgb(0, ft_atoi(param_mas[0]), \
+						ft_atoi(param_mas[1]), ft_atoi(param_mas[2]));
 	if (key == 'C')
-	{
-		map->ceilling_color[0] = ft_atoi(param_mas[0]);
-		map->ceilling_color[1] = ft_atoi(param_mas[1]);
-		map->ceilling_color[2] = ft_atoi(param_mas[2]);
-	}
+		map->ceilling_color = create_trgb(0, ft_atoi(param_mas[0]), \
+						ft_atoi(param_mas[1]), ft_atoi(param_mas[2]));
 	return (SUCCESS);
 }
 

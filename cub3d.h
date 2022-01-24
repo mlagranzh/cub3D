@@ -95,6 +95,7 @@ int     my_hook(int key, t_all *all);
 
 //utils2
 int	create_trgb(int t, int r, int g, int b);
+int	my_mlx_pixel_get(t_data *data, int x, int y);
 
 //motion.c
 void move(int key, t_all *all);

@@ -20,6 +20,9 @@ int		my_hook(int key, t_all *all)
 	{
 		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+
+		// test_draw(all);
+
 		draw_screen(all);
 
 		draw_map(&all->img, all->map.map);

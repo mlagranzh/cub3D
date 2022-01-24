@@ -30,11 +30,11 @@ int main(int argc, char **argv)
 		return (1);
 	cub_init(&all);
 
-	draw_screen(&all);
+	// draw_screen(&all);
 
-	draw_map(&all.img, all.map.map);
-	draw_player(&all);
-	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
+	// draw_map(&all.img, all.map.map);
+	// draw_player(&all);
+	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
 

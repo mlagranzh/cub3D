@@ -4,6 +4,7 @@ void	draw_square(t_data *img, int y, int x, int size, int color)
 {
 	int i;
 	int j;
+	int new_color;
 
 	i = 0;
 	while (i < size)
@@ -11,7 +12,10 @@ void	draw_square(t_data *img, int y, int x, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			my_mlx_pixel_put(img, x * CEL_SIZE + i, y * CEL_SIZE + j, color);
+			new_color = color;
+			if (i == 0 || j == 0 || i == size - 1 || j == size - 1)
+				new_color = 0xFFFF00;
+			my_mlx_pixel_put(img, x * CEL_SIZE + i, y * CEL_SIZE + j, new_color);
 			j++;
 		}
 		i++;

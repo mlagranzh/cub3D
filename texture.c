@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-#define texWidth 64.
-#define texHeight 64.
-
 void draw_wall(t_all *all, int mapX, int mapY, int side, double perpWallDist, \
 								double rayDirX, double rayDirY, double lineHeight, int drawStart, int drawEnd, int x, int num)
 {

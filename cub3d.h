@@ -24,6 +24,8 @@
 #define CEL_SIZE 6
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 600
+#define texWidth 64.
+#define texHeight 64.
 
 enum    e_retvals
 {

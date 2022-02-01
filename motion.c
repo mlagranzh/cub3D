@@ -1,24 +1,36 @@
 #include "cub3d.h"
 
-void move(int key, t_all *all)
+void move_straight(int key, t_all *all)
 {
 	double moveSpeed;
 	double step_x;
 	double step_y;
 
 	moveSpeed = all->player.moveSpeed;
-	if (key == KEY_S || key == KEY_A)
+	if (key == KEY_S)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
 	step_y = all->player.dir_y * moveSpeed;
-	if (key == KEY_A || key == KEY_D)
-	{
-		step_x = step_y;
-		step_y = (step_y / all->player.dir_y) * all->player.dir_x;
-	}
-	if (all->map.map[(int)(all->player.pos_x + all->player.dir_x * moveSpeed)][(int)(all->player.pos_y)] == '0')
+	if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '0')
 		all->player.pos_x += step_x;
-	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + all->player.dir_y * moveSpeed)] == '0') 
+	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '0') 
+	  	all->player.pos_y += step_y;
+}
+
+void move_side(int key, t_all *all)
+{
+	double moveSpeed;
+	double step_x;
+	double step_y;
+
+	moveSpeed = all->player.moveSpeed;
+	if (key == KEY_A)
+		moveSpeed = -moveSpeed;
+	step_x = all->player.dir_y * moveSpeed;
+	step_y = -all->player.dir_x * moveSpeed;
+	if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '0')
+		all->player.pos_x += step_x;
+	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '0') 
 	  	all->player.pos_y += step_y;
 }
 

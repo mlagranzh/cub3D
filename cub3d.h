@@ -98,7 +98,9 @@ int	create_trgb(int t, int r, int g, int b);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 
 //motion.c
-void move(int key, t_all *all);
+void move_straight(int key, t_all *all);
+void move_side(int key, t_all *all);
+
 void rotate(int key, t_all *all);
 
 

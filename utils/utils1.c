@@ -3,13 +3,13 @@
 int		my_hook(int key, t_all *all)
 {
 	if (key == KEY_W)
-		move(KEY_W, all);
+		move_straight(KEY_W, all);
 	if (key == KEY_S)
-		move(KEY_S, all);
+		move_straight(KEY_S, all);
 	if (key == KEY_A)
-		move(KEY_A, all);
+		move_side(KEY_A, all);
 	if (key == KEY_D)
-		move(KEY_D, all);
+		move_side(KEY_D, all);
 	if (key == KEY_LEFT)
 		rotate(key, all);
 	if (key == KEY_RIGHT)

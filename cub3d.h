@@ -112,7 +112,7 @@ void	draw_screen(t_all *all);
 
 void texture_load(t_all *all, char	*path);
 
-void draw_wall(t_all *all, int mapX, int mapY, int side, int perpWallDist, \
-                double rayDirX, double rayDirY, int lineHeight, int drawStart, int drawEnd, int x, int num);
+void draw_wall(t_all *all, int mapX, int mapY, int side, double perpWallDist, \
+                double rayDirX, double rayDirY, double lineHeight, int drawStart, int drawEnd, int x, int num);
 
 #endif

@@ -52,16 +52,17 @@ typedef struct	s_player
 	double	plane_y;
 	double	moveSpeed;
 	double	rotSpeed;
+	char	start_side;
 }	t_player;
 
 typedef struct s_map
 {
-	char	*no_texture; 		// Север	(90)
-	char	*so_texture; 		// Юг 		(270)
-	char	*we_texture; 		// Запад 	(180)
-	char	*ea_texture; 		// Восток 	(0)
-	int		floor_color; 	// Пол
-	int		ceilling_color;	// Потолок
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	int		floor_color;
+	int		ceilling_color;
 	char	**map;
 }	t_map;
 
@@ -108,7 +109,7 @@ void rotate(int key, t_all *all);
 
 //draw_map.c
 void	draw_map(t_data *img, char **map);
-void	draw_square(t_data *img, int y, int x, int size, int color);
+void	draw_square(t_data *img, int y, int x, int color);
 void	draw_player(t_all *all);
 
 //draw_screen

@@ -76,6 +76,28 @@ typedef struct s_all
 	t_map		map;
 }	t_all;
 
+
+typedef struct s_raycast
+{
+	double camera_x;
+	double ray_dir_x;
+	double ray_dir_y;
+	int map_x;		//в какой ячейке карты мы находимся
+	int map_y;
+	double side_dist_x;		//длина луча от текущей позиции до следующей стороны x или y
+	double side_dist_y;
+	double delta_dist_x; //длина луча от одной стороны x или y до следующей стороны x или y
+	double delta_dist_y;
+	double perp_wall_dist;
+	int step_x; 		//в каком направлении делать шаг в направлении x или y (либо +1, либо -1)
+	int step_y;
+	int hit; //был ли удар по стене?
+    int side;//был удар по стороне стены x или y?
+	int draw_start;
+	int draw_end;
+	int line_height;
+} t_raycast;
+
 void	ft_print_cchar(char **mas);
 
 //map functions
@@ -117,7 +139,6 @@ void	draw_screen(t_all *all);
 
 void texture_load(t_all *all, char	*path);
 
-void draw_wall(t_all *all, int mapX, int mapY, int side, double perpWallDist, \
-                double rayDirX, double rayDirY, double lineHeight, int drawStart, int drawEnd, int x, int num);
+void draw_wall(t_all *all, t_raycast *raycast, int x);
 
 #endif

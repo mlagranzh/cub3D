@@ -13,3 +13,21 @@ int	my_mlx_pixel_get(t_data *data, int x, int y)
 			* (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
+
+void	draw_square(t_data *img, int y, int x, int size, int color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			my_mlx_pixel_put(img, x * CEL_SIZE + i, y * CEL_SIZE + j, color);
+			j++;
+		}
+		i++;
+	}
+}

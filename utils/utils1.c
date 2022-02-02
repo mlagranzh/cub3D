@@ -25,8 +25,7 @@ int		my_hook(int key, t_all *all)
 
 		draw_screen(all);
 
-		draw_map(&all->img, all->map.map);
-		draw_player(all);
+		draw_map(all);
 		
 		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}

@@ -71,7 +71,7 @@ void	ft_print_cchar(char **mas)
 	// printf("%s\n", mas[i]);
 }
 
-char **make_map(int fd)
+int make_map(t_map *struct_map, int fd)
 {
 	char *line;
 	t_map_list *map_list;
@@ -94,7 +94,7 @@ char **make_map(int fd)
 		line = NULL;
         retval = get_next_line(fd, &line);
 		if (retval == -1 || !line)
-			return (NULL);
+			return (ERROR);
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
         if (line[i] == '\0' || line[i] == '\n')
@@ -114,7 +114,7 @@ char **make_map(int fd)
             break ;
 	}
     if (line_num == 0)
-        return (NULL);
+        return (ERROR);
 	map = (char **)malloc(sizeof(char *) * (line_num + 1));
 	map[line_num] = NULL;
 	i = 0;
@@ -136,7 +136,10 @@ char **make_map(int fd)
 		first_map_list = first_map_list->next;
 		i++;
 	}
-	return (map);
+	struct_map->map = map;
+	struct_map->width = line_num;
+	struct_map->height = max_line_len;
+	return (SUCCESS);
 }
 
 int checking_map_for_invalid_sumbol(char **map)
@@ -193,10 +196,8 @@ int search_player_pos_in_map(char **map, t_player *player)
 
 int	read_map(t_map *map, t_player *player, int fd)
 {
-	map->map = make_map(fd);
-	if (!map->map)
-		return (ERROR);
-	if (checking_map_for_closure(map->map) == ERROR
+	if (make_map(map, fd) == ERROR
+		|| checking_map_for_closure(map->map) == ERROR
 		|| checking_map_for_invalid_sumbol(map->map) == ERROR
 		|| search_player_pos_in_map(map->map, player) == ERROR)
 		return (ERROR);

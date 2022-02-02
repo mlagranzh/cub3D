@@ -94,7 +94,7 @@ void	draw_screen(t_all *all)
 
 	x = 0;
 	raycast = malloc(sizeof(t_raycast));
-	while (x < SCREEN_HEIGHT)
+	while (x < SCREEN_WIDTH)
 	{
 		init(x, all, raycast);
 		side_dist(all, raycast);
@@ -108,6 +108,40 @@ void	draw_screen(t_all *all)
 	}
 }
 
+
+// void draw_wall(t_all *all, int mapX, int mapY, int side, double perpWallDist, \
+// 								double rayDirX, double rayDirY, double lineHeight, int drawStart, int drawEnd, int x, int num)
+// {
+// 	t_data texture = all->wall[num];
+
+// 	//calculate value of wallX
+// 	double wallX; //where exactly the wall was hit
+// 	if (side == 0) 
+// 		wallX = all->player.pos_y + (double)perpWallDist * rayDirY;
+// 	else
+// 		wallX = all->player.pos_x + (double)perpWallDist * rayDirX;
+// 	wallX -= floor((wallX));
+
+// 	//x coordinate on the texture
+// 	int texX = (int)(wallX * (double)(texWidth));
+// 	if(side == 0 && rayDirX > 0) 
+// 		texX = texWidth - texX - 1;
+// 	if(side == 1 && rayDirY < 0) 
+// 		texX = texWidth - texX - 1;
+
+// 	// How much to increase the texture coordinate per screen pixel
+// 	double step = texHeight / lineHeight;
+// 	// Starting texture coordinate
+// 	double texPos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * step;
+// 	for(int y = drawStart; y < drawEnd; y++)
+// 	{
+// 		int texY = (int)texPos;
+// 		texPos += step;
+
+// 		int color = my_mlx_pixel_get(&texture, texX, texY);
+// 		my_mlx_pixel_put(&all->img, x, y, color);
+// 	}
+// }
 
 
 // void	draw_screen(t_all *all)

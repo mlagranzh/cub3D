@@ -20,6 +20,7 @@
 # define KEY_D				2
 # define KEY_A				0
 # define KEY_ESC			53
+# define DISTANCE			3
 
 #define CEL_SIZE 6
 #define SCREEN_WIDTH 600

@@ -180,8 +180,8 @@ int search_player_pos_in_map(char **map, t_player *player)
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				player->pos_x = i;
-				player->pos_y = j;
+				player->pos_x = i + 0.5;
+				player->pos_y = j + 0.5;
 				player->start_side = map[i][j];
 				pos_num++;
 				map[i][j] = '0';

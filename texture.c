@@ -8,8 +8,8 @@ static void draw(t_all *all, t_raycast *raycast, int x, int texX)
 	double step; // Насколько увеличить координату текстуры на пиксель экрана
 	int texY;
 
-	texPos = (raycast->draw_start - SCREEN_HEIGHT / 2 + raycast->line_height / 2) * step;
 	step = texHeight / raycast->line_height;
+	texPos = (raycast->draw_start - SCREEN_HEIGHT / 2 + raycast->line_height / 2) * step;
 	y = raycast->draw_start;
 	while (y < raycast->draw_end)
 	{

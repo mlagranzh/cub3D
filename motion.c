@@ -9,12 +9,21 @@ void move_straight(int key, t_all *all)
 	moveSpeed = all->player.moveSpeed;
 	if (key == KEY_S)
 		moveSpeed = -moveSpeed;
-	step_x = all->player.dir_x * moveSpeed;
-	step_y = all->player.dir_y * moveSpeed;
-	if (all->map.map[(int)(floor((all->player.pos_x + step_x * DISTANCE)))][(int)(floor(all->player.pos_y))] == '0')
+	moveSpeed = moveSpeed * 2;
+	if (all->player.dir_x < 0)
+		step_x = -moveSpeed;
+	else
+		step_x = moveSpeed;
+	if (all->player.dir_y < 0)
+		step_y = -moveSpeed;
+	else
+		step_y = moveSpeed;
+	if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '0')
 		all->player.pos_x += step_x;
-	if (all->map.map[(int)(floor(all->player.pos_x))][(int)(floor((all->player.pos_y + step_y * DISTANCE)))] == '0' ) 
+	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '0') 
 	  	all->player.pos_y += step_y;
+	printf("%i/%i\n", (int)(all->player.pos_x + step_x), (int)(all->player.pos_y + step_y));
+	printf("%f/%f\n", all->player.pos_x + step_x, all->player.pos_y + step_y);
 }
 
 void move_side(int key, t_all *all)

@@ -22,7 +22,7 @@ int		my_hook(int key, t_all *all)
 		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 
 		// test_draw(all);
-
+		// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 		draw_screen(all);
 
 		// draw_map(all);

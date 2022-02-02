@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 
 	draw_screen(&all);
 
-	draw_map(&all);
+	// draw_map(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);

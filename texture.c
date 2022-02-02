@@ -1,53 +1,43 @@
 #include "cub3d.h"
 
-void draw_wall(t_all *all, t_raycast *raycast, int x)
+static void draw(t_all *all, t_raycast *raycast, int x, int texX)
 {
-	int mapX = raycast->map_x;
-	int mapY = raycast->map_y;
-	int side = raycast->side;
-	double rayDirX = raycast->ray_dir_x;
-	double rayDirY = raycast->ray_dir_y;
-	int num = side * (raycast->step_y + 2) + (!side) * (raycast->step_x + 1);
-	double perpWallDist = raycast->perp_wall_dist;
-	int drawStart = raycast->draw_start;
-	int drawEnd = raycast->draw_end;
-	int lineHeight = raycast->line_height;
-
-	t_data texture;
-	int texX; //координата x на текстуре
-	int texY;
-	double wallX; //где именно в стену попали
-	double step; // Насколько увеличить координату текстуры на пиксель экрана
-	double texPos; // Начальная координата текстуры
-
-
-	texture = all->wall[num];
-	if (side == 0) 
-		wallX = all->player.pos_y + (double)perpWallDist * rayDirY;
-	else
-		wallX = all->player.pos_x + (double)perpWallDist * rayDirX;
-	wallX -= floor((wallX));
-
-	texX = (int)(wallX * (double)(texWidth));
-	if(side == 0 && rayDirX > 0) 
-		texX = texWidth - texX - 1;
-	if(side == 1 && rayDirY < 0) 
-		texX = texWidth - texX - 1;
-	step = texHeight / lineHeight;
-	texPos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * step;
-
 	int y;
 	int color;
+	double texPos; // Начальная координата текстуры
+	double step; // Насколько увеличить координату текстуры на пиксель экрана
+	int texY;
 
-	y = drawStart;
-	while (y < drawEnd)
+	texPos = (raycast->draw_start - SCREEN_HEIGHT / 2 + raycast->line_height / 2) * step;
+	step = texHeight / raycast->line_height;
+	y = raycast->draw_start;
+	while (y < raycast->draw_end)
 	{
 		texY = (int)texPos;
 		texPos += step;
-		color = my_mlx_pixel_get(&texture, texX, texY);
+		color = my_mlx_pixel_get(&all->wall[raycast->side * (raycast->step_y + 2) + (!raycast->side) * (raycast->step_x + 1)], texX, texY);
 		my_mlx_pixel_put(&all->img, x, y, color);
 		y++;
 	}
+}
+
+void draw_wall(t_all *all, t_raycast *raycast, int x)
+{
+	int texX; //координата x на текстуре
+	double wallX; //где именно в стену попали
+
+	if (raycast->side == 0) 
+		wallX = all->player.pos_y + (double)raycast->perp_wall_dist * raycast->ray_dir_y;
+	else
+		wallX = all->player.pos_x + (double)raycast->perp_wall_dist * raycast->ray_dir_x;
+	wallX -= floor((wallX));
+
+	texX = (int)(wallX * (double)(texWidth));
+	if(raycast->side == 0 && raycast->ray_dir_x > 0) 
+		texX = texWidth - texX - 1;
+	if(raycast->side == 1 && raycast->ray_dir_y < 0) 
+		texX = texWidth - texX - 1;
+	draw(all, raycast, x, texX);
 }
 
 void texture_load(t_all *all, char	*path)

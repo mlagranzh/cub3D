@@ -77,14 +77,14 @@ static void side_dist(t_all *all, t_raycast *raycast)
 //Рассчитываем высоту линии для рисования на экране
 static void where(t_raycast *raycast)
 {
-      	raycast->line_height = (int)(SCREEN_HEIGHT / raycast->perp_wall_dist);
+    raycast->line_height = (int)(SCREEN_HEIGHT / raycast->perp_wall_dist);
 
-		raycast->draw_start = -raycast->line_height / 2 + SCREEN_HEIGHT / 2;
-		if (raycast->draw_start < 0)
-			raycast->draw_start = 0;
-		raycast->draw_end = raycast->line_height / 2 + SCREEN_HEIGHT / 2;
-		if (raycast->draw_end >= SCREEN_HEIGHT)
-			raycast->draw_end = SCREEN_HEIGHT - 1;
+	raycast->draw_start = -raycast->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (raycast->draw_start < 0)
+		raycast->draw_start = 0;
+	raycast->draw_end = raycast->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (raycast->draw_end >= SCREEN_HEIGHT)
+		raycast->draw_end = SCREEN_HEIGHT - 1;
 }
 
 void	draw_screen(t_all *all)

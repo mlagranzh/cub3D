@@ -11,9 +11,11 @@ void move_straight(int key, t_all *all)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
 	step_y = all->player.dir_y * moveSpeed;
-	if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '0')
+	// if (all->map.map[(int)((all->player.pos_x + step_x + 1))][(int)(all->player.pos_y + step_y + 1)] == '1')
+	// 	return ;
+	if (all->map.map[(int)(floor((all->player.pos_x + step_x)))][(int)(floor(all->player.pos_y))] == '0')
 		all->player.pos_x += step_x;
-	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '0') 
+	if (all->map.map[(int)(floor(all->player.pos_x))][(int)(floor((all->player.pos_y + step_y)))] == '0') 
 	  	all->player.pos_y += step_y;
 }
 
@@ -28,6 +30,8 @@ void move_side(int key, t_all *all)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_y * moveSpeed;
 	step_y = -all->player.dir_x * moveSpeed;
+	// if (all->map.map[(int)((all->player.pos_x + step_x + 1))][(int)(all->player.pos_y + step_y + 1)] == '1')
+	// 	return ;
 	if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '0')
 		all->player.pos_x += step_x;
 	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '0') 

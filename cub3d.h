@@ -23,7 +23,7 @@
 # define DISTANCE			3
 
 #define CEL_SIZE 6
-#define SCREEN_WIDTH 1000 // ширина
+#define SCREEN_WIDTH 600 // ширина
 #define SCREEN_HEIGHT 600 // высота
 #define texWidth 64.
 #define texHeight 64.

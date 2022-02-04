@@ -7,10 +7,16 @@ void move_straight(int key, t_all *all)
 	double step_y;
 
 	moveSpeed = all->player.moveSpeed;
-	// if (key == KEY_S)
-	// 	moveSpeed = -moveSpeed;
+	if (key == KEY_S)
+		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
 	step_y = all->player.dir_y * moveSpeed;
+
+	if (key == KEY_S)
+	{
+		all->player.dir_x *= -1;
+		all->player.dir_y *= -1;
+	}
 
 	double distance = 0.3;
 
@@ -83,12 +89,18 @@ void move_straight(int key, t_all *all)
 		}
 	}
 
-	printf("x = %f / y = %f\n", all->player.pos_x - raise_x, all->player.pos_y - raise_y);
+	// printf("x = %f / y = %f\n", all->player.pos_x - raise_x, all->player.pos_y - raise_y);
 
 	all->player.pos_x = raise_x;
 	all->player.pos_y = raise_y;
+
+	if (key == KEY_S)
+	{
+		all->player.dir_x *= -1;
+		all->player.dir_y *= -1;
+	}
 	
-	// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
+	printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 }
 
 void move_side(int key, t_all *all)

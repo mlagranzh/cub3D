@@ -42,7 +42,7 @@ void cub_init(t_all *all)
 	side_init(&all->player);
 
 	all->player.moveSpeed = 0.3;
-	all->player.rotSpeed = 0.3;
+	all->player.rotSpeed = 0.1;
 	texture_load(all, all->map.no_texture);
 	texture_load(all, all->map.so_texture);
 	texture_load(all, all->map.we_texture);

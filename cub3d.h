@@ -23,7 +23,7 @@
 # define DISTANCE			3
 
 #define CEL_SIZE 6
-#define SCREEN_WIDTH 600 // ширина
+#define SCREEN_WIDTH 1000 // ширина
 #define SCREEN_HEIGHT 600 // высота
 #define texWidth 64.
 #define texHeight 64.
@@ -125,6 +125,8 @@ int     my_hook(int key, t_all *all);
 int	create_trgb(int t, int r, int g, int b);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 void	draw_square(t_data *img, int y, int x, int size, int color);
+void	draw_border_square(t_data *img, int y, int x, int size, int color);
+void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color);
 
 //motion.c
 void move_straight(int key, t_all *all);
@@ -134,7 +136,7 @@ void rotate(int key, t_all *all);
 
 
 //draw_map.c
-void	draw_map(t_all *all);
+void	draw_minimap(t_all *all);
 
 //draw_screen
 void	draw_screen(t_all *all);

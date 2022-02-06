@@ -11,7 +11,7 @@ void move_straight(int key, t_all *all)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
 	step_y = all->player.dir_y * moveSpeed;
-
+	// printf("mS = %f, s_x = %f\n", moveSpeed, step_x);
 	if (key == KEY_S)
 	{
 		all->player.dir_x *= -1;
@@ -44,11 +44,12 @@ void move_straight(int key, t_all *all)
 	// Если смотрим влево (step_x - отрицательный)
 	if (all->player.dir_x <= 0)
 	{
+		// printf("step = %f/%f/%f\n", step_x, all->player.pos_x, all->player.dir_x);
 		// Если после шага попадаем в стену
 		if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '1')
 		{
 			// То приближаемся к стене, но не на весь шаг, а до позиция стены + дистанция
-			raise_x = (double)((int)(all->player.pos_x + step_x)) + distance;
+			raise_x = (double)((int)(all->player.pos_x + step_x + 1)) + distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
 		else if (all->map.map[(int)(all->player.pos_x + step_x) - 1][(int)(all->player.pos_y)] == '1')

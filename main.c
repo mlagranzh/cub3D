@@ -41,7 +41,7 @@ void cub_init(t_all *all)
 	
 	side_init(&all->player);
 
-	all->player.moveSpeed = 0.5;
+	all->player.moveSpeed = 0.3;
 	all->player.rotSpeed = 0.3;
 	texture_load(all, all->map.no_texture);
 	texture_load(all, all->map.so_texture);
@@ -49,6 +49,34 @@ void cub_init(t_all *all)
 	texture_load(all, all->map.ea_texture);
 
 	all->z_buffer = (int *)malloc(sizeof(int) * SCREEN_WIDTH);
+}
+
+void mouse_hook(int x, int y, t_all *all)
+{
+	double oldDir;
+	double oldPlane;
+	double rotSpeed;
+	
+	if (x != all->x)
+	{
+		rotSpeed = 0.03;
+		if (abs(x) > abs(all->x))
+			rotSpeed = -rotSpeed;
+
+		oldDir = all->player.dir_x;
+		all->player.dir_x = all->player.dir_x * cos(rotSpeed) - all->player.dir_y * sin(rotSpeed);
+		all->player.dir_y = oldDir * sin(rotSpeed) + all->player.dir_y * cos(rotSpeed);
+		oldPlane = all -> player.plane_x;
+		all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
+		all -> player.plane_y = oldPlane * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
+		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+		draw_screen(all);
+		draw_minimap(all);
+		draw_sprites(all);
+		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	}
+	all -> x = x;
 }
 
 int main(int argc, char **argv)
@@ -64,11 +92,13 @@ int main(int argc, char **argv)
 	cub_init(&all);
 
 	draw_screen(&all);
+	draw_minimap(&all);
+	draw_sprites(&all);
 
-	// draw_map(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
+	mlx_hook(all.win, 6, 0, mouse_hook, &all);
 
 	mlx_loop(all.mlx);
 	return (0);

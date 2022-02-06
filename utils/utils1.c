@@ -4,12 +4,8 @@ int		my_hook(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_S)
 		move_straight(key, all);
-	// if (key == KEY_S)
-	// 	move_straight(KEY_S, all);
 	if (key == KEY_A || key == KEY_D)
 		move_side(key, all);
-	// if (key == KEY_D)
-	// 	move_side(KEY_D, all);
 	if (key == KEY_LEFT)
 		rotate(key, all);
 	if (key == KEY_RIGHT)

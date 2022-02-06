@@ -27,7 +27,7 @@ static void draw_ray_view(t_all *all, float x, float y)
 			x += x_angle; 
 			y += y_angle;
 			if (my_mlx_pixel_get(&all->img, x, y) == MI_WALL_COLOR || \
-				my_mlx_pixel_get(&all->img, x, y) == 0)
+				my_mlx_pixel_get(&all->img, x, y) == 0 || my_mlx_pixel_get(&all->img, x - 1, y) == 0)
 				break;
 			my_mlx_pixel_put(&all->img, x, y, MI_PLAYER_COLOR);
 		}

@@ -5,6 +5,34 @@
 #define MI_FIELD_COLOR		0x858585
 #define MI_WALL_COLOR 		0xFF0000
 #define MI_PLAYER_COLOR		0xFFFF00
+#define PI 3.141596
+
+static void draw_ray_view(t_all *all, float x, float y)
+{
+	double angle;
+	float x_angle;
+	float y_angle;
+	int z;
+
+	angle = 0.0;
+	while (angle < 1)
+	{
+		x = (MI_SIZE / 2) * MI_CEL_SIZE;
+		y = (MI_SIZE / 2) * MI_CEL_SIZE;
+		z = 0;
+		x_angle = all->player.dir_x * cos(angle) - all->player.dir_y * sin(angle);
+		y_angle = all->player.dir_x * sin(angle) + all->player.dir_y * cos(angle);
+		while (z++ < 20)
+		{
+			x += x_angle; 
+			y += y_angle;
+			if (all->map.map[(int)(all->player.pos_x + x_angle)][(int)(all->player.pos_y + y_angle)] == '1')
+				break;
+			my_mlx_pixel_put(&all->img, x, y, MI_PLAYER_COLOR);
+		}
+		angle += 0.01;
+	}
+}
 
 void	draw_minimap(t_all *all) // [width][height]
 {
@@ -26,6 +54,7 @@ void	draw_minimap(t_all *all) // [width][height]
 	// Рисует квадратик игрока, центр квадратика - точная координата игрока
 	draw_border_centre_square(&all->img, (MI_SIZE / 2) * MI_CEL_SIZE, (MI_SIZE / 2) * MI_CEL_SIZE, 1, MI_PLAYER_COLOR, MI_PLAYER_COLOR);
 
+	draw_ray_view(all, (MI_SIZE / 2) * MI_CEL_SIZE, (MI_SIZE / 2) * MI_CEL_SIZE);
 	y = 0;
 	while (y < MI_SIZE)
 	{

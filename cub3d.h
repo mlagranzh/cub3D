@@ -125,7 +125,7 @@ int     my_hook(int key, t_all *all);
 //utils2
 int	create_trgb(int t, int r, int g, int b);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
-void	draw_square(t_data *img, int y, int x, int size, int color);
+void	draw_square(t_data *img, int y, int x, int color);
 void	draw_border_square(t_data *img, int y, int x, int size, int color);
 void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color);
 

@@ -47,6 +47,8 @@ void cub_init(t_all *all)
 	texture_load(all, all->map.so_texture);
 	texture_load(all, all->map.we_texture);
 	texture_load(all, all->map.ea_texture);
+
+	all->z_buffer = (int *)malloc(sizeof(int) * SCREEN_WIDTH);
 }
 
 int main(int argc, char **argv)

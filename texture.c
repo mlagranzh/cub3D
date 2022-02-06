@@ -30,7 +30,7 @@ void draw_wall(t_all *all, t_raycast *raycast, int x)
 		wallX = all->player.pos_y + (double)raycast->perp_wall_dist * raycast->ray_dir_y;
 	else
 		wallX = all->player.pos_x + (double)raycast->perp_wall_dist * raycast->ray_dir_x;
-	printf("wall_x %f\n", wallX);
+	// printf("wall_x %f\n", wallX);
 	wallX -= floor((wallX));
 
 	texX = (int)(wallX * (double)(texWidth));

@@ -96,6 +96,7 @@ void	draw_screen(t_all *all)
 
 	x = 0;
 	raycast = malloc(sizeof(t_raycast));
+
 	while (x < SCREEN_WIDTH)
 	{
 		init(x, all, raycast);
@@ -108,6 +109,8 @@ void	draw_screen(t_all *all)
 		draw_wall(all, raycast, x);
 
 		// printf("%i / %i\n", raycast->draw_end, raycast->line_height);
+
+		all->z_buffer[x] = raycast->perp_wall_dist;
 
 		x++;
 	}

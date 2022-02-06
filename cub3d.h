@@ -77,6 +77,7 @@ typedef struct s_all
 	t_data		wall[4];
 	t_player	player;
 	t_map		map;
+	int			*z_buffer;
 }	t_all;
 
 
@@ -144,5 +145,7 @@ void	draw_screen(t_all *all);
 void texture_load(t_all *all, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
+
+void draw_sprites(t_all *all);
 
 #endif

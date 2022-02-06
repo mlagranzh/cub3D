@@ -51,7 +51,7 @@ void cub_init(t_all *all)
 	all->z_buffer = (int *)malloc(sizeof(int) * SCREEN_WIDTH);
 }
 
-void mouse_hook(int x, int y, t_all *all)
+int mouse_hook(int x, int y, t_all *all)
 {
 	double oldDir;
 	double oldPlane;
@@ -77,6 +77,7 @@ void mouse_hook(int x, int y, t_all *all)
 		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}
 	all -> x = x;
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -98,7 +99,7 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	mlx_hook(all.win, 6, 0, mouse_hook, &all);
+	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 
 	mlx_loop(all.mlx);
 	return (0);

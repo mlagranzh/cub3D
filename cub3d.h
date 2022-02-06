@@ -78,6 +78,7 @@ typedef struct s_all
 	t_player	player;
 	t_map		map;
 	int			*z_buffer;
+	int			x;
 }	t_all;
 
 

@@ -72,7 +72,7 @@ void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half
 				my_mlx_pixel_put(img, i, j, border_color);
 			else
 				my_mlx_pixel_put(img, i, j, inside_color);
-			printf("%d\t%d\t\n", i, j);
+			// printf("%d\t%d\t\n", i, j);
 		}
 		i++;
 	}

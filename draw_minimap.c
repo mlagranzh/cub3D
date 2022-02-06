@@ -26,7 +26,8 @@ static void draw_ray_view(t_all *all, float x, float y)
 		{
 			x += x_angle; 
 			y += y_angle;
-			if (all->map.map[(int)(all->player.pos_x + x_angle)][(int)(all->player.pos_y + y_angle)] == '1')
+			if (my_mlx_pixel_get(&all->img, x, y) == MI_WALL_COLOR || \
+				my_mlx_pixel_get(&all->img, x, y) == 0)
 				break;
 			my_mlx_pixel_put(&all->img, x, y, MI_PLAYER_COLOR);
 		}
@@ -54,7 +55,6 @@ void	draw_minimap(t_all *all) // [width][height]
 	// Рисует квадратик игрока, центр квадратика - точная координата игрока
 	draw_border_centre_square(&all->img, (MI_SIZE / 2) * MI_CEL_SIZE, (MI_SIZE / 2) * MI_CEL_SIZE, 1, MI_PLAYER_COLOR, MI_PLAYER_COLOR);
 
-	draw_ray_view(all, (MI_SIZE / 2) * MI_CEL_SIZE, (MI_SIZE / 2) * MI_CEL_SIZE);
 	y = 0;
 	while (y < MI_SIZE)
 	{
@@ -74,4 +74,5 @@ void	draw_minimap(t_all *all) // [width][height]
 		}
 		y++;
 	}
+	draw_ray_view(all, (MI_SIZE / 2) * MI_CEL_SIZE, (MI_SIZE / 2) * MI_CEL_SIZE);
 }

@@ -14,16 +14,16 @@ int	my_mlx_pixel_get(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	draw_square(t_data *img, int y, int x, int size, int color)
+void	draw_square(t_data *img, int y, int x, int color)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < size)
+	while (i < CEL_SIZE)
 	{
 		j = 0;
-		while (j < size)
+		while (j < CEL_SIZE)
 		{
 			my_mlx_pixel_put(img, x + i, y + j, color);
 			j++;
@@ -72,6 +72,7 @@ void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half
 				my_mlx_pixel_put(img, i, j, border_color);
 			else
 				my_mlx_pixel_put(img, i, j, inside_color);
+			printf("%d\t%d\t\n", i, j);
 		}
 		i++;
 	}

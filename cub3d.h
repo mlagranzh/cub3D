@@ -71,23 +71,30 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
-typedef struct s_barrel
+typedef struct s_sprite_coordinate
 {
-	t_data	*texture_whole;
-	t_data	*texture_ruined;
-	
-}	t_barrel;
+	double		x;
+	double		y;
+	double		distance;
+	int		u_div;
+	int		v_div;
+	double	v_move;
+	t_data	texture;
+}	t_coordinate;
 
-typedef struct s_sprite
+typedef struct s_sprites
 {
+	t_data			barrel_whole_tex;
+	t_data			barrel_ruined_tex;
+	t_data			light_tex;
+	int				light_coller_min;
+	int				light_coller_max;
+	t_coordinate	*coordinates;
+	int				num;
+	int				*z_buffer;
+}   t_sprites;
 
-    double			x;
-    double			y;
-    int				coller_max;
-    int				coller;
-    t_data			*texture;
-	struct s_sprite	*next;
-}   t_sprite;
+
 
 typedef struct s_all
 {
@@ -97,8 +104,7 @@ typedef struct s_all
 	t_data		wall[4];
 	t_player	player;
 	t_map		map;
-	t_sprite	*sprites;
-	int			*z_buffer;
+	t_sprites	sprites;
 	int			x;
 }	t_all;
 
@@ -168,6 +174,6 @@ void texture_load(t_all *all, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
-void draw_sprites(t_all *all, int col);
+void draw_sprites(t_all *all);
 
 #endif

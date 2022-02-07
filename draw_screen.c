@@ -110,7 +110,7 @@ void	draw_screen(t_all *all)
 
 		// printf("%i / %i\n", raycast->draw_end, raycast->line_height);
 
-		all->z_buffer[x] = raycast->perp_wall_dist;
+		all->sprites.z_buffer[x] = raycast->perp_wall_dist;
 
 		x++;
 	}

@@ -14,8 +14,8 @@ static void draw_ray_view(t_all *all, float x, float y)
 	float y_angle;
 	int z;
 
-	angle = 0.0;
-	while (angle < 1)
+	angle = -0.5;
+	while (angle < 0.5)
 	{
 		x = (MI_SIZE / 2) * MI_CEL_SIZE;
 		y = (MI_SIZE / 2) * MI_CEL_SIZE;
@@ -29,7 +29,7 @@ static void draw_ray_view(t_all *all, float x, float y)
 			if (my_mlx_pixel_get(&all->img, x, y) == MI_WALL_COLOR || \
 				my_mlx_pixel_get(&all->img, x, y) == 0 || my_mlx_pixel_get(&all->img, x - 1, y) == 0)
 				break;
-			my_mlx_pixel_put(&all->img, x, y, MI_PLAYER_COLOR);
+			my_mlx_pixel_put(&all->img, x, y, 0xc8c8c8);
 		}
 		angle += 0.01;
 	}

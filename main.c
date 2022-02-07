@@ -89,6 +89,7 @@ void cub_init(t_all *all)
 
 	all->player.moveSpeed = 0.3;
 	all->player.rotSpeed = 0.3;
+	all->animation = 0xDE;
 	texture_load(all, all->map.no_texture);
 	texture_load(all, all->map.so_texture);
 	texture_load(all, all->map.we_texture);
@@ -100,7 +101,10 @@ int mouse_hook(int x, int y, t_all *all)
 	double oldDir;
 	double oldPlane;
 	double rotSpeed;
+	mlx_mouse_hide();
 
+	if (x < 0 || x > SCREEN_WIDTH)
+		mlx_mouse_move(all->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (x != all->x)
 	{
 		rotSpeed = 0.03;
@@ -117,6 +121,14 @@ int mouse_hook(int x, int y, t_all *all)
 	all -> x = x;
 	return (0);
 }
+
+// int sprite_animation(t_all *all)
+// {
+// 	all->animation = 0xDE;
+// 	// printf("%d\n", i);
+// 	draw_sprites(all, all->animation);		
+// 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+// 	all->animation += 1;
 
 int draw_all(t_all *all)
 {

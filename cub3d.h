@@ -106,6 +106,7 @@ typedef struct s_all
 	t_map		map;
 	t_sprites	sprites;
 	int			x;
+	double			animation;
 }	t_all;
 
 

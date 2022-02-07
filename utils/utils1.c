@@ -17,13 +17,12 @@ int		my_hook(int key, t_all *all)
 		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 
-		// test_draw(all);
 		// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 		draw_screen(all);
 
 		// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 		
-		draw_sprites(all);
+		draw_sprites(all, 1);
 
 		// Квадратик в центре
 		draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);

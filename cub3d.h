@@ -147,6 +147,6 @@ void texture_load(t_all *all, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
-void draw_sprites(t_all *all);
+void draw_sprites(t_all *all, int col);
 
 #endif

@@ -9,7 +9,7 @@ typedef struct s_sprite
 
 #define SPRITES_NUM 1
 
-void draw_sprites(t_all *all)
+void draw_sprites(t_all *all, int col)
 {
     t_data data;
 
@@ -105,7 +105,7 @@ void draw_sprites(t_all *all)
                     // printf("%i / ", tex_y);
                     int color = my_mlx_pixel_get(sprites[i].texture, tex_x, tex_y);
                     if (color != 0x000000)
-                        my_mlx_pixel_put(&all->img, stripe, y, color);
+                        my_mlx_pixel_put(&all->img, stripe, y, color / col);
                     y++;
                 }
             }

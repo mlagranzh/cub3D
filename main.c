@@ -56,11 +56,11 @@ int mouse_hook(int x, int y, t_all *all)
 	double oldDir;
 	double oldPlane;
 	double rotSpeed;
-	
+	// printf("x: %d\n", x);
 	if (x != all->x)
 	{
 		rotSpeed = 0.03;
-		if (abs(x) > abs(all->x))
+		if (x > all->x)
 			rotSpeed = -rotSpeed;
 
 		oldDir = all->player.dir_x;
@@ -73,10 +73,23 @@ int mouse_hook(int x, int y, t_all *all)
 		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 		draw_screen(all);
 		draw_minimap(all);
-		draw_sprites(all);
+		draw_sprites(all, 1);
+
 		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}
 	all -> x = x;
+	return (0);
+}
+
+int sprite_animation(t_all *all)
+{
+	static int i = 0;
+	i++;
+	printf("%d\n", i);
+	draw_sprites(all, i);		
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	// 	z++;
+	// }
 	return (0);
 }
 
@@ -94,12 +107,14 @@ int main(int argc, char **argv)
 
 	draw_screen(&all);
 	draw_minimap(&all);
-	draw_sprites(&all);
+	draw_sprites(&all, 1);
 
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
 	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
+
+	mlx_loop_hook(all.mlx, sprite_animation, (void *)&all);
 
 	mlx_loop(all.mlx);
 	return (0);

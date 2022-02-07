@@ -107,7 +107,7 @@ void move_straight(int key, t_all *all)
 		all->player.dir_y *= -1;
 	}
 	
-	printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
+	// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 }
 
 void move_side(int key, t_all *all)

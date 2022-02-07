@@ -22,7 +22,7 @@ int		my_hook(int key, t_all *all)
 
 		// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 		
-		draw_sprites(all, 1);
+		draw_sprites(all, all->animation);
 
 		// Квадратик в центре
 		draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);

@@ -43,6 +43,7 @@ void cub_init(t_all *all)
 
 	all->player.moveSpeed = 0.3;
 	all->player.rotSpeed = 0.3;
+	all->animation = 0xDE;
 	texture_load(all, all->map.no_texture);
 	texture_load(all, all->map.so_texture);
 	texture_load(all, all->map.we_texture);
@@ -57,6 +58,9 @@ int mouse_hook(int x, int y, t_all *all)
 	double oldPlane;
 	double rotSpeed;
 	// printf("x: %d\n", x);
+	mlx_mouse_hide();
+	if (x > SCREEN_WIDTH || x < 0)
+		mlx_mouse_move(all->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (x != all->x)
 	{
 		rotSpeed = 0.03;
@@ -69,11 +73,11 @@ int mouse_hook(int x, int y, t_all *all)
 		oldPlane = all -> player.plane_x;
 		all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
 		all -> player.plane_y = oldPlane * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
-		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-		all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+		// all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+		// all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 		draw_screen(all);
 		draw_minimap(all);
-		draw_sprites(all, 1);
+		draw_sprites(all,all->animation);
 
 		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}
@@ -81,15 +85,14 @@ int mouse_hook(int x, int y, t_all *all)
 	return (0);
 }
 
+
 int sprite_animation(t_all *all)
 {
-	static int i = 0;
-	i++;
-	printf("%d\n", i);
-	draw_sprites(all, i);		
+	all->animation = 0xDE;
+	// printf("%d\n", i);
+	draw_sprites(all, all->animation);		
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	// 	z++;
-	// }
+	all->animation += 1;
 	return (0);
 }
 
@@ -107,13 +110,12 @@ int main(int argc, char **argv)
 
 	draw_screen(&all);
 	draw_minimap(&all);
-	draw_sprites(&all, 1);
-
+	draw_sprites(&all, all.animation);
+	
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
 	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
-
 	mlx_loop_hook(all.mlx, sprite_animation, (void *)&all);
 
 	mlx_loop(all.mlx);

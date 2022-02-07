@@ -9,7 +9,29 @@ typedef struct s_sprite
 
 #define SPRITES_NUM 1
 
-void draw_sprites(t_all *all, int col)
+
+unsigned char	get_t(int trgb)
+{
+	return (((unsigned char *)&trgb)[3]);
+}
+
+unsigned char	get_r(int trgb)
+{
+	return (((unsigned char *)&trgb)[2]);
+}
+
+unsigned char	get_g(int trgb)
+{
+	return (((unsigned char *)&trgb)[1]);
+}
+
+unsigned char	get_b(int trgb)
+{
+	return (((unsigned char *)&trgb)[0]);
+}
+
+
+void draw_sprites(t_all *all, double col)
 {
     t_data data;
 
@@ -105,7 +127,10 @@ void draw_sprites(t_all *all, int col)
                     // printf("%i / ", tex_y);
                     int color = my_mlx_pixel_get(sprites[i].texture, tex_x, tex_y);
                     if (color != 0x000000)
-                        my_mlx_pixel_put(&all->img, stripe, y, color / col);
+                    // {
+                    //     color = create_trgb(col, get_r(color), get_g(color), get_b(color));
+                        my_mlx_pixel_put(&all->img, stripe, y, color);
+                    // }
                     y++;
                 }
             }

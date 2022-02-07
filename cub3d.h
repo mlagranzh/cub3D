@@ -79,6 +79,7 @@ typedef struct s_all
 	t_map		map;
 	int			*z_buffer;
 	int			x;
+	double			animation;
 }	t_all;
 
 
@@ -147,6 +148,6 @@ void texture_load(t_all *all, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
-void draw_sprites(t_all *all, int col);
+void draw_sprites(t_all *all, double col);
 
 #endif

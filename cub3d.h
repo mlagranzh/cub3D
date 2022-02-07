@@ -76,19 +76,22 @@ typedef struct s_sprite_coordinate
 	double		x;
 	double		y;
 	double		distance;
-	int		u_div;
-	int		v_div;
-	double	v_move;
-	t_data	texture;
+	int			u_div;
+	int			v_div;
+	double		v_move;
+	int			coller;
+	int			coller_min;
+	int			coller_max;
+	t_data		texture;
+	int			flag;
 }	t_coordinate;
 
 typedef struct s_sprites
 {
 	t_data			barrel_whole_tex;
 	t_data			barrel_ruined_tex;
-	t_data			light_tex;
-	int				light_coller_min;
-	int				light_coller_max;
+	t_data			light_ellow_tex;
+	t_data			light_red_tex;
 	t_coordinate	*coordinates;
 	int				num;
 	int				*z_buffer;

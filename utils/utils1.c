@@ -12,6 +12,11 @@ int		my_hook(int key, t_all *all)
 		rotate(key, all);
 	if (key == KEY_ESC)
 		exit(0);
+	if (key == 49)
+	{
+		all->sprites.coordinates[1].flag = 1;
+		all->sprites.coordinates[1].texture = all->sprites.barrel_whole_tex;
+	}
 /*
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124)
 	{

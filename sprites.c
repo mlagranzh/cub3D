@@ -1,22 +1,50 @@
 #include "cub3d.h"
 
+unsigned char	get_t(int trgb)
+{
+	return (((unsigned char *)&trgb)[3]);
+}
+
+unsigned char	get_r(int trgb)
+{
+	return (((unsigned char *)&trgb)[2]);
+}
+
+unsigned char	get_g(int trgb)
+{
+	return (((unsigned char *)&trgb)[1]);
+}
+
+unsigned char	get_b(int trgb)
+{
+	return (((unsigned char *)&trgb)[0]);
+}
+
 void draw_sprites(t_all *all)
 {
-    static int coller = 1;
     int i;
 
     /* sort */
-    if (coller > all->sprites.light_coller_max)
-        coller = all->sprites.light_coller_min;
     i = 0;
     while (i < all->sprites.num)
     {
+        all->sprites.coordinates[i].coller++;
+        if (all->sprites.coordinates[i].coller > all->sprites.coordinates[i].coller_max)
+            all->sprites.coordinates[i].coller = all->sprites.coordinates[i].coller_min;
+        if (all->sprites.coordinates[i].flag == 2 && all->sprites.coordinates[i].coller == all->sprites.coordinates[i].coller_max / 2)
+            all->sprites.coordinates[i].texture = all->sprites.light_red_tex;
+        if (all->sprites.coordinates[i].flag == 2 && all->sprites.coordinates[i].coller == 0)
+            all->sprites.coordinates[i].texture = all->sprites.light_ellow_tex;
         // printf("\n\n-------FACK-------\n");
         double sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;//sprites[i].x - all->player.pos_x;
         double sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;//sprites[i].y - all->player.pos_y;
 
         if (fabs(sprite_x) < 0.2 && fabs(sprite_y) < 0.2)
         {
+            if (all->sprites.coordinates[i].flag == 1)
+            {
+                all->sprites.coordinates[i].texture = all->sprites.barrel_ruined_tex;
+            }
             i++;
             continue ;
         }

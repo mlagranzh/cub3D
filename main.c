@@ -8,20 +8,23 @@ void sprites_init(t_all *all)
 		&all->sprites.barrel_whole_tex.bits_per_pixel, &all->sprites.barrel_whole_tex.line_length,
 		&all->sprites.barrel_whole_tex.endian);
 
-	all->sprites.barrel_ruined_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/barrel.xpm",
+	all->sprites.barrel_ruined_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/ellowlight.xpm",
 		&all->sprites.barrel_ruined_tex.line_length, &all->sprites.barrel_ruined_tex.line_length);
 	all->sprites.barrel_ruined_tex.addr = mlx_get_data_addr(all->sprites.barrel_ruined_tex.img,
 		&all->sprites.barrel_ruined_tex.bits_per_pixel, &all->sprites.barrel_ruined_tex.line_length,
 		&all->sprites.barrel_ruined_tex.endian);
 
-	all->sprites.light_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/greenlight.xpm",
-		&all->sprites.light_tex.line_length, &all->sprites.light_tex.line_length);
-	all->sprites.light_tex.addr = mlx_get_data_addr(all->sprites.light_tex.img,
-		&all->sprites.light_tex.bits_per_pixel, &all->sprites.light_tex.line_length,
-		&all->sprites.light_tex.endian);
+	all->sprites.light_ellow_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/ellowlight.xpm",
+		&all->sprites.light_ellow_tex.line_length, &all->sprites.light_ellow_tex.line_length);
+	all->sprites.light_ellow_tex.addr = mlx_get_data_addr(all->sprites.light_ellow_tex.img,
+		&all->sprites.light_ellow_tex.bits_per_pixel, &all->sprites.light_ellow_tex.line_length,
+		&all->sprites.light_ellow_tex.endian);
 
-	all->sprites.light_coller_min = 1;
-	all->sprites.light_coller_max = 70;
+	all->sprites.light_red_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/redlight.xpm",
+		&all->sprites.light_red_tex.line_length, &all->sprites.light_red_tex.line_length);
+	all->sprites.light_red_tex.addr = mlx_get_data_addr(all->sprites.light_red_tex.img,
+		&all->sprites.light_red_tex.bits_per_pixel, &all->sprites.light_red_tex.line_length,
+		&all->sprites.light_red_tex.endian);
 
 	all->sprites.num = 2;
 
@@ -36,13 +39,21 @@ void sprites_init(t_all *all)
 	all->sprites.coordinates[0].u_div = 1;
 	all->sprites.coordinates[0].v_div = 1;
 	all->sprites.coordinates[0].v_move = 0.0;
+	all->sprites.coordinates[0].coller = 0;
+	all->sprites.coordinates[0].coller_min = 0;
+	all->sprites.coordinates[0].coller_max = 0;
+	all->sprites.coordinates[0].flag = 1;
 
-	all->sprites.coordinates[1].texture = all->sprites.light_tex;
+	all->sprites.coordinates[1].texture = all->sprites.light_ellow_tex;
 	all->sprites.coordinates[1].x = 3.5;
 	all->sprites.coordinates[1].y = 22.5;
 	all->sprites.coordinates[1].u_div = 1;
 	all->sprites.coordinates[1].v_div = 1;
 	all->sprites.coordinates[1].v_move = 0.0;
+	all->sprites.coordinates[1].coller = 0;
+	all->sprites.coordinates[1].coller_min = 0;
+	all->sprites.coordinates[1].coller_max = 100;
+	all->sprites.coordinates[1].flag = 2;
 }
 
 void side_init(t_player *player)
@@ -132,8 +143,8 @@ int mouse_hook(int x, int y, t_all *all)
 
 int draw_all(t_all *all)
 {
-	all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+	// all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	// all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 
 	draw_screen(all);
 	draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);
@@ -159,7 +170,7 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
+	// mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 
 	mlx_loop_hook(all.mlx, draw_all, (void *)&all);
 

@@ -76,6 +76,10 @@ int mouse_hook(int x, int y, t_all *all)
 	double oldDir;
 	double oldPlane;
 	double rotSpeed;
+	mlx_mouse_hide();
+
+	if (x < 0 || x > SCREEN_WIDTH)
+		mlx_mouse_move(all->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (x != all->x)
 	{
 		rotSpeed = 0.03;

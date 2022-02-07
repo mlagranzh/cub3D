@@ -1,5 +1,24 @@
 #include "cub3d.h"
 
+void sprites_init(t_all *all)
+{
+	t_data data;
+
+    data.img = mlx_xpm_file_to_image(all->mlx, "textures/barrel.xpm", &data.line_length, &data.line_length);
+    data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
+
+	t_sprite sprites[SPRITES_NUM] =
+    {
+        {1.5, 19.5, 70, 0, &data},
+        // {2.0, 4.0, &data},
+        // {3.0, 3.0, &data},
+        // {4.0, 2.0, &data},
+        // {5.0, 1.0, &data}
+    };
+
+	
+}
+
 void side_init(t_player *player)
 {
 	if (player->start_side == 'W')
@@ -57,10 +76,6 @@ int mouse_hook(int x, int y, t_all *all)
 	double oldDir;
 	double oldPlane;
 	double rotSpeed;
-	// printf("x: %d\n", x);
-	mlx_mouse_hide();
-	if (x > SCREEN_WIDTH || x < 0)
-		mlx_mouse_move(all->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	if (x != all->x)
 	{
 		rotSpeed = 0.03;
@@ -73,26 +88,34 @@ int mouse_hook(int x, int y, t_all *all)
 		oldPlane = all -> player.plane_x;
 		all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
 		all -> player.plane_y = oldPlane * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
-		// all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-		// all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
-		draw_screen(all);
-		draw_minimap(all);
-		draw_sprites(all,all->animation);
-
-		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}
 	all -> x = x;
 	return (0);
 }
 
+// int sprite_animation(t_all *all)
+// {
+// 	all->animation = 0xDE;
+// 	// printf("%d\n", i);
+// 	draw_sprites(all, all->animation);		
+// 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+// 	all->animation += 1;
 
-int sprite_animation(t_all *all)
+int draw_all(t_all *all)
 {
-	all->animation = 0xDE;
-	// printf("%d\n", i);
-	draw_sprites(all, all->animation);		
+	static int i = 0;
+
+	if (i > 70)
+		i = 1;
+	all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
+
+	draw_screen(all);
+	draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);
+	draw_minimap(all);
+	// draw_sprites(all, i++);
+
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	all->animation += 1;
 	return (0);
 }
 
@@ -108,15 +131,12 @@ int main(int argc, char **argv)
 		return (1);
 	cub_init(&all);
 
-	draw_screen(&all);
-	draw_minimap(&all);
-	draw_sprites(&all, all.animation);
-	
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
 	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
-	mlx_loop_hook(all.mlx, sprite_animation, (void *)&all);
+
+	mlx_loop_hook(all.mlx, draw_all, (void *)&all);
 
 	mlx_loop(all.mlx);
 	return (0);

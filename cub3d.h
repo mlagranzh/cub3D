@@ -34,6 +34,8 @@ enum    e_retvals
     SUCCESS = 0
 };
 
+#define SPRITES_NUM 1
+
 typedef struct	s_data
 {
 	void	*img;
@@ -69,6 +71,24 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef struct s_barrel
+{
+	t_data	*texture_whole;
+	t_data	*texture_ruined;
+	
+}	t_barrel;
+
+typedef struct s_sprite
+{
+
+    double			x;
+    double			y;
+    int				coller_max;
+    int				coller;
+    t_data			*texture;
+	struct s_sprite	*next;
+}   t_sprite;
+
 typedef struct s_all
 {
 	void		*mlx;
@@ -77,6 +97,7 @@ typedef struct s_all
 	t_data		wall[4];
 	t_player	player;
 	t_map		map;
+	t_sprite	*sprites;
 	int			*z_buffer;
 	int			x;
 }	t_all;

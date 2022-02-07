@@ -12,6 +12,7 @@ int		my_hook(int key, t_all *all)
 		rotate(key, all);
 	if (key == KEY_ESC)
 		exit(0);
+/*
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124)
 	{
 		all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -31,6 +32,7 @@ int		my_hook(int key, t_all *all)
 
 		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	}
+*/
 	return (0);
 }
 

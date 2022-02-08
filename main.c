@@ -2,58 +2,42 @@
 
 void sprites_init(t_all *all)
 {
-	all->sprites.barrel_whole_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/barrel.xpm",
-		&all->sprites.barrel_whole_tex.line_length, &all->sprites.barrel_whole_tex.line_length);
-	all->sprites.barrel_whole_tex.addr = mlx_get_data_addr(all->sprites.barrel_whole_tex.img,
-		&all->sprites.barrel_whole_tex.bits_per_pixel, &all->sprites.barrel_whole_tex.line_length,
-		&all->sprites.barrel_whole_tex.endian);
-
-	all->sprites.barrel_ruined_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/ellowlight.xpm",
-		&all->sprites.barrel_ruined_tex.line_length, &all->sprites.barrel_ruined_tex.line_length);
-	all->sprites.barrel_ruined_tex.addr = mlx_get_data_addr(all->sprites.barrel_ruined_tex.img,
-		&all->sprites.barrel_ruined_tex.bits_per_pixel, &all->sprites.barrel_ruined_tex.line_length,
-		&all->sprites.barrel_ruined_tex.endian);
-
-	all->sprites.light_ellow_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/ellowlight.xpm",
-		&all->sprites.light_ellow_tex.line_length, &all->sprites.light_ellow_tex.line_length);
-	all->sprites.light_ellow_tex.addr = mlx_get_data_addr(all->sprites.light_ellow_tex.img,
-		&all->sprites.light_ellow_tex.bits_per_pixel, &all->sprites.light_ellow_tex.line_length,
-		&all->sprites.light_ellow_tex.endian);
-
-	all->sprites.light_red_tex.img = mlx_xpm_file_to_image(all->mlx, "textures/redlight.xpm",
-		&all->sprites.light_red_tex.line_length, &all->sprites.light_red_tex.line_length);
-	all->sprites.light_red_tex.addr = mlx_get_data_addr(all->sprites.light_red_tex.img,
-		&all->sprites.light_red_tex.bits_per_pixel, &all->sprites.light_red_tex.line_length,
-		&all->sprites.light_red_tex.endian);
-
 	all->sprites.num = 2;
-
-	all->sprites.coordinates = (t_coordinate *)malloc(sizeof(t_coordinate) * all->sprites.num);
 
 	all->sprites.z_buffer = (int *)malloc(sizeof(int) * SCREEN_WIDTH);
 
+	all->sprites.coordinates = (t_coordinate *)malloc(sizeof(t_coordinate) * all->sprites.num);
+
+	all->sprites.coordinates[0].texture = (t_data *)malloc(sizeof(t_data) * 2);
+	texture_load(all, &all->sprites.coordinates[0].texture[0], "textures/barrel_whole.xpm");
+	texture_load(all, &all->sprites.coordinates[0].texture[1], "textures/barrel_ruined.xpm");
+	
+	all->sprites.coordinates[1].texture = (t_data *)malloc(sizeof(t_data) * 3);
+	texture_load(all, &all->sprites.coordinates[1].texture[0], "textures/ellowlight.xpm");
+	texture_load(all, &all->sprites.coordinates[1].texture[1], "textures/redlight.xpm");
+	texture_load(all, &all->sprites.coordinates[1].texture[2], "textures/blacklight.xpm");
+
+	all->sprites.coller = 0;
+	all->sprites.coller_max = 89;
+	all->sprites.coller_min = 0;
+	all->sprites.coller_mod = 45;
+
 	/* */
-	all->sprites.coordinates[0].texture = all->sprites.barrel_whole_tex;
 	all->sprites.coordinates[0].x = 1.5;
 	all->sprites.coordinates[0].y = 19.5;
 	all->sprites.coordinates[0].u_div = 1;
 	all->sprites.coordinates[0].v_div = 1;
 	all->sprites.coordinates[0].v_move = 0.0;
-	all->sprites.coordinates[0].coller = 0;
-	all->sprites.coordinates[0].coller_min = 0;
-	all->sprites.coordinates[0].coller_max = 0;
-	all->sprites.coordinates[0].flag = 1;
-
-	all->sprites.coordinates[1].texture = all->sprites.light_ellow_tex;
+	all->sprites.coordinates[0].texture_flag = 0;
+	all->sprites.coordinates[0].texture_name = BARREL;
+	
 	all->sprites.coordinates[1].x = 3.5;
 	all->sprites.coordinates[1].y = 22.5;
 	all->sprites.coordinates[1].u_div = 1;
 	all->sprites.coordinates[1].v_div = 1;
 	all->sprites.coordinates[1].v_move = 0.0;
-	all->sprites.coordinates[1].coller = 0;
-	all->sprites.coordinates[1].coller_min = 0;
-	all->sprites.coordinates[1].coller_max = 100;
-	all->sprites.coordinates[1].flag = 2;
+	all->sprites.coordinates[1].texture_flag = 0;
+	all->sprites.coordinates[1].texture_name = LIGHT;
 }
 
 void side_init(t_player *player)
@@ -101,10 +85,10 @@ void cub_init(t_all *all)
 	all->player.moveSpeed = 0.3;
 	all->player.rotSpeed = 0.3;
 	all->animation = 0xDE;
-	texture_load(all, all->map.no_texture);
-	texture_load(all, all->map.so_texture);
-	texture_load(all, all->map.we_texture);
-	texture_load(all, all->map.ea_texture);
+	texture_load(all, &all->wall[0], all->map.no_texture);
+	texture_load(all, &all->wall[1], all->map.so_texture);
+	texture_load(all, &all->wall[2], all->map.we_texture);
+	texture_load(all, &all->wall[3], all->map.ea_texture);
 }
 
 int mouse_hook(int x, int y, t_all *all)
@@ -148,8 +132,8 @@ int draw_all(t_all *all)
 
 	draw_screen(all);
 	draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);
-	draw_minimap(all);
 	draw_sprites(all);
+	draw_minimap(all);
 
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	return (0);

@@ -25,26 +25,22 @@ void draw_sprites(t_all *all)
     int i;
 
     /* sort */
+    
+    all->sprites.coller++;
+    if (all->sprites.coller >= all->sprites.coller_max)
+        all->sprites.coller = all->sprites.coller_min;
+    // printf("coller = %i\n", all->sprites.coller / all->sprites.coller_mod);
     i = 0;
     while (i < all->sprites.num)
     {
-        all->sprites.coordinates[i].coller++;
-        if (all->sprites.coordinates[i].coller > all->sprites.coordinates[i].coller_max)
-            all->sprites.coordinates[i].coller = all->sprites.coordinates[i].coller_min;
-        if (all->sprites.coordinates[i].flag == 2 && all->sprites.coordinates[i].coller == all->sprites.coordinates[i].coller_max / 2)
-            all->sprites.coordinates[i].texture = all->sprites.light_red_tex;
-        if (all->sprites.coordinates[i].flag == 2 && all->sprites.coordinates[i].coller == 0)
-            all->sprites.coordinates[i].texture = all->sprites.light_ellow_tex;
         // printf("\n\n-------FACK-------\n");
         double sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;//sprites[i].x - all->player.pos_x;
         double sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;//sprites[i].y - all->player.pos_y;
 
         if (fabs(sprite_x) < 0.2 && fabs(sprite_y) < 0.2)
         {
-            if (all->sprites.coordinates[i].flag == 1)
-            {
-                all->sprites.coordinates[i].texture = all->sprites.barrel_ruined_tex;
-            }
+            if (all->sprites.coordinates[i].texture_name == BARREL)
+                all->sprites.coordinates[i].texture_flag = 1;
             i++;
             continue ;
         }
@@ -109,7 +105,11 @@ void draw_sprites(t_all *all)
                     int d = (y - v_move_screen) * 256 - SCREEN_HEIGHT * 128 + sprite_height * 128;
                     int tex_y = ((d * texHeight) / sprite_height) / 256;
                     // printf("%i / ", tex_y);
-                    int color = my_mlx_pixel_get(&all->sprites.coordinates[i].texture, tex_x, tex_y);
+                    int color = 0x000000;
+                    if (all->sprites.coordinates[i].texture_name == BARREL)
+                        color = my_mlx_pixel_get(&all->sprites.coordinates[i].texture[all->sprites.coordinates[i].texture_flag], tex_x, tex_y);
+                    if (all->sprites.coordinates[i].texture_name == LIGHT)
+                        color = my_mlx_pixel_get(&all->sprites.coordinates[i].texture[all->sprites.coller / all->sprites.coller_mod], tex_x, tex_y);
                     if (color != 0x000000)
                         my_mlx_pixel_put(&all->img, stripe, y, color);
                     y++;

@@ -41,20 +41,18 @@ void draw_wall(t_all *all, t_raycast *raycast, int x)
 	draw(all, raycast, x, texX);
 }
 
-void texture_load(t_all *all, char	*path)
+void texture_load(t_all *all, t_data *data, char	*path)
 {
 	void	*img;
 	int		img_width;
 	int		img_height;
-	static int num = 0;
 
-	all->wall[num].img = mlx_xpm_file_to_image(all->mlx, path, &img_width, &img_height);
-	if (all->wall[num].img == NULL)
+	data->img = mlx_xpm_file_to_image(all->mlx, path, &img_width, &img_height);
+	if (data->img == NULL)
 	{
 		write(2, "Texture not found!\n", 20);
 		exit(1);
 	}
-	all->wall[num].addr = mlx_get_data_addr(all->wall[num].img,  &all->wall[num].bits_per_pixel, \
-						&all->wall[num].line_length, &all->wall[num].endian);
-	num++;
+	data->addr = mlx_get_data_addr(data->img,  &data->bits_per_pixel,
+		&data->line_length, &data->endian);
 }

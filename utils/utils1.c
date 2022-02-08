@@ -14,8 +14,18 @@ int		my_hook(int key, t_all *all)
 		exit(0);
 	if (key == 49)
 	{
-		all->sprites.coordinates[1].flag = 1;
-		all->sprites.coordinates[1].texture = all->sprites.barrel_whole_tex;
+		if (all->sprites.coller_min == 0)
+		{
+			all->sprites.coller_min = all->sprites.coller_max;
+			all->sprites.coller = all->sprites.coller_max;
+			all->sprites.coller_mod = 30;
+		}
+		else
+		{
+			all->sprites.coller_min = 0;
+			all->sprites.coller = 0;
+			all->sprites.coller_mod = 45;
+		}
 	}
 /*
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124)

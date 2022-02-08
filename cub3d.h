@@ -71,6 +71,12 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+enum    e_textures_name
+{
+    BARREL = 1,
+    LIGHT = 2
+};
+
 typedef struct s_sprite_coordinate
 {
 	double		x;
@@ -79,25 +85,21 @@ typedef struct s_sprite_coordinate
 	int			u_div;
 	int			v_div;
 	double		v_move;
-	int			coller;
-	int			coller_min;
-	int			coller_max;
-	t_data		texture;
-	int			flag;
+	t_data		*texture;
+	int			texture_flag;
+	int			texture_name;
 }	t_coordinate;
 
 typedef struct s_sprites
 {
-	t_data			barrel_whole_tex;
-	t_data			barrel_ruined_tex;
-	t_data			light_ellow_tex;
-	t_data			light_red_tex;
+	int				coller;
+	int				coller_max;
+	int				coller_min;
+	int				coller_mod;
 	t_coordinate	*coordinates;
 	int				num;
 	int				*z_buffer;
 }   t_sprites;
-
-
 
 typedef struct s_all
 {
@@ -174,7 +176,7 @@ void	draw_minimap(t_all *all);
 //draw_screen
 void	draw_screen(t_all *all);
 
-void texture_load(t_all *all, char	*path);
+void texture_load(t_all *all, t_data *data, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 

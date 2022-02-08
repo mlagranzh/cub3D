@@ -154,7 +154,6 @@ char	**ft_realloc(char **mas, char *new_line);
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color);
 int	    destroy(t_all *all);
-int     my_hook(int key, t_all *all);
 
 //utils2
 int	create_trgb(int t, int r, int g, int b);
@@ -181,5 +180,20 @@ void texture_load(t_all *all, t_data *data, char	*path);
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
 void draw_sprites(t_all *all);
+
+
+int loop_hook(t_all *all);
+int mouse_hook(int x, int y, t_all *all);
+int     my_hook(int key, t_all *all);
+
+
+
+unsigned char	get_t(int trgb);
+unsigned char	get_r(int trgb);
+unsigned char	get_g(int trgb);
+unsigned char	get_b(int trgb);
+
+
+void	my_mlx_pixel_set(t_data *data, int x, int y, int color);
 
 #endif

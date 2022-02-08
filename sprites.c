@@ -1,24 +1,5 @@
 #include "cub3d.h"
 
-unsigned char	get_t(int trgb)
-{
-	return (((unsigned char *)&trgb)[3]);
-}
-
-unsigned char	get_r(int trgb)
-{
-	return (((unsigned char *)&trgb)[2]);
-}
-
-unsigned char	get_g(int trgb)
-{
-	return (((unsigned char *)&trgb)[1]);
-}
-
-unsigned char	get_b(int trgb)
-{
-	return (((unsigned char *)&trgb)[0]);
-}
 
 void draw_sprites(t_all *all)
 {

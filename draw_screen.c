@@ -103,13 +103,9 @@ void	draw_screen(t_all *all)
 		side_dist(all, raycast);
 		dda_algorithm(all, raycast);
 		where(raycast);
-		// printf("%f\t%f\t\n", side_dist_x, side_dist_y);
 		draw_ver_line(all, x, 0, raycast->draw_start, all->map.ceilling_color);
 		draw_ver_line(all, x, raycast->draw_end, SCREEN_HEIGHT, all->map.floor_color);
 		draw_wall(all, raycast, x);
-
-		// printf("%i / %i\n", raycast->draw_end, raycast->line_height);
-
 		all->sprites.z_buffer[x] = raycast->perp_wall_dist;
 
 		x++;

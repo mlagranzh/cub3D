@@ -103,15 +103,31 @@ typedef struct s_sprites
 	double			*z_buffer;
 }   t_sprites;
 
+typedef struct s_fog
+{
+	int		flag;
+
+	t_data	*clear_wall;
+	t_data	*clear_barrel;
+	int		clear_floor;
+	int		clear_ceilling;
+
+	t_data	*fog_wall;
+	t_data	*fog_barrel;
+	int		fog_floor;
+	int		fog_ceilling;
+}	t_fog;
+
 typedef struct s_all
 {
 	void		*mlx;
 	void		*win;
 	t_data		img;
-	t_data		wall[4];
+	t_data		*wall;
 	t_player	player;
 	t_map		map;
 	t_sprites	sprites;
+	t_fog		fog;
 	int			x;
 	double			animation;
 }	t_all;
@@ -187,16 +203,15 @@ void sprites_init(t_all *all);
 
 int loop_hook(t_all *all);
 int mouse_hook(int x, int y, t_all *all);
-int     my_hook(int key, t_all *all);
-
-
+int my_hook(int key, t_all *all);
 
 unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
-
-void	my_mlx_pixel_set(t_data *data, int x, int y, int color);
+// fog
+void fog_init(t_all *all);
+void fog(t_all *all);
 
 #endif

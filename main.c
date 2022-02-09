@@ -1,45 +1,5 @@
 #include "cub3d.h"
 
-void sprites_init(t_all *all)
-{
-	all->sprites.num = 2;
-
-	all->sprites.z_buffer = (int *)malloc(sizeof(int) * SCREEN_WIDTH);
-
-	all->sprites.coordinates = (t_coordinate *)malloc(sizeof(t_coordinate) * all->sprites.num);
-
-	all->sprites.coordinates[0].texture = (t_data *)malloc(sizeof(t_data) * 2);
-	texture_load(all, &all->sprites.coordinates[0].texture[0], "textures/barrel_whole.xpm");
-	texture_load(all, &all->sprites.coordinates[0].texture[1], "textures/barrel_ruined.xpm");
-	
-	all->sprites.coordinates[1].texture = (t_data *)malloc(sizeof(t_data) * 3);
-	texture_load(all, &all->sprites.coordinates[1].texture[0], "textures/ellowlight.xpm");
-	texture_load(all, &all->sprites.coordinates[1].texture[1], "textures/redlight.xpm");
-	texture_load(all, &all->sprites.coordinates[1].texture[2], "textures/blacklight.xpm");
-
-	all->sprites.coller = 0;
-	all->sprites.coller_max = 89;
-	all->sprites.coller_min = 0;
-	all->sprites.coller_mod = 45;
-
-	/* */
-	all->sprites.coordinates[0].x = 1.5;
-	all->sprites.coordinates[0].y = 19.5;
-	all->sprites.coordinates[0].u_div = 1;
-	all->sprites.coordinates[0].v_div = 1;
-	all->sprites.coordinates[0].v_move = 0.0;
-	all->sprites.coordinates[0].texture_flag = 0;
-	all->sprites.coordinates[0].texture_name = BARREL;
-	
-	all->sprites.coordinates[1].x = 3.5;
-	all->sprites.coordinates[1].y = 22.5;
-	all->sprites.coordinates[1].u_div = 1;
-	all->sprites.coordinates[1].v_div = 1;
-	all->sprites.coordinates[1].v_move = 0.0;
-	all->sprites.coordinates[1].texture_flag = 0;
-	all->sprites.coordinates[1].texture_name = LIGHT;
-}
-
 void side_init(t_player *player)
 {
 	if (player->start_side == 'W')
@@ -131,9 +91,9 @@ int draw_all(t_all *all)
 	// all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 
 	draw_screen(all);
-	draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);
 	draw_sprites(all);
 	draw_minimap(all);
+	draw_border_centre_square(&all->img, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 5, 0xFFFFFF, 0x000000);
 
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	return (0);
@@ -154,7 +114,7 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	// mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
+	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 
 	mlx_loop_hook(all.mlx, draw_all, (void *)&all);
 

@@ -81,24 +81,26 @@ typedef struct s_sprite_coordinate
 {
 	double		x;
 	double		y;
-	double		distance;
 	int			u_div;
 	int			v_div;
 	double		v_move;
-	t_data		*texture;
 	int			texture_flag;
 	int			texture_name;
 }	t_coordinate;
 
 typedef struct s_sprites
 {
+	t_data			*texture_light;
+	t_data			*texture_barrel;
 	int				coller;
 	int				coller_max;
 	int				coller_min;
 	int				coller_mod;
 	t_coordinate	*coordinates;
 	int				num;
-	int				*z_buffer;
+	int				*distance;
+	int				*iterator;
+	double			*z_buffer;
 }   t_sprites;
 
 typedef struct s_all
@@ -181,5 +183,6 @@ void texture_load(t_all *all, t_data *data, char	*path);
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
 void draw_sprites(t_all *all);
+void sprites_init(t_all *all);
 
 #endif

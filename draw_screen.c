@@ -94,25 +94,19 @@ void	draw_screen(t_all *all)
 	int x;
 	t_raycast *raycast;
 
-	x = 0;
+	x = -1;
 	raycast = malloc(sizeof(t_raycast));
 
-	while (x < SCREEN_WIDTH)
+	while (++x < SCREEN_WIDTH)
 	{
 		init(x, all, raycast);
 		side_dist(all, raycast);
 		dda_algorithm(all, raycast);
 		where(raycast);
-		// printf("%f\t%f\t\n", side_dist_x, side_dist_y);
 		draw_ver_line(all, x, 0, raycast->draw_start, all->map.ceilling_color);
 		draw_ver_line(all, x, raycast->draw_end, SCREEN_HEIGHT, all->map.floor_color);
 		draw_wall(all, raycast, x);
-
-		// printf("%i / %i\n", raycast->draw_end, raycast->line_height);
-
 		all->sprites.z_buffer[x] = raycast->perp_wall_dist;
-
-		x++;
 	}
 }
 

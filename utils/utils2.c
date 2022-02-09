@@ -14,6 +14,15 @@ int	my_mlx_pixel_get(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
+void	my_mlx_pixel_set(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x
+			* (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
 void	draw_square(t_data *img, int y, int x, int color)
 {
 	int i;
@@ -76,4 +85,24 @@ void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half
 		}
 		i++;
 	}
+}
+
+unsigned char	get_t(int trgb)
+{
+	return (((unsigned char *)&trgb)[3]);
+}
+
+unsigned char	get_r(int trgb)
+{
+	return (((unsigned char *)&trgb)[2]);
+}
+
+unsigned char	get_g(int trgb)
+{
+	return (((unsigned char *)&trgb)[1]);
+}
+
+unsigned char	get_b(int trgb)
+{
+	return (((unsigned char *)&trgb)[0]);
 }

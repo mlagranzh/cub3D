@@ -1,24 +1,5 @@
 #include "cub3d.h"
 
-unsigned char	get_t(int trgb)
-{
-	return (((unsigned char *)&trgb)[3]);
-}
-
-unsigned char	get_r(int trgb)
-{
-	return (((unsigned char *)&trgb)[2]);
-}
-
-unsigned char	get_g(int trgb)
-{
-	return (((unsigned char *)&trgb)[1]);
-}
-
-unsigned char	get_b(int trgb)
-{
-	return (((unsigned char *)&trgb)[0]);
-}
 
 int perpendicular_walls(char **map, int i, int j)
 {
@@ -175,7 +156,7 @@ void draw_sprites(t_all *all)
         all->sprites.coller = all->sprites.coller_min;
     // printf("coller = %i\n", all->sprites.coller / all->sprites.coller_mod);
     j = all->sprites.num;
-    while (j-- >= 0)
+    while (--j >= 0)
     {
         i = all->sprites.iterator[j];
         // printf("\n\n-------FACK-------\n");

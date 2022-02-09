@@ -1,26 +1,32 @@
 #include "cub3d.h"
 
-size_t len_int(int *array)
+void printf_array_int(int *arr, int size)
 {
-	size_t	i;
+	int i = -1;
 
-	i = 0;
+	while (++i < size)
+		printf("%d\n", arr[i]);
+}
+
+int len_int(int *array)
+{
+	int	i;
+
+	i = -1;
 	if (array == NULL)
 		return (0);
-	while (array)
-	{
+	while (array[i] != -1)
 		i++;
-		array++;
-	}
 	return (i);
 }
 
 int search_in_array(int *array, int search)
 {
-	size_t len = len_int(array);
-	size_t i = -1;
+	int i = -1;
 
-	while (++i < len)
+	if (array == NULL)
+		return -1;
+	while (array[++i] != -1)
 	{
 		if (search == array[i])
 			return (i);
@@ -31,14 +37,21 @@ int search_in_array(int *array, int search)
 
 int *add_to_dict(int *array, int number)
 {
-	size_t malloc_size;
+	int	*new_array;
 
-	malloc_size = len_int(array);
-	if (malloc_size == 0)
-		malloc_size = 1;
-	array = malloc(sizeof(int) * malloc_size + 1);
-	array[len_int(array)] = number;
-	return (array);
+	new_array = malloc(sizeof(int) * len_int(array) + 3282838);
+
+	int i = -1;
+	if (array != NULL)
+	{
+		while (array[++i] != -1)
+			new_array[i] = array[i];
+	}
+	else
+		++i;
+	new_array[i] = number;
+	new_array[i + 1] = -1;
+	return (new_array);
 }
 
 int *create_dictionary(int **array)
@@ -46,15 +59,18 @@ int *create_dictionary(int **array)
 	int count_uniq_color;
 	int x = -1;
 	int y = -1;
-	int z = -1;
+
+
 	int *dict;
+	dict = NULL;
+
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-			if (search_in_array(dict, array[x][y]) == -1)
-				dict = add_to_dict(dict, array[x][y]);
+			if (search_in_array(dict, array[y][x]) == -1)
+				dict = add_to_dict(dict, array[y][x]);
 		}
 	}
 	return (dict);
@@ -101,11 +117,12 @@ void create_file(int *dict, int **array)
 {
 	    FILE *file;
 
-	    file = fopen("fprintf.txt", "w");
+	    file = fopen("screenshot.xpm", "w");
+		fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
 		int i = -1;
 		while (++i < len_int(dict))
 		{
-			fprintf(file, "\"%c c #%s\n\"", i, ft_itoa_base(dict[i],16)); 
+			fprintf(file, "\"%c c #%s\",\n", i + 35, ft_itoa_base(dict[i],16)); 
 		}
 		fprintf(file, "/* pixels */\n");
 		int x = -1;
@@ -113,11 +130,12 @@ void create_file(int *dict, int **array)
 		while (++y < SCREEN_HEIGHT)
 		{
 			x = -1;
+			fprintf(file, "\"");
 			while (++x < SCREEN_WIDTH)
 			{
-				fprintf(file, "%c", search_in_array(dict, array[x][y]));
+				fprintf(file, "%c", search_in_array(dict, array[y][x]) + 35);
 			}
-			fprintf(file, "\n");
+			fprintf(file, "\",\n");
 		}
 }
 
@@ -150,49 +168,28 @@ int		my_hook(int key, t_all *all)
 	}
     if (key == 36) 
     {
-        int x = 0;
-        int y = 0;
+        int x = -1;
+        int y = -1;
         int i = 0;
         int red; int green; int blue; int color;
-        // while (i < 4)
-        // {
-            while (y++ < texHeight)
+        while (i < 4)
+        {
+			y = -1;
+            while (++y < texHeight)
             {
-                x = 0;
-                while (x++ < texWidth)
+                x = -1;
+                while (++x < texWidth)
                 {
-                    color = my_mlx_pixel_get(&all->wall[0], x, y);
+                    color = my_mlx_pixel_get(&all->wall[i], x, y);
                     red = get_r(color) * 0.05 + 0.95 * get_r(9802646);
                     green = get_g(color) * 0.05 + 0.95 * get_g(9802646);
                     blue = get_b(color) * 0.05 + 0.95 * get_b(9802646);
 		            color = create_trgb(0, red, green, blue);
-                    my_mlx_pixel_set(&all->wall[0], x, y, color);
-
-					                    color = my_mlx_pixel_get(&all->wall[1], x, y);
-                    red = get_r(color) * 0.05 + 0.95 * get_r(9802646);
-                    green = get_g(color) * 0.05 + 0.95 * get_g(9802646);
-                    blue = get_b(color) * 0.05 + 0.95 * get_b(9802646);
-		            color = create_trgb(0, red, green, blue);
-                    my_mlx_pixel_set(&all->wall[1], x, y, color);
-
-					                    color = my_mlx_pixel_get(&all->wall[2], x, y);
-                    red = get_r(color) * 0.05 + 0.95 * get_r(9802646);
-                    green = get_g(color) * 0.05 + 0.95 * get_g(9802646);
-                    blue = get_b(color) * 0.05 + 0.95 * get_b(9802646);
-		            color = create_trgb(0, red, green, blue);
-                    my_mlx_pixel_set(&all->wall[2], x, y, color);
-
-					                    color = my_mlx_pixel_get(&all->wall[3], x, y);
-                    red = get_r(color) * 0.05 + 0.95 * get_r(9802646);
-                    green = get_g(color) * 0.05 + 0.95 * get_g(9802646);
-                    blue = get_b(color) * 0.05 + 0.95 * get_b(9802646);
-		            color = create_trgb(0, red, green, blue);
-                    my_mlx_pixel_set(&all->wall[3], x, y, color);
-
+                    my_mlx_pixel_set(&all->wall[i], x, y, color);
                 }
             }
-		// 	i++;
-        // }
+			i++;
+        }
         red = get_r(all->map.ceilling_color) * 0.25 + 0.75 * get_r(9802646);
 		green = get_g(all->map.ceilling_color) * 0.25 + 0.75 * get_g(9802646);
 		blue = get_b(all->map.ceilling_color) * 0.25 + 0.75 * get_b(9802646);
@@ -204,8 +201,23 @@ int		my_hook(int key, t_all *all)
     }
 	if (key == 111)
 	{
-		// int *dict = create_dictionary();
-		// create_file(dict);
+		int **array = malloc(sizeof(int *) * SCREEN_HEIGHT);
+		int i = -1;
+		while (++i < SCREEN_WIDTH)
+			array[i] = malloc(sizeof(int) * SCREEN_WIDTH);
+		int x = -1; int y = -1;
+
+		while (++y < SCREEN_HEIGHT)
+		{
+			x = -1;
+			while (++x < SCREEN_WIDTH)
+			{
+				array[y][x] = my_mlx_pixel_get(&all->img, x, y);
+			}
+		}
+		int *dict = create_dictionary(array);
+		// printf_array_int(dict, 20);
+		create_file(dict, array);
 	}
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124 || key == 49 || key == 36)
 	{

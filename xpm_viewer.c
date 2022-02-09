@@ -16,8 +16,6 @@ typedef struct s_all
     int			height;
 }	t_viewer;
 
-
-
 int		my_hook(int key, t_viewer *xpm)
 {
 	if (key == 53)

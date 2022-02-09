@@ -2,8 +2,8 @@ NO ./textures/redbrick.xpm
 SO ./textures/greystone.xpm
 WE ./textures/colorstone.xpm
 EA ./textures/mossy.xpm
-F 220,100,0
-C 225,30,0
+F 56,56,56
+C 112,112,112
 
         1111111111111111111111111
         10000000001000000N0000011

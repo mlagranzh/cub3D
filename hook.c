@@ -167,38 +167,7 @@ int		my_hook(int key, t_all *all)
 		}
 	}
     if (key == 36) 
-    {
-        int x = -1;
-        int y = -1;
-        int i = 0;
-        int red; int green; int blue; int color;
-        while (i < 4)
-        {
-			y = -1;
-            while (++y < texHeight)
-            {
-                x = -1;
-                while (++x < texWidth)
-                {
-                    color = my_mlx_pixel_get(&all->wall[i], x, y);
-                    red = get_r(color) * 0.05 + 0.95 * get_r(9802646);
-                    green = get_g(color) * 0.05 + 0.95 * get_g(9802646);
-                    blue = get_b(color) * 0.05 + 0.95 * get_b(9802646);
-		            color = create_trgb(0, red, green, blue);
-                    my_mlx_pixel_set(&all->wall[i], x, y, color);
-                }
-            }
-			i++;
-        }
-        red = get_r(all->map.ceilling_color) * 0.25 + 0.75 * get_r(9802646);
-		green = get_g(all->map.ceilling_color) * 0.25 + 0.75 * get_g(9802646);
-		blue = get_b(all->map.ceilling_color) * 0.25 + 0.75 * get_b(9802646);
-		all->map.ceilling_color = create_trgb(0, red, green, blue);
-		red = get_r(all->map.floor_color) * 0.25 + 0.75 * get_r(9802646);
-		green = get_g(all->map.floor_color) * 0.25 + 0.75 * get_g(9802646);
-		blue = get_b(all->map.floor_color) * 0.25 + 0.75 * get_b(9802646);
-		all->map.floor_color  = create_trgb(0, red, green, blue);
-    }
+		fog(all);
 	if (key == 111)
 	{
 		int **array = malloc(sizeof(int *) * SCREEN_HEIGHT);

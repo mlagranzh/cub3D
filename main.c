@@ -45,10 +45,14 @@ void cub_init(t_all *all)
 	all->player.moveSpeed = 0.5;
 	all->player.rotSpeed = 0.3;
 	all->animation = 0xDE;
+
+	all->wall = (t_data *)malloc(sizeof(t_data) * 4);
 	texture_load(all, &all->wall[0], all->map.no_texture);
 	texture_load(all, &all->wall[1], all->map.so_texture);
 	texture_load(all, &all->wall[2], all->map.we_texture);
 	texture_load(all, &all->wall[3], all->map.ea_texture);
+
+	fog_init(all);
 }
 
 void cub_destroy(t_all *all)
@@ -73,7 +77,7 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
+	// mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 
 	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
 

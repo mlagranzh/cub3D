@@ -1,14 +1,9 @@
-NO ./textures/redbrick.xpm
-SO ./textures/greystone.xpm
-<<<<<<< HEAD
-WE ./textures/colorstone.xpm
-EA ./textures/mossy.xpm
-=======
-WE ./textures/mossy.xpm
+NO ./textures/bluestone.xpm
+SO ./textures/bluestone.xpm
+WE ./textures/bluestone.xpm
 EA ./textures/bluestone.xpm
->>>>>>> 9d761398e89e5f84d6257e41b19ce054765045d4
-F 56,56,56
-C 112,112,112
+C 56,56,56
+F 112,112,112
 
         1111111111111111111111111
         10000000001000000N0000011

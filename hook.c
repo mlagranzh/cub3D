@@ -1,35 +1,101 @@
 #include "cub3d.h"
 
+size_t len_int(int *array)
+{
+	size_t	i;
+
+	i = 0;
+	if (array == NULL)
+		return (0);
+	while (array)
+	{
+		i++;
+		array++;
+	}
+	return (i);
+}
+
+int search_in_array(int *array, int search)
+{
+	size_t len = len_int(array);
+	size_t i = -1;
+
+	while (++i < len)
+	{
+		if (search == array[i])
+			return (i);
+	}
+	return (-1);
+}
+
+
+int *add_to_dict(int *array, int number)
+{
+	size_t malloc_size;
+
+	malloc_size = len_int(array);
+	if (malloc_size == 0)
+		malloc_size = 1;
+	array = malloc(sizeof(int) * malloc_size + 1);
+	array[len_int(array)] = number;
+	return (array);
+}
 
 int *create_dictionary(int **array)
 {
 	int count_uniq_color;
 	int x = -1;
 	int y = -1;
+	int z = -1;
+	int *dict;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-
+			if (search_in_array(dict, array[x][y]) == -1)
+				dict = add_to_dict(dict, array[x][y]);
 		}
 	}
+	return (dict);
 }
 
-int len_int(int *array)
+int		ft_itoa_base_count(unsigned long int nb, unsigned int base)
 {
+	int i;
 
+	if (nb == 0)
+		return (1);
+	i = 0;
+	while (nb)
+	{
+		nb = nb / base;
+		i++;
+	}
+	return (i);
 }
 
-char *int_to_hex(int number)
+char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 {
+	char	*ret;
+	char	*numbers;
+	int		size;
 
+	numbers = ft_strdup("0123456789abcdef");
+	ret = NULL;
+	size = ft_itoa_base_count(nb, base);
+	if (!(ret = (char*)malloc(sizeof(char) * size + 1)))
+		return (NULL);
+	ret[size--] = '\0';
+	while (size >= 0)
+	{
+		ret[size--] = numbers[nb % base];
+		nb /= base;
+	}
+	free(numbers);
+	return (ret);
 }
 
-int index_in_array(int *array, int num)
-{
-
-}
 
 void create_file(int *dict, int **array)
 {
@@ -39,7 +105,7 @@ void create_file(int *dict, int **array)
 		int i = -1;
 		while (++i < len_int(dict))
 		{
-			fprintf(file, "\"%c c #%s\n\"", i, int_to_hex(dict[i])); 
+			fprintf(file, "\"%c c #%s\n\"", i, ft_itoa_base(dict[i],16)); 
 		}
 		fprintf(file, "/* pixels */\n");
 		int x = -1;
@@ -49,7 +115,7 @@ void create_file(int *dict, int **array)
 			x = -1;
 			while (++x < SCREEN_WIDTH)
 			{
-				fprintf(file, "%c", index_in_array(dict, array[x][y]));
+				fprintf(file, "%c", search_in_array(dict, array[x][y]));
 			}
 			fprintf(file, "\n");
 		}
@@ -138,8 +204,8 @@ int		my_hook(int key, t_all *all)
     }
 	if (key == 111)
 	{
-		int *dict = create_dictionary();
-		create_file(dict);
+		// int *dict = create_dictionary();
+		// create_file(dict);
 	}
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124 || key == 49 || key == 36)
 	{

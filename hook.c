@@ -12,7 +12,7 @@ int len_int(int *array)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (array == NULL)
 		return (0);
 	while (array[i] != -1)
@@ -39,7 +39,8 @@ int *add_to_dict(int *array, int number)
 {
 	int	*new_array;
 
-	new_array = malloc(sizeof(int) * len_int(array) + 3282838);
+	// printf("%d\n", len_int(array));
+	new_array = malloc(sizeof(int) * len_int(array) + 5);
 
 	int i = -1;
 	if (array != NULL)
@@ -115,28 +116,32 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 
 void create_file(int *dict, int **array)
 {
-	    FILE *file;
+	FILE *file;
+	static int num = 0;
 
-	    file = fopen("screenshot.xpm", "w");
-		fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
-		int i = -1;
-		while (++i < len_int(dict))
+	char *screenshot1 = ft_strjoin("screenshot", ft_itoa(num));
+	char *screenshot2 = ft_strjoin(screenshot1, ".xpm");
+	num++;
+	file = fopen(screenshot2, "w");
+	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
+	int i = -1;
+	while (++i < len_int(dict))
+	{
+		fprintf(file, "\"%c c #%s\",\n", i + 35, ft_itoa_base(dict[i],16)); 
+	}
+	fprintf(file, "/* pixels */\n");
+	int x = -1;
+	int y = -1;
+	while (++y < SCREEN_HEIGHT)
+	{
+		x = -1;
+		fprintf(file, "\"");
+		while (++x < SCREEN_WIDTH)
 		{
-			fprintf(file, "\"%c c #%s\",\n", i + 35, ft_itoa_base(dict[i],16)); 
+			fprintf(file, "%c", search_in_array(dict, array[y][x]) + 35);
 		}
-		fprintf(file, "/* pixels */\n");
-		int x = -1;
-		int y = -1;
-		while (++y < SCREEN_HEIGHT)
-		{
-			x = -1;
-			fprintf(file, "\"");
-			while (++x < SCREEN_WIDTH)
-			{
-				fprintf(file, "%c", search_in_array(dict, array[y][x]) + 35);
-			}
-			fprintf(file, "\",\n");
-		}
+		fprintf(file, "\",\n");
+	}
 }
 
 int		my_hook(int key, t_all *all)

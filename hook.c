@@ -1,5 +1,60 @@
 #include "cub3d.h"
 
+
+int *create_dictionary(int **array)
+{
+	int count_uniq_color;
+	int x = -1;
+	int y = -1;
+	while (++y < SCREEN_HEIGHT)
+	{
+		x = -1;
+		while (++x < SCREEN_WIDTH)
+		{
+
+		}
+	}
+}
+
+int len_int(int *array)
+{
+
+}
+
+char *int_to_hex(int number)
+{
+
+}
+
+int index_in_array(int *array, int num)
+{
+
+}
+
+void create_file(int *dict, int **array)
+{
+	    FILE *file;
+
+	    file = fopen("fprintf.txt", "w");
+		int i = -1;
+		while (++i < len_int(dict))
+		{
+			fprintf(file, "\"%c c #%s\n\"", i, int_to_hex(dict[i])); 
+		}
+		fprintf(file, "/* pixels */\n");
+		int x = -1;
+		int y = -1;
+		while (++y < SCREEN_HEIGHT)
+		{
+			x = -1;
+			while (++x < SCREEN_WIDTH)
+			{
+				fprintf(file, "%c", index_in_array(dict, array[x][y]));
+			}
+			fprintf(file, "\n");
+		}
+}
+
 int		my_hook(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_S)
@@ -81,6 +136,11 @@ int		my_hook(int key, t_all *all)
 		blue = get_b(all->map.floor_color) * 0.25 + 0.75 * get_b(9802646);
 		all->map.floor_color  = create_trgb(0, red, green, blue);
     }
+	if (key == 111)
+	{
+		int *dict = create_dictionary();
+		create_file(dict);
+	}
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124 || key == 49 || key == 36)
 	{
 		draw_screen(all);		

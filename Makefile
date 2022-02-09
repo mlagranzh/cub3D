@@ -36,6 +36,9 @@ $(NAME)			:	$(OBJ)
 #					@echo "DONE! Запускаю..."
 #					@./cub3d
 
+xpm				: mlx
+				$(GCC) xpm_viewer.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
+
 map				:	clean $(MAP_OBJ)
 					$(GCC) -o $(NAME) $(MAP_OBJ) libft/libft.a
 

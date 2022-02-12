@@ -23,7 +23,7 @@ char *delete_space_line(char *line)
 	return (new_line);
 }
 
-int		print_return(int retval, char *print_message)
+int	print_return(int retval, char *print_message)
 {
 	printf("%s\n", print_message);
 	return (retval);

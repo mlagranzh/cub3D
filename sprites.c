@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 int perpendicular_walls(char **map, int i, int j)
 {
     int retval;
@@ -88,13 +87,13 @@ void sprites_init(t_all *all)
 	all->sprites.coordinates = (t_coordinate *)malloc(sizeof(t_coordinate) * all->sprites.num);
 
 	all->sprites.texture_barrel = (t_data *)malloc(sizeof(t_data) * 2);
-	texture_load(all, &all->sprites.texture_barrel[0], "textures/barrel_whole.xpm");
-	texture_load(all, &all->sprites.texture_barrel[1], "textures/barrel_ruined.xpm");
+	image_load(all, &all->sprites.texture_barrel[0], barrel_whole);
+	image_load(all, &all->sprites.texture_barrel[1], barrel_ruined);
 	
 	all->sprites.texture_light = (t_data *)malloc(sizeof(t_data) * 3);
-	texture_load(all, &all->sprites.texture_light[0], "textures/ellowlight.xpm");
-	texture_load(all, &all->sprites.texture_light[1], "textures/redlight.xpm");
-	texture_load(all, &all->sprites.texture_light[2], "textures/blacklight.xpm");
+	image_load(all, &all->sprites.texture_light[0], ellowlight);
+	image_load(all, &all->sprites.texture_light[1], redlight);
+	image_load(all, &all->sprites.texture_light[2], blacklight);
 
 	all->sprites.coller = 0;
 	all->sprites.coller_max = 89;

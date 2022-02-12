@@ -6,7 +6,7 @@ void move_straight(int key, t_all *all)
 	double step_x;
 	double step_y;
 
-	moveSpeed = all->player.moveSpeed;
+	moveSpeed = MOVE_SPEED;
 	if (key == KEY_S)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
@@ -106,8 +106,6 @@ void move_straight(int key, t_all *all)
 		all->player.dir_x *= -1;
 		all->player.dir_y *= -1;
 	}
-	
-	// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 }
 
 void move_side(int key, t_all *all)
@@ -116,12 +114,11 @@ void move_side(int key, t_all *all)
 	double step_x;
 	double step_y;
 
-	moveSpeed = all->player.moveSpeed;
+	moveSpeed = MOVE_SPEED;
 	if (key == KEY_A)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_y * moveSpeed;
 	step_y = -all->player.dir_x * moveSpeed;
-	// printf("mS = %f, s_x = %f\n", moveSpeed, step_x);
 	if (key == KEY_A)
 	{
 		all->player.dir_x *= -1;
@@ -249,13 +246,11 @@ void move_side(int key, t_all *all)
 // 	  	all->player.pos_y += step_y;
 // }
 
-void rotate(int key, t_all *all)
+void rotate(int key, t_all *all, double rotSpeed)
 {
 	double oldDir;
 	double oldPlane;
-	double rotSpeed;
 	
-	rotSpeed = all->player.rotSpeed;
 	if (key == KEY_RIGHT)
 		rotSpeed = -rotSpeed;
 

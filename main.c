@@ -35,22 +35,18 @@ void side_init(t_player *player)
 void cub_init(t_all *all)
 {
 	all->mlx = mlx_init();
-	all->win = mlx_new_window(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub");
+	all->win = mlx_new_window(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
 	all->img.img = mlx_new_image(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 	
 	side_init(&all->player);
 	sprites_init(all);
 
-	all->player.moveSpeed = 0.5;
-	all->player.rotSpeed = 0.3;
-	all->animation = 0xDE;
-
 	all->wall = (t_data *)malloc(sizeof(t_data) * 4);
-	texture_load(all, &all->wall[0], all->map.no_texture);
-	texture_load(all, &all->wall[1], all->map.so_texture);
-	texture_load(all, &all->wall[2], all->map.we_texture);
-	texture_load(all, &all->wall[3], all->map.ea_texture);
+	image_load(all, &all->wall[0], all->map.no_texture);
+	image_load(all, &all->wall[1], all->map.so_texture);
+	image_load(all, &all->wall[2], all->map.we_texture);
+	image_load(all, &all->wall[3], all->map.ea_texture);
 
 	fog_init(all);
 }

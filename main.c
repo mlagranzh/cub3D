@@ -54,6 +54,14 @@ void cub_init(t_all *all)
 void cub_destroy(t_all *all)
 {
 	mlx_destroy_image(all->mlx, all->img.img);
+	mlx_destroy_image(all->mlx, all->wall[0].img);
+	free(all->wall);
+	free(all->sprites.z_buffer);
+	free(all->sprites.coordinates);
+	free(all->sprites.texture_barrel);
+	free(all->sprites.texture_light);
+	free(all->sprites.distance);
+	free(all->sprites.iterator);
 }
 
 int main(int argc, char **argv)
@@ -67,16 +75,12 @@ int main(int argc, char **argv)
 	if (read_cub_file(&all.map, &all.player, file_name) != SUCCESS)
 		return (1);
 	cub_init(&all);
-
 	draw_screen(&all);
-
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
 	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
 	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
-
 	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
-
 	mlx_loop(all.mlx);
 	return (0);
 }

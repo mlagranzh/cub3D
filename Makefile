@@ -10,16 +10,21 @@ DIR_UTILS		=	utils/
 DIR_MAP			=	analysis_cub_file/
 DIR_GNL			=	get_next_line/
 
-SRC				=	main.c draw_screen.c draw_minimap.c texture.c motion.c sprites.c hook.c fog.c screenshot.c
-SRC_UTILS		=	utils0.c utils1.c utils2.c
+DIR_BONUS		=	bonus/
+
+SRC				=	main.c draw_screen.c draw_minimap.c texture.c motion.c sprites.c hook.c
+SRC_UTILS		=	utils0.c utils1.c utils2.c utils3.c
 SRC_MAP			=	read_cub_file.c read_map_param.c checking_map_for_closure.c
 SRC_GNL			=	get_next_line.c get_next_line_utils.c
+
+SRC_BONUS		=	fog.c screenshot.c
 
 UTILS			=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
 MAP				=	$(addprefix $(DIR_MAP), $(SRC_MAP))
 GNL				=	$(addprefix $(DIR_GNL), $(SRC_GNL))
+BONUS			=	$(addprefix $(DIR_BONUS), $(SRC_BONUS))
 
-OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
+OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(BONUS:.c=.o)
 
 MAP_OBJ			=	$(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 

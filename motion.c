@@ -223,28 +223,7 @@ void move_side(int key, t_all *all)
 	tmp = all->player.dir_x;
 	all->player.dir_x = all->player.dir_y;
 	all->player.dir_y  = tmp;
-
-	
-	// printf("%f/%f\n", all->player.pos_x, all->player.pos_y);
 }
-
-// void move_side(int key, t_all *all)
-// {
-// 	double moveSpeed;
-// 	double step_x;
-// 	double step_y;
-
-// 	moveSpeed = all->player.moveSpeed;
-// 	if (key == KEY_A)
-// 		moveSpeed = -moveSpeed;
-// 	step_x = all->player.dir_y * moveSpeed;
-// 	step_y = -all->player.dir_x * moveSpeed;
-// 	// printf("mS = %f, s_x = %f\n", moveSpeed, step_x);
-// 	if (all->map.map[(int)(all->player.pos_x + step_x * DISTANCE)][(int)(all->player.pos_y)] == '0')
-// 		all->player.pos_x += step_x;
-// 	if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y * DISTANCE)] == '0') 
-// 	  	all->player.pos_y += step_y;
-// }
 
 void rotate(int key, t_all *all, double rotSpeed)
 {
@@ -261,4 +240,3 @@ void rotate(int key, t_all *all, double rotSpeed)
 	all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
 	all -> player.plane_y = oldPlane * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
 }
-

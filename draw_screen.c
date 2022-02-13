@@ -108,4 +108,5 @@ void	draw_screen(t_all *all)
 		draw_wall(all, raycast, x);
 		all->sprites.z_buffer[x] = raycast->perp_wall_dist;
 	}
+	free(raycast);
 }

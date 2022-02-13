@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+int	destroy(t_all *all)
+{
+	cub_destroy(all);
+	exit(0);
+	return (0);
+}
+
 int		my_hook(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_S)
@@ -11,7 +18,7 @@ int		my_hook(int key, t_all *all)
 	if (key == KEY_RIGHT)
 		rotate(key, all, ROTATE_SPEED);
 	if (key == KEY_ESC)
-		exit(0);
+		destroy(all);
 	if (key == 49)
 	{
 		if (all->sprites.coller_min == 0)

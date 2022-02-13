@@ -189,6 +189,10 @@ void	draw_square(t_data *img, int y, int x, int color);
 void	draw_border_square(t_data *img, int y, int x, int size, int color);
 void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color);
 
+//utils3
+void	**free_2d_array(char **p, size_t size);
+char	*my_strjoin(char *s1, char *s2, char *s3);
+
 //motion.c
 void move_straight(int key, t_all *all);
 void move_side(int key, t_all *all);
@@ -225,5 +229,9 @@ void fog(t_all *all);
 
 //screenshot
 void screenshot(t_all *all);
+
+
+void cub_destroy(t_all *all);
+
 
 #endif

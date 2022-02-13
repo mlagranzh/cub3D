@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void printf_array_int(int *arr, int size)
 {
@@ -52,6 +52,7 @@ int *add_to_dict(int *array, int number)
 		++i;
 	new_array[i] = number;
 	new_array[i + 1] = -1;
+	free(array);
 	return (new_array);
 }
 
@@ -119,10 +120,10 @@ void create_file(int *dict, int **array)
 	FILE *file;
 	static int num = 0;
 
-	char *screenshot1 = ft_strjoin("screenshot", ft_itoa(num));
-	char *screenshot2 = ft_strjoin(screenshot1, ".xpm");
+	char *num_screenshot = ft_itoa(num);
+	char *name_screenshot = my_strjoin("screenshot/screenshot", num_screenshot, ".xpm");
 	num++;
-	file = fopen(screenshot2, "w");
+	file = fopen(name_screenshot, "w");
 	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
 	int i = -1;
 	while (++i < len_int(dict))
@@ -142,6 +143,8 @@ void create_file(int *dict, int **array)
 		}
 		fprintf(file, "\",\n");
 	}
+	free(num_screenshot);
+	free(name_screenshot);
 }
 
 //why not work???!?!?
@@ -193,5 +196,7 @@ void screenshot(t_all *all)
 	dict = create_dictionary(color_map);
 	create_file(dict, color_map);
 	shot(all);
+	free_2d_int(color_map, SCREEN_HEIGHT);
+	free(dict);
 }
 

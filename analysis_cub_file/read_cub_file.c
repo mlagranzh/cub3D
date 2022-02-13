@@ -54,7 +54,7 @@ char **ft_realloc(char **mas, char *new_line)
 			new_mas[i] = mas[i];
 		new_mas[i] = new_line;
 		new_mas[i + 1] = NULL;
-		free (mas);
+		free(mas);
 	}
 	return (new_mas);
 }

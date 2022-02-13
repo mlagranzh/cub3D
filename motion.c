@@ -11,7 +11,7 @@ void move_straight(int key, t_all *all)
 		moveSpeed = -moveSpeed;
 	step_x = all->player.dir_x * moveSpeed;
 	step_y = all->player.dir_y * moveSpeed;
-	// printf("mS = %f, s_x = %f\n", moveSpeed, step_x);
+
 	if (key == KEY_S)
 	{
 		all->player.dir_x *= -1;
@@ -27,18 +27,18 @@ void move_straight(int key, t_all *all)
 	if (all->player.dir_x > 0)
 	{
 		// Если после шага попадаем в стену
-		if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '1')
+		if (all->map.map[(int)raise_x][(int)(all->player.pos_y)] == '1')
 		{
 			// То приближаемся к стене, но не на весь шаг, а до позиция стены - дистанция
 			raise_x = (double)((int)all->player.pos_x + 1) - distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x + step_x) + 1][(int)(all->player.pos_y)] == '1')
+		else if (all->map.map[(int)(raise_x) + 1][(int)(all->player.pos_y)] == '1')
 		{
 			// Если позиция игрока + шаг > стена - дистанция, то позиция игрока = стена - дистанция
-			if (all->player.pos_x + step_x > (double)((int)(all->player.pos_x + step_x) + 1) - distance)
+			if (raise_x > (double)((int)raise_x) + 1) - distance)
 			{
-				raise_x = (double)((int)(all->player.pos_x + step_x) + 1) - distance;
+				raise_x = (double)((int)raise_x) + 1) - distance;
 			}
 		}
 	}
@@ -48,17 +48,17 @@ void move_straight(int key, t_all *all)
 	{
 		// printf("step = %f/%f/%f\n", step_x, all->player.pos_x, all->player.dir_x);
 		// Если после шага попадаем в стену
-		if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '1')
+		if (all->map.map[(int)raise_x][(int)(all->player.pos_y)] == '1')
 		{
 			// То приближаемся к стене, но не на весь шаг, а до позиция стены + дистанция
-			raise_x = (double)((int)(all->player.pos_x + step_x + 1)) + distance;
+			raise_x = (double)((int)(raise_x + 1)) + distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x + step_x) - 1][(int)(all->player.pos_y)] == '1')
+		else if (all->map.map[(int)raise_x - 1][(int)(all->player.pos_y)] == '1')
 		{
 			// Если позиция игрока + шаг < стена - дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_x + step_x < (double)((int)(all->player.pos_x + step_x)) + distance)
-				raise_x = (double)((int)(all->player.pos_x + step_x)) + distance;
+			if (raise_x < (double)((int)raise_x) + distance)
+				raise_x = (double)((int)raise_x) + distance;
 		}
 	}
 
@@ -66,17 +66,17 @@ void move_straight(int key, t_all *all)
 	if (all->player.dir_y <= 0)
 	{
 		// Если после шага попадаем в стену, то приближаемся к стене, но не на весь шаг, а до позиция стены + дистанция
-		if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '1')
+		if (all->map.map[(int)(all->player.pos_x)][(int)raise_y] == '1')
 		{
-			raise_y = (int)(all->player.pos_y + step_y) + 1 + distance;
+			raise_y = (int)raise_y + 1 + distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y) - 1] == '1')
+		else if (all->map.map[(int)(all->player.pos_x)][(int)raise_y - 1] == '1')
 		{
 			// Если позиция игрока - шаг < стена + дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_y + step_y < (double)((int)(all->player.pos_y + step_y)) + distance)
+			if (all->player.pos_y + step_y < (double)((int)raise_y) + distance)
 			{
-				raise_y = (double)((int)(all->player.pos_y + step_y)) + distance;
+				raise_y = (double)((int)raise_y) + distance;
 			}
 		}
 	}
@@ -85,14 +85,14 @@ void move_straight(int key, t_all *all)
 	if (all->player.dir_y > 0)
 	{
 		// Если после шага попадаем в стену, то приближаемся к стене, но не на весь шаг, а до позиция стены - дистанция
-		if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '1')
-			raise_y = (int)(all->player.pos_y + step_y) - distance;
+		if (all->map.map[(int)(all->player.pos_x)][(int)raise_y] == '1')
+			raise_y = (int)raise_y - distance;
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y) + 1] == '1')
+		else if (all->map.map[(int)(all->player.pos_x)][(int)raise_y + 1] == '1')
 		{
 			// Если позиция игрока + шаг < стена + дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_y + step_y > (double)((int)(all->player.pos_y + step_y)) + 1 - distance)
-				raise_y = (double)((int)(all->player.pos_y + step_y)) + 1 - distance;
+			if (all->player.pos_y + step_y > (double)((int)raise_y) + 1 - distance)
+				raise_y = (double)((int)raise_y) + 1 - distance;
 		}
 	}
 
@@ -143,18 +143,18 @@ void move_side(int key, t_all *all)
 	if (all->player.dir_x > 0)
 	{
 		// Если после шага попадаем в стену
-		if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '1')
+		if (all->map.map[(int)raise_x][(int)all->player.pos_y] == '1')
 		{
 			// То приближаемся к стене, но не на весь шаг, а до позиция стены - дистанция
 			raise_x = (double)((int)all->player.pos_x + 1) - distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x + step_x) + 1][(int)(all->player.pos_y)] == '1')
+		else if (all->map.map[(int)raise_x + 1][(int)(all->player.pos_y)] == '1')
 		{
 			// Если позиция игрока + шаг > стена - дистанция, то позиция игрока = стена - дистанция
-			if (all->player.pos_x + step_x > (double)((int)(all->player.pos_x + step_x) + 1) - distance)
+			if (all->player.pos_x + step_x > (double)((int)raise_x + 1) - distance)
 			{
-				raise_x = (double)((int)(all->player.pos_x + step_x) + 1) - distance;
+				raise_x = (double)((int)raise_x + 1) - distance;
 			}
 		}
 	}
@@ -164,17 +164,17 @@ void move_side(int key, t_all *all)
 	{
 		// printf("step = %f/%f/%f\n", step_x, all->player.pos_x, all->player.dir_x);
 		// Если после шага попадаем в стену
-		if (all->map.map[(int)(all->player.pos_x + step_x)][(int)(all->player.pos_y)] == '1')
+		if (all->map.map[(int)raise_x][(int)(all->player.pos_y)] == '1')
 		{
 			// То приближаемся к стене, но не на весь шаг, а до позиция стены + дистанция
 			raise_x = (double)((int)(all->player.pos_x + step_x + 1)) + distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x + step_x) - 1][(int)(all->player.pos_y)] == '1')
+		else if (all->map.map[(int)raise_x - 1][(int)(all->player.pos_y)] == '1')
 		{
 			// Если позиция игрока + шаг < стена - дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_x + step_x < (double)((int)(all->player.pos_x + step_x)) + distance)
-				raise_x = (double)((int)(all->player.pos_x + step_x)) + distance;
+			if (all->player.pos_x + step_x < (double)((int)raise_x) + distance)
+				raise_x = (double)((int)raise_x) + distance;
 		}
 	}
 
@@ -182,17 +182,17 @@ void move_side(int key, t_all *all)
 	if (all->player.dir_y <= 0)
 	{
 		// Если после шага попадаем в стену, то приближаемся к стене, но не на весь шаг, а до позиция стены + дистанция
-		if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '1')
+		if (all->map.map[(int)(all->player.pos_x)][(int)raise_y] == '1')
 		{
-			raise_y = (int)(all->player.pos_y + step_y) + 1 + distance;
+			raise_y = (int)raise_y + 1 + distance;
 		}
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y) - 1] == '1')
+		else if (all->map.map[(int)(all->player.pos_x)][(int)raise_y - 1] == '1')
 		{
 			// Если позиция игрока - шаг < стена + дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_y + step_y < (double)((int)(all->player.pos_y + step_y)) + distance)
+			if (all->player.pos_y + step_y < (double)((int)raise_y) + distance)
 			{
-				raise_y = (double)((int)(all->player.pos_y + step_y)) + distance;
+				raise_y = (double)((int)raise_y) + distance;
 			}
 		}
 	}
@@ -201,14 +201,14 @@ void move_side(int key, t_all *all)
 	if (all->player.dir_y > 0)
 	{
 		// Если после шага попадаем в стену, то приближаемся к стене, но не на весь шаг, а до позиция стены - дистанция
-		if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y)] == '1')
-			raise_y = (int)(all->player.pos_y + step_y) - distance;
+		if (all->map.map[(int)(all->player.pos_x)][(int)raise_y] == '1')
+			raise_y = (int)raise_y - distance;
 		// Если после шага попадаем в квадрат перед стеной
-		else if (all->map.map[(int)(all->player.pos_x)][(int)(all->player.pos_y + step_y) + 1] == '1')
+		else if (all->map.map[(int)(all->player.pos_x)][(int)raise_y + 1] == '1')
 		{
 			// Если позиция игрока + шаг < стена + дистанция, то позиция игрока = стена + дистанция
-			if (all->player.pos_y + step_y > (double)((int)(all->player.pos_y + step_y)) + 1 - distance)
-				raise_y = (double)((int)(all->player.pos_y + step_y)) + 1 - distance;
+			if (all->player.pos_y + step_y > (double)((int)raise_y) + 1 - distance)
+				raise_y = (double)((int)raise_y) + 1 - distance;
 		}
 	}
 	// printf("x = %f / y = %f\n", all->player.dir_x, all->player.dir_y);

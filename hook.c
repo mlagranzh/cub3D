@@ -1,26 +1,32 @@
 #include "cub3d.h"
 
-size_t len_int(int *array)
+void printf_array_int(int *arr, int size)
 {
-	size_t	i;
+	int i = -1;
+
+	while (++i < size)
+		printf("%d\n", arr[i]);
+}
+
+int len_int(int *array)
+{
+	int	i;
 
 	i = 0;
 	if (array == NULL)
 		return (0);
-	while (array)
-	{
+	while (array[i] != -1)
 		i++;
-		array++;
-	}
 	return (i);
 }
 
 int search_in_array(int *array, int search)
 {
-	size_t len = len_int(array);
-	size_t i = -1;
+	int i = -1;
 
-	while (++i < len)
+	if (array == NULL)
+		return -1;
+	while (array[++i] != -1)
 	{
 		if (search == array[i])
 			return (i);
@@ -31,14 +37,22 @@ int search_in_array(int *array, int search)
 
 int *add_to_dict(int *array, int number)
 {
-	size_t malloc_size;
+	int	*new_array;
 
-	malloc_size = len_int(array);
-	if (malloc_size == 0)
-		malloc_size = 1;
-	array = malloc(sizeof(int) * malloc_size + 1);
-	array[len_int(array)] = number;
-	return (array);
+	// printf("%d\n", len_int(array));
+	new_array = malloc(sizeof(int) * len_int(array) + 5);
+
+	int i = -1;
+	if (array != NULL)
+	{
+		while (array[++i] != -1)
+			new_array[i] = array[i];
+	}
+	else
+		++i;
+	new_array[i] = number;
+	new_array[i + 1] = -1;
+	return (new_array);
 }
 
 int *create_dictionary(int **array)
@@ -46,15 +60,18 @@ int *create_dictionary(int **array)
 	int count_uniq_color;
 	int x = -1;
 	int y = -1;
-	int z = -1;
+
+
 	int *dict;
+	dict = NULL;
+
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-			if (search_in_array(dict, array[x][y]) == -1)
-				dict = add_to_dict(dict, array[x][y]);
+			if (search_in_array(dict, array[y][x]) == -1)
+				dict = add_to_dict(dict, array[y][x]);
 		}
 	}
 	return (dict);
@@ -99,26 +116,32 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 
 void create_file(int *dict, int **array)
 {
-	    FILE *file;
+	FILE *file;
+	static int num = 0;
 
-	    file = fopen("fprintf.txt", "w");
-		int i = -1;
-		while (++i < len_int(dict))
+	char *screenshot1 = ft_strjoin("screenshot", ft_itoa(num));
+	char *screenshot2 = ft_strjoin(screenshot1, ".xpm");
+	num++;
+	file = fopen(screenshot2, "w");
+	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
+	int i = -1;
+	while (++i < len_int(dict))
+	{
+		fprintf(file, "\"%c c #%s\",\n", i + 35, ft_itoa_base(dict[i],16)); 
+	}
+	fprintf(file, "/* pixels */\n");
+	int x = -1;
+	int y = -1;
+	while (++y < SCREEN_HEIGHT)
+	{
+		x = -1;
+		fprintf(file, "\"");
+		while (++x < SCREEN_WIDTH)
 		{
-			fprintf(file, "\"%c c #%s\n\"", i, ft_itoa_base(dict[i],16)); 
+			fprintf(file, "%c", search_in_array(dict, array[y][x]) + 35);
 		}
-		fprintf(file, "/* pixels */\n");
-		int x = -1;
-		int y = -1;
-		while (++y < SCREEN_HEIGHT)
-		{
-			x = -1;
-			while (++x < SCREEN_WIDTH)
-			{
-				fprintf(file, "%c", search_in_array(dict, array[x][y]));
-			}
-			fprintf(file, "\n");
-		}
+		fprintf(file, "\",\n");
+	}
 }
 
 int		my_hook(int key, t_all *all)
@@ -152,8 +175,23 @@ int		my_hook(int key, t_all *all)
 		fog(all);
 	if (key == 111)
 	{
-		// int *dict = create_dictionary();
-		// create_file(dict);
+		int **array = malloc(sizeof(int *) * SCREEN_HEIGHT);
+		int i = -1;
+		while (++i < SCREEN_WIDTH)
+			array[i] = malloc(sizeof(int) * SCREEN_WIDTH);
+		int x = -1; int y = -1;
+
+		while (++y < SCREEN_HEIGHT)
+		{
+			x = -1;
+			while (++x < SCREEN_WIDTH)
+			{
+				array[y][x] = my_mlx_pixel_get(&all->img, x, y);
+			}
+		}
+		int *dict = create_dictionary(array);
+		// printf_array_int(dict, 20);
+		create_file(dict, array);
 	}
  	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124 || key == 49 || key == 36)
 	{

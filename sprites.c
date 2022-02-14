@@ -1,148 +1,139 @@
 #include "cub3d.h"
 
-int perpendicular_walls(char **map, int i, int j)
+int	perpendicular_walls(char **map, int i, int j)
 {
-    int retval;
+	int	retval;
 
-    retval = 0;
-    if (map[i - 1][j] == '1')
-        retval++;
-    if (map[i + 1][j] == '1')
-        retval++;
-    if (map[i][j - 1] == '1')
-        retval++;
-    if (map[i][j + 1] == '1')
-        retval++;
-    if (retval == 3)
-        return (BARREL);
-    return (0);
+	retval = 0;
+	if (map[i - 1][j] == '1')
+		retval++;
+	if (map[i + 1][j] == '1')
+		retval++;
+	if (map[i][j - 1] == '1')
+		retval++;
+	if (map[i][j + 1] == '1')
+		retval++;
+	if (retval == 3)
+		return (BARREL);
+	return (0);
 }
 
-int empty_lines(char **map, int i, int j)
+int	empty_lines(char **map, int i, int j)
 {
-    int retval;
+	int	retval;
 
-    retval = 0;
-    if (map[i - 1][j] == '0' && map[i - 2][j] == '0' && map[i - 3][j])
-        retval++;
-    if (map[i + 1][j] == '0' && map[i + 2][j] == '0' && map[i + 3][j])
-        retval++;
-    if (map[i][j - 1] == '0' && map[i][j - 2] == '0' && map[i][j - 3] == '0')
-        retval++;
-    if (map[i][j + 1] == '0' && map[i][j + 2] == '0' && map[i][j + 3] == '0')
-        retval++;
-    if (retval == 4)
-        return (LIGHT);
-    return (0);
+	retval = 0;
+	if (map[i - 1][j] == '0' && map[i - 2][j] == '0' && map[i - 3][j])
+		retval++;
+	if (map[i + 1][j] == '0' && map[i + 2][j] == '0' && map[i + 3][j])
+		retval++;
+	if (map[i][j - 1] == '0' && map[i][j - 2] == '0' && map[i][j - 3] == '0')
+		retval++;
+	if (map[i][j + 1] == '0' && map[i][j + 2] == '0' && map[i][j + 3] == '0')
+		retval++;
+	if (retval == 4)
+		return (LIGHT);
+	return (0);
 }
 
-void put_sprites_on_map(t_all *all, t_map *map)
+void	put_sprites_on_map(t_all *all, t_map *map)
 {
-	int i;
-	int j;
-    int fact_sprites_num;
-    int if_there_are;
+	int	i;
+	int	j;
+	int	fact_sprites_num;
+	int	if_there_are;
 
-	i = 0;
-    fact_sprites_num = 0;
-    if_there_are = 0;
-	while (map->map[i])
+	i = -1;
+	fact_sprites_num = 0;
+	if_there_are = 0;
+	while (map->map[++i])
 	{
 		j = 0;
 		while (map->map[i][j] != '\0')
 		{
 			if (map->map[i][j] == '0')
 			{
-                if_there_are += perpendicular_walls(map->map, i, j);
-                if_there_are += empty_lines(map->map, i, j);
+				if_there_are += perpendicular_walls(map->map, i, j);
+				if_there_are += empty_lines(map->map, i, j);
 				if (if_there_are > 0)
 				{
-                    all->sprites.coordinates[fact_sprites_num].texture_name = if_there_are;
-                    all->sprites.coordinates[fact_sprites_num].x = (double)i + 0.5;
-                    all->sprites.coordinates[fact_sprites_num].y = (double)j + 0.5;
-            	    all->sprites.coordinates[fact_sprites_num].u_div = 1;
-	                all->sprites.coordinates[fact_sprites_num].v_div = 1;
-	                all->sprites.coordinates[fact_sprites_num].v_move = 0.0;
-	                all->sprites.coordinates[fact_sprites_num].texture_flag = 0;
-                    if_there_are = 0;
-                    fact_sprites_num++;
+					all->sprites.coordinates[fact_sprites_num].texture_name = \
+																if_there_are;
+					all->sprites.coordinates[fact_sprites_num].x = (double)i + 0.5;
+					all->sprites.coordinates[fact_sprites_num].y = (double)j + 0.5;
+					all->sprites.coordinates[fact_sprites_num].u_div = 1;
+					all->sprites.coordinates[fact_sprites_num].v_div = 1;
+					all->sprites.coordinates[fact_sprites_num].v_move = 0.0;
+					all->sprites.coordinates[fact_sprites_num].texture_flag = 0;
+					if_there_are = 0;
+					fact_sprites_num++;
 				}
-                if (fact_sprites_num == all->sprites.num)
-                    return ;
+				if (fact_sprites_num == all->sprites.num)
+					return ;
 			}
 			j++;
 		}
-		i++;
 	}
     all->sprites.num = fact_sprites_num;
-    // printf("%i\n", all->sprites.num);
 }
 
-void sprites_init(t_all *all)
+void	sprites_init(t_all *all)
 {
 	all->sprites.num = 20;
-
-	all->sprites.z_buffer = (double *)malloc(sizeof(double) * SCREEN_WIDTH);
-
-	all->sprites.coordinates = (t_coordinate *)malloc(sizeof(t_coordinate) * all->sprites.num);
-
+	all->sprites.z_buffer = malloc(sizeof(double) * SCREEN_WIDTH);
+	all->sprites.coordinates = malloc(sizeof(t_coordinate) * all->sprites.num);
 	all->sprites.texture_barrel = (t_data *)malloc(sizeof(t_data) * 2);
-	image_load(all, &all->sprites.texture_barrel[0], barrel_whole);
-	image_load(all, &all->sprites.texture_barrel[1], barrel_ruined);
-	
+	image_load(all, &all->sprites.texture_barrel[0], BARREL_WHOLE);
+	image_load(all, &all->sprites.texture_barrel[1], BARREL_RUINED);
 	all->sprites.texture_light = (t_data *)malloc(sizeof(t_data) * 3);
-	image_load(all, &all->sprites.texture_light[0], ellowlight);
-	image_load(all, &all->sprites.texture_light[1], redlight);
-	image_load(all, &all->sprites.texture_light[2], blacklight);
-
+	image_load(all, &all->sprites.texture_light[0], ELLOW_LIGHT);
+	image_load(all, &all->sprites.texture_light[1], RED_LIGHT);
+	image_load(all, &all->sprites.texture_light[2], BLACK_LIGHT);
 	all->sprites.coller = 0;
 	all->sprites.coller_max = 89;
 	all->sprites.coller_min = 0;
 	all->sprites.coller_mod = 45;
-
 	put_sprites_on_map(all, &all->map);
-
-    all->sprites.distance = (int *)malloc(sizeof(int) * all->sprites.num);
-    all->sprites.iterator = (int *)malloc(sizeof(int) * all->sprites.num);
+	all->sprites.distance = malloc(sizeof(int) * all->sprites.num);
+	all->sprites.iterator = malloc(sizeof(int) * all->sprites.num);
 }
 
-void bubble_sort(int *nums, int *itrs, int size)
+void	bubble_sort(int *nums, int *itrs, int size)
 {
-    int temp;
-    int i;
-    int j;
+	int	temp;
+	int	i;
+	int	j;
 
-    i = 0;
-    while (i < size - 1)
-    {
-        j = size - 1;
-        while (j > i)
-        {
-            if (nums[j - 1] > nums[j])
-            {
-                temp = nums[j - 1];
-                nums[j - 1] = nums[j];
-                nums[j] = temp;
-                temp = itrs[j - 1];
-                itrs[j - 1] = itrs[j];
-                itrs[j] = temp;
-            }
-            j--;
-        }
-        i++;
-    }
+	i = 0;
+	while (i < size - 1)
+	{
+		j = size - 1;
+		while (j > i)
+		{
+			if (nums[j - 1] > nums[j])
+			{
+				temp = nums[j - 1];
+				nums[j - 1] = nums[j];
+				nums[j] = temp;
+				temp = itrs[j - 1];
+				itrs[j - 1] = itrs[j];
+				itrs[j] = temp;
+			}
+			j--;
+		}
+		i++;
+	}
 }
 
 void draw_sprites(t_all *all)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    /* sort */
     i = 0;
     while (i < all->sprites.num)
     {
-        all->sprites.distance[i] = (all->player.pos_x - all->sprites.coordinates[i].x) * (all->player.pos_x - all->sprites.coordinates[i].x)
+		all->sprites.distance[i] = (all->player.pos_x - all->sprites.coordinates[i].x) * (all->player.pos_x - all->sprites.coordinates[i].x)
             + (all->player.pos_y - all->sprites.coordinates[i].y) * (all->player.pos_y - all->sprites.coordinates[i].y);
         all->sprites.iterator[i] = i;
         i++;
@@ -218,7 +209,7 @@ void draw_sprites(t_all *all)
         while (stripe < draw_end_x)
         {
             int tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x))
-                * texWidth / sprite_width) / 256;
+                * TEX_WIDTH / sprite_width) / 256;
             
             if (transform_y > 0 && transform_y < all->sprites.z_buffer[stripe])
             {
@@ -226,7 +217,7 @@ void draw_sprites(t_all *all)
                 while (y < draw_end_y)
                 {
                     int d = (y - v_move_screen) * 256 - SCREEN_HEIGHT * 128 + sprite_height * 128;
-                    int tex_y = ((d * texHeight) / sprite_height) / 256;
+                    int tex_y = ((d * TEX_HEIGHT) / sprite_height) / 256;
                     int color = 0x000000;
                     if (all->sprites.coordinates[i].texture_name == BARREL)
                         color = my_mlx_pixel_get(&all->sprites.texture_barrel[all->sprites.coordinates[i].texture_flag], tex_x, tex_y);

@@ -58,7 +58,6 @@ int *add_to_dict(int *array, int number)
 
 int *create_dictionary(int **array)
 {
-	int count_uniq_color;
 	int x = -1;
 	int y = -1;
 
@@ -128,7 +127,9 @@ void create_file(int *dict, int **array)
 	int i = -1;
 	while (++i < len_int(dict))
 	{
-		fprintf(file, "\"%c c #%s\",\n", i + 35, ft_itoa_base(dict[i],16)); 
+		char *color = ft_itoa_base(dict[i],16);
+		fprintf(file, "\"%c c #%s\",\n", i + 35, color);
+		free(color);
 	}
 	fprintf(file, "/* pixels */\n");
 	int x = -1;

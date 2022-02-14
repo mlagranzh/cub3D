@@ -18,15 +18,15 @@ static void	put_fog_on_color(int *color, double fog_percent)
 
 static void	put_fog_on_texture(t_data *data)
 {
-	int x;
-	int y;
-	int color;
+	int	x;
+	int	y;
+	int	color;
 
 	y = -1;
-	while (++y < texHeight)
+	while (++y < TEX_HEIGHT)
 	{
 		x = -1;
-		while (++x < texWidth)
+		while (++x < TEX_WIDTH)
 		{
 			color = my_mlx_pixel_get(data, x, y);
             if (color == 0x000000)
@@ -57,8 +57,8 @@ void fog_init(t_all *all)
 	put_fog_on_texture(&all->fog.fog_wall[3]);
 
 	all->fog.fog_barrel = (t_data *)malloc(sizeof(t_data) * 2);
-	image_load(all, &all->fog.fog_barrel[0], "textures/barrel_whole.xpm");
-	image_load(all, &all->fog.fog_barrel[1], "textures/barrel_ruined.xpm");
+	image_load(all, &all->fog.fog_barrel[0], BARREL_WHOLE);
+	image_load(all, &all->fog.fog_barrel[1], BARREL_RUINED);
 	put_fog_on_texture(&all->fog.fog_barrel[0]);
 	put_fog_on_texture(&all->fog.fog_barrel[1]);
 

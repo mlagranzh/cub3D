@@ -1,16 +1,16 @@
 #include "cub3d.h"
 
-void move_straight(int key, t_all *all)
+void	move_straight(int key, t_all *all)
 {
-	double moveSpeed;
+	double move_speed;
 	double step_x;
 	double step_y;
 
-	moveSpeed = MOVE_SPEED;
+	move_speed = MOVE_SPEED;
 	if (key == KEY_S)
-		moveSpeed = -moveSpeed;
-	step_x = all->player.dir_x * moveSpeed;
-	step_y = all->player.dir_y * moveSpeed;
+		move_speed = -move_speed;
+	step_x = all->player.dir_x * move_speed;
+	step_y = all->player.dir_y * move_speed;
 
 	if (key == KEY_S)
 	{
@@ -110,15 +110,15 @@ void move_straight(int key, t_all *all)
 
 void move_side(int key, t_all *all)
 {
-	double moveSpeed;
+	double move_speed;
 	double step_x;
 	double step_y;
 
-	moveSpeed = MOVE_SPEED;
+	move_speed = MOVE_SPEED;
 	if (key == KEY_A)
-		moveSpeed = -moveSpeed;
-	step_x = all->player.dir_y * moveSpeed;
-	step_y = -all->player.dir_x * moveSpeed;
+		move_speed = -move_speed;
+	step_x = all->player.dir_y * move_speed;
+	step_y = -all->player.dir_x * move_speed;
 	if (key == KEY_A)
 	{
 		all->player.dir_x *= -1;
@@ -225,18 +225,21 @@ void move_side(int key, t_all *all)
 	all->player.dir_y  = tmp;
 }
 
-void rotate(int key, t_all *all, double rotSpeed)
+void	rotate(int key, t_all *all, double rotSpeed)
 {
-	double oldDir;
-	double oldPlane;
-	
+	double	old_dir;
+	double	old_plane;
+
 	if (key == KEY_RIGHT)
 		rotSpeed = -rotSpeed;
-
-	oldDir = all->player.dir_x;
-	all->player.dir_x = all->player.dir_x * cos(rotSpeed) - all->player.dir_y * sin(rotSpeed);
-    all->player.dir_y = oldDir * sin(rotSpeed) + all->player.dir_y * cos(rotSpeed);
-    oldPlane = all -> player.plane_x;
-	all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - all -> player.plane_y * sin(rotSpeed);
-	all -> player.plane_y = oldPlane * sin(rotSpeed) + all -> player.plane_y * cos(rotSpeed);
+	old_dir = all->player.dir_x;
+	all->player.dir_x = all->player.dir_x * cos(rotSpeed) - \
+						all->player.dir_y * sin(rotSpeed);
+	all->player.dir_y = old_dir * sin(rotSpeed) + \
+							all->player.dir_y * cos(rotSpeed);
+	old_plane = all -> player.plane_x;
+	all -> player.plane_x = all -> player.plane_x * cos(rotSpeed) - \
+							all -> player.plane_y * sin(rotSpeed);
+	all -> player.plane_y = old_plane * sin(rotSpeed) \
+							+ all -> player.plane_y * cos(rotSpeed);
 }

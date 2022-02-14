@@ -16,6 +16,22 @@ int	free_2d_int(int **p, size_t size)
 	return (SUCCESS);
 }
 
+int	free_2d_char(char **p)
+{
+	size_t	i;
+
+	if (p == NULL)
+		return (ERROR);
+	i = 0;
+	while (p[i] != NULL)
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
+	return (SUCCESS);
+}
+
 char	*my_strjoin(char *s1, char *s2, char *s3)
 {
     char	*p;

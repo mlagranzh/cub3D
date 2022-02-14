@@ -37,7 +37,7 @@ int	write_list_in_ccmas(t_map *struct_map, t_map_mas map_list)
 	while (++i < map_list.line_num)
 	{
 		j = -1;
-		while (++j < ft_strlen(map_list.line->line))
+		while (++j < (int)ft_strlen(map_list.line->line))
 			struct_map->map[i][j] = map_list.line->line[j];
 		while (j < map_list.max_line_len)
 			struct_map->map[i][j++] = ' ';

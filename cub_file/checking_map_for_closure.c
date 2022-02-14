@@ -1,18 +1,4 @@
-#include "../cub3d.h"
-
-/*
-					 0,0 0,1 0,2
-					 1,0 1,1 1,2
-					 2,0 2,1 2,2
- 
-map[i - 1][j - 1]   map[i - 1][j]   map[i - 1][j + 1]
-
-map[i][j - 1]             0         map[i][j + 1]
-
-map[i + 1][j - 1]   map[i + 1][j]   map[i + 1][j + 1]
-
-*/
-
+#include "cub_file.h"
 
 int checking_around_space(char **map, int i, int j)
 {
@@ -92,11 +78,11 @@ int	checking_map_for_closure(char **map)
 				return (ERROR);
 			j++;
 		}
-		if (map[i][j - 1] != ' ' && map[i][j - 1] != '1') // перед '\0'
+		if (map[i][j - 1] != ' ' && map[i][j - 1] != '1')
 			return (ERROR);
 		i++;
 	}
 	if (check_second_line(map, i - 1) == ERROR)
-	    return (ERROR);
+		return (ERROR);
 	return (SUCCESS);
 }

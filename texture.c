@@ -30,7 +30,6 @@ void draw_wall(t_all *all, t_raycast *raycast, int x)
 		wallX = all->player.pos_y + (double)raycast->perp_wall_dist * raycast->ray_dir_y;
 	else
 		wallX = all->player.pos_x + (double)raycast->perp_wall_dist * raycast->ray_dir_x;
-	// printf("wall_x %f\n", wallX);
 	wallX -= floor((wallX));
 
 	texX = (int)(wallX * (double)(texWidth));
@@ -39,20 +38,4 @@ void draw_wall(t_all *all, t_raycast *raycast, int x)
 	if(raycast->side == 1 && raycast->ray_dir_y < 0) 
 		texX = texWidth - texX - 1;
 	draw(all, raycast, x, texX);
-}
-
-void texture_load(t_all *all, t_data *data, char	*path)
-{
-	void	*img;
-	int		img_width;
-	int		img_height;
-
-	data->img = mlx_xpm_file_to_image(all->mlx, path, &img_width, &img_height);
-	if (data->img == NULL)
-	{
-		write(2, "Texture not found!\n", 20);
-		exit(1);
-	}
-	data->addr = mlx_get_data_addr(data->img,  &data->bits_per_pixel,
-		&data->line_length, &data->endian);
 }

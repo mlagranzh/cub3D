@@ -7,9 +7,9 @@ void printf_array(char **arr)
 		printf("%s\n", arr[i]);
 }
 
-char *delete_space_line(char *line)
+char *delete_space_in_line(char *line)
 {
-	char *new_line = malloc(sizeof(char) * (ft_strlen(line)/2 + 1));
+	char *new_line = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	
 	int i = -1;
 	while (*line)
@@ -19,11 +19,10 @@ char *delete_space_line(char *line)
 		line++;
 	}
 	new_line[++i] = '\0';
-	
 	return (new_line);
 }
 
-int		print_return(int retval, char *print_message)
+int	print_return(int retval, char *print_message)
 {
 	printf("%s\n", print_message);
 	return (retval);

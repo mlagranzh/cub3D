@@ -28,10 +28,21 @@
 #define texWidth 64.
 #define texHeight 64.
 
+#define ROTATE_SPEED 0.3
+#define MOVE_SPEED 0.5
+
+#define barrel_whole "textures/barrel_whole.xpm"
+#define barrel_ruined "textures/barrel_ruined.xpm"
+#define ellowlight "textures/ellowlight.xpm"
+#define redlight "textures/redlight.xpm"
+#define blacklight "textures/blacklight.xpm"
+
 enum    e_retvals
 {
     ERROR = 1,
-    SUCCESS = 0
+    SUCCESS = 0,
+	TRUE = 1,
+	FALSE = 0
 };
 
 #define SPRITES_NUM 1
@@ -56,6 +67,7 @@ typedef struct	s_player
 	double	moveSpeed;
 	double	rotSpeed;
 	char	start_side;
+	int		mouse_x;
 }	t_player;
 
 typedef struct s_map
@@ -128,8 +140,6 @@ typedef struct s_all
 	t_map		map;
 	t_sprites	sprites;
 	t_fog		fog;
-	int			x;
-	double			animation;
 }	t_all;
 
 
@@ -157,21 +167,21 @@ typedef struct s_raycast
 void	ft_print_cchar(char **mas);
 
 //map functions
-int		read_map_param(t_map *map, int fd);
-int		checking_map_for_closure(char **map);
-int		read_cub_file(t_map *map, t_player *player, char *file_name);
+int		cub_file(t_map *map, t_player *player, char *file_name);
 
 //utils0
 void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char);
 int		print_return(int retval, char *print_message);
-char	*delete_space_line(char *line);
+char	*delete_space_in_line(char *line);
 void	printf_array(char **arr);
 char	**ft_realloc(char **mas, char *new_line);
+int		checking_map_for_closure(char **map);
 
 //utils1.c
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color);
 int	    destroy(t_all *all);
+void image_load(t_all *all, t_data *data, char	*path);
 
 //utils2
 int	create_trgb(int t, int r, int g, int b);
@@ -180,11 +190,15 @@ void	draw_square(t_data *img, int y, int x, int color);
 void	draw_border_square(t_data *img, int y, int x, int size, int color);
 void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color);
 
+//utils3
+int		free_2d_int(int **p, size_t size);
+char	*my_strjoin(char *s1, char *s2, char *s3);
+
 //motion.c
 void move_straight(int key, t_all *all);
 void move_side(int key, t_all *all);
 
-void rotate(int key, t_all *all);
+void rotate(int key, t_all *all, double rotSpeed);
 
 
 //draw_map.c
@@ -193,7 +207,7 @@ void	draw_minimap(t_all *all);
 //draw_screen
 void	draw_screen(t_all *all);
 
-void texture_load(t_all *all, t_data *data, char	*path);
+void image_load(t_all *all, t_data *data, char	*path);
 
 void draw_wall(t_all *all, t_raycast *raycast, int x);
 
@@ -213,5 +227,12 @@ unsigned char	get_b(int trgb);
 // fog
 void fog_init(t_all *all);
 void fog(t_all *all);
+
+//screenshot
+void screenshot(t_all *all);
+
+
+void cub_destroy(t_all *all);
+
 
 #endif

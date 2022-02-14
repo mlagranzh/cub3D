@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
-#define MI_CEL_SIZE			10.
-#define MI_SIZE 			20
-#define MI_FIELD_COLOR		0x858585
-#define MI_WALL_COLOR 		0xFF0000
-#define MI_PLAYER_COLOR		0xFFFF00
-#define PI 3.141592
+# define MI_CEL_SIZE			10.
+# define MI_SIZE 			20
+# define MI_FIELD_COLOR		0x858585
+# define MI_WALL_COLOR 		0xFF0000
+# define MI_PLAYER_COLOR		0xFFFF00
+# define PI 3.141592
 
 static void draw_ray_view(t_all *all, float x, float y)
 {

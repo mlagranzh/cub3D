@@ -6,20 +6,11 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:49:09 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 17:54:07 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/15 21:05:44 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color)
-{
-	while (draw_start < draw_end)
-	{
-		my_mlx_pixel_put(&all->img, x, draw_start, color);
-		draw_start++;
-	}
-}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

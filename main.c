@@ -93,7 +93,6 @@ int	main(int argc, char **argv)
 	if (cub_file(&all.map, &all.player, file_name) != SUCCESS)
 		return (ERROR);
 	cub_init(&all);
-	printf("SUCCESS\n");
 	draw_screen(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);

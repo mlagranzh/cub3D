@@ -13,7 +13,7 @@ DIR_GNL			=	get_next_line/
 DIR_BONUS		=	bonus/
 
 SRC				=	main.c draw_screen.c draw_minimap.c texture.c motion.c sprites.c hook.c
-SRC_UTILS		=	utils0.c utils1.c utils2.c utils3.c
+SRC_UTILS		=	utils0.c utils1.c utils2.c utils3.c utils4.c
 SRC_MAP			=	read_map.c read_map_param.c checking_map_for_closure.c \
 					cub_file.c color_param.c cub_file_utils.c make_map_mas.c write_map_list.c
 SRC_GNL			=	get_next_line.c get_next_line_utils.c

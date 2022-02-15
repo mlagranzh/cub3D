@@ -1,9 +1,16 @@
-#include "../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 17:29:52 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 17:48:10 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
+#include "../cub3d.h"
 
 int	my_mlx_pixel_get(t_data *data, int x, int y)
 {
@@ -16,8 +23,8 @@ int	my_mlx_pixel_get(t_data *data, int x, int y)
 
 void	draw_square(t_data *img, int y, int x, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < CEL_SIZE)
@@ -32,68 +39,50 @@ void	draw_square(t_data *img, int y, int x, int color)
 	}
 }
 
-void	draw_border_square(t_data *img, int y, int x, int size, int color)
+void	draw_border_square(t_data *img, t_square_param param)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (i < size)
+	while (i < param.size)
 	{
 		j = -1;
-		while (++j < size)
+		while (++j < param.size)
 		{
-			if (x + i < 0 || y + j < 0 || x + i > SCREEN_WIDTH || y + j > SCREEN_HEIGHT)
+			if (param.x + i < 0 || param.y + j < 0
+				|| param.x + i > SCREEN_WIDTH || param.y + j > SCREEN_HEIGHT)
 				continue ;
-			if (i == 0 || j == 0 || i == size - 1 || j == size - 1)
-				my_mlx_pixel_put(img, x + i, y + j, 0x000000);
+			if (i == 0 || j == 0 || i == param.size - 1 || j == param.size - 1)
+				my_mlx_pixel_put(img, param.x + i,
+					param.y + j, param.border_color);
 			else
-				my_mlx_pixel_put(img, x + i, y + j, color);
+				my_mlx_pixel_put(img, param.x + i,
+					param.y + j, param.inside_color);
 		}
 		i++;
 	}
 }
 
-// рисует квадрат с черной границей, координаты заданны по середине
-void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color)
+void	draw_border_centre_square(t_data *img, t_square_param param)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	i = centre_x - half_size;
-	while (i <= centre_x + half_size)
+	i = param.x - param.size;
+	while (i <= param.x + param.size)
 	{
-		j = centre_y - half_size - 1;
-		while (++j <= centre_y + half_size)
+		j = param.y - param.size - 1;
+		while (++j <= param.y + param.size)
 		{
 			if (i < 0 || j < 0)
 				continue ;
-			if (i == centre_x - half_size || j == centre_y - half_size || i == centre_x + half_size || j == centre_y + half_size)
-				my_mlx_pixel_put(img, i, j, border_color);
+			if (i == param.x - param.size || j == param.y - param.size
+				|| i == param.x + param.size || j == param.y + param.size)
+				my_mlx_pixel_put(img, i, j, param.border_color);
 			else
-				my_mlx_pixel_put(img, i, j, inside_color);
-			// printf("%d\t%d\t\n", i, j);
+				my_mlx_pixel_put(img, i, j, param.inside_color);
 		}
 		i++;
 	}
-}
-
-unsigned char	get_t(int trgb)
-{
-	return (((unsigned char *)&trgb)[3]);
-}
-
-unsigned char	get_r(int trgb)
-{
-	return (((unsigned char *)&trgb)[2]);
-}
-
-unsigned char	get_g(int trgb)
-{
-	return (((unsigned char *)&trgb)[1]);
-}
-
-unsigned char	get_b(int trgb)
-{
-	return (((unsigned char *)&trgb)[0]);
 }

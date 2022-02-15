@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checking_map_for_closure.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:02:37 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:03:27 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
-int checking_around_space(char **map, int i, int j)
+int	checking_around_space(char **map, int i, int j)
 {
 	if (map[i][j + 1] == '0')
 		return (ERROR);
 	if (map[i + 1] != NULL
-	&& (map[i + 1][j] == '0'
-	|| map[i + 1][j + 1] == '0'))
+		&& (map[i + 1][j] == '0'
+		|| map[i + 1][j + 1] == '0'))
 		return (ERROR);
 	if (i != 0 && (map[i - 1][j] == '0' || map[i - 1][j + 1] == '0'))
 		return (ERROR);
@@ -19,9 +31,9 @@ int checking_around_space(char **map, int i, int j)
 	return (SUCCESS);
 }
 
-int check_first_line(char **map)
+int	check_first_line(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[0][i] != '\0')
@@ -33,9 +45,9 @@ int check_first_line(char **map)
 	return (SUCCESS);
 }
 
-int check_first_column(char **map)
+int	check_first_column(char **map)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (map[j])
@@ -47,9 +59,9 @@ int check_first_column(char **map)
 	return (SUCCESS);
 }
 
-int check_second_line(char **map, int j)
+int	check_second_line(char **map, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[j][i] != '\0')
@@ -63,8 +75,8 @@ int check_second_line(char **map, int j)
 
 int	checking_map_for_closure(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	if (check_first_line(map) == ERROR || check_first_column(map) == ERROR)

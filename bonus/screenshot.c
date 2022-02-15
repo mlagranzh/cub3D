@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void printf_array_int(int *arr, int size)
+void	printf_array_int(int *arr, int size)
 {
 	int i = -1;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_map_mas.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:13:59 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:14:32 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
 int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
@@ -5,7 +17,7 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 	int	i;
 
 	struct_map->map = (char **)malloc(sizeof(char *)
-		* (map_list.line_num + 1));
+			* (map_list.line_num + 1));
 	if (!struct_map->map)
 		return (ERROR);
 	struct_map->map[map_list.line_num] = NULL;
@@ -13,7 +25,7 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 	while (++i < map_list.line_num)
 	{
 		struct_map->map[i] = (char *)malloc(sizeof(char)
-			* (map_list.max_line_len + 1));
+				* (map_list.max_line_len + 1));
 		if (!struct_map->map[i])
 		{
 			while (--i >= 0)
@@ -28,8 +40,8 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 
 int	write_list_in_ccmas(t_map *struct_map, t_map_mas map_list)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (get_memory_for_map_mas(struct_map, map_list) == ERROR)
 		return (ERROR);
@@ -48,7 +60,7 @@ int	write_list_in_ccmas(t_map *struct_map, t_map_mas map_list)
 	return (free_map_list(map_list, SUCCESS));
 }
 
-int make_map_mas(t_map *struct_map, int fd)
+int	make_map_mas(t_map *struct_map, int fd)
 {
 	t_map_mas	map_list;
 

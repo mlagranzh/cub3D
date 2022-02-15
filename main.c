@@ -48,7 +48,8 @@ void cub_init(t_all *all)
 	image_load(all, &all->wall[2], all->map.we_texture);
 	image_load(all, &all->wall[3], all->map.ea_texture);
 
-	fog_init(all);
+	if (fog_init(all) == ERROR)
+		return ;
 }
 
 void cub_destroy(t_all *all)

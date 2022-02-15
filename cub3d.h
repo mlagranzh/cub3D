@@ -45,7 +45,14 @@ enum    e_retvals
 	FALSE = 0
 };
 
-#define SPRITES_NUM 1
+typedef struct	s_square_param
+{
+	int	x;
+	int	y;
+	int	size;
+	int	inside_color;
+	int	border_color;
+}	t_square_param;
 
 typedef struct	s_data
 {
@@ -187,8 +194,8 @@ void image_load(t_all *all, t_data *data, char	*path);
 int	create_trgb(int t, int r, int g, int b);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 void	draw_square(t_data *img, int y, int x, int color);
-void	draw_border_square(t_data *img, int y, int x, int size, int color);
-void	draw_border_centre_square(t_data *img, int centre_x, int centre_y, int half_size, int inside_color, int border_color);
+void	draw_border_square(t_data *img, t_square_param param);
+void	draw_border_centre_square(t_data *img, t_square_param param);
 
 //utils3
 int		free_2d_int(int **p, size_t size);
@@ -225,7 +232,7 @@ unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 
 // fog
-void fog_init(t_all *all);
+int fog_init(t_all *all);
 void fog(t_all *all);
 
 //screenshot

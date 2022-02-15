@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_param.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:34:51 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:35:05 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
 int	free_color_param_mas(char ***param_mas, int retval)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (param_mas[0][++i])
@@ -35,8 +47,8 @@ int	write_color_param(t_map *map, char *param, char key)
 
 int	check_color_num_for_valid(char **str)
 {
-	int len;
-	int null_flag;
+	int	len;
+	int	null_flag;
 
 	null_flag = FALSE;
 	while (**str == '0')

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub_file_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:14:46 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:14:47 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
 int	str_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
@@ -12,7 +24,7 @@ int	str_empty(char *str)
 	return (FALSE);
 }
 
-char *skip_space(char *str)
+char	*skip_space(char *str)
 {
 	while (*str == ' ')
 		str++;

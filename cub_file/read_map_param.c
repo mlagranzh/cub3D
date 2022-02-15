@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map_param.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:03:44 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:04:16 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
 static int	write_file_path(char **path, char *str)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	str += 2;
 	while (*str == ' ')
@@ -33,16 +45,16 @@ static int	write_map_param(t_map *map, char *param)
 		&& write_color_param(map, param + 1, *param) == SUCCESS)
 		return (SUCCESS);
 	else if (param[0] == 'N' && param[1] == 'O'
-			&& write_file_path(&map->no_texture, param) == SUCCESS)
+		&& write_file_path(&map->no_texture, param) == SUCCESS)
 		return (SUCCESS);
 	else if (param[0] == 'S' && param[1] == 'O'
-			&& write_file_path(&map->so_texture, param) == SUCCESS)
+		&& write_file_path(&map->so_texture, param) == SUCCESS)
 		return (SUCCESS);
 	else if (param[0] == 'W' && param[1] == 'E'
-			&& write_file_path(&map->we_texture, param) == SUCCESS)
+		&& write_file_path(&map->we_texture, param) == SUCCESS)
 		return (SUCCESS);
 	else if (param[0] == 'E' && param[1] == 'A'
-			&& write_file_path(&map->ea_texture, param) == SUCCESS)
+		&& write_file_path(&map->ea_texture, param) == SUCCESS)
 		return (SUCCESS);
 	return (ERROR);
 }

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 05:15:06 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 05:32:12 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub_file.h"
 
-int checking_map_for_invalid_sumbol(char **map)
+int	checking_map_for_invalid_sumbol(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
@@ -22,11 +34,11 @@ int checking_map_for_invalid_sumbol(char **map)
 	return (SUCCESS);
 }
 
-int search_player_pos_in_map(char **map, t_player *player)
+int	search_player_pos_in_map(char **map, t_player *player)
 {
 	int	pos_num;
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	pos_num = 0;
 	i = -1;

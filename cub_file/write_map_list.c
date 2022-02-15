@@ -33,7 +33,7 @@ static int	check_for_end(int fd)
 static int	write_line_in_map_list(t_map_mas *map_list, char *line)
 {
 	map_list->line_num++;
-	if (map_list->max_line_len < ft_strlen(line))
+	if (map_list->max_line_len < (int)ft_strlen(line))
 		map_list->max_line_len = ft_strlen(line);
 	map_list->line->line = line;
 	map_list->line->next = (t_line_list *)malloc(sizeof(t_line_list));

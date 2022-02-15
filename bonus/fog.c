@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:25:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 17:26:05 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/15 17:57:37 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static void	put_fog_on_texture(t_data *data)
 	int	y;
 
 	y = -1;
-	while (++y < texHeight)
+	while (++y < TEX_HEIGHT)
 	{
 		x = -1;
-		while (++x < texWidth)
+		while (++x < TEX_WIDTH)
 		{
 			color = my_mlx_pixel_get(data, x, y);
 			if (color == 0x000000)
@@ -70,7 +70,7 @@ int	fog_init(t_all *all)
 	all->fog.clear_barrel = all->sprites.texture_barrel;
 	all->fog.clear_floor = all->map.floor_color;
 	all->fog.clear_ceilling = all->map.ceilling_color;
-	if (fog_get_memory == ERROR)
+	if (fog_get_memory(all) == ERROR)
 		return (ERROR);
 	image_load(all, &all->fog.fog_wall[0], all->map.no_texture);
 	image_load(all, &all->fog.fog_wall[1], all->map.so_texture);

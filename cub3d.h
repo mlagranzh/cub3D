@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
+/*   Updated: 2022/02/15 18:01:23 by ChelseyLeon      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -21,40 +33,32 @@
 # define KEY_A				0
 # define KEY_ESC			53
 # define DISTANCE			3
+# define SPACE				49
 
-#define CEL_SIZE 6
-#define SCREEN_WIDTH 1000 // ширина
-#define SCREEN_HEIGHT 600 // высота
-#define texWidth 64.
-#define texHeight 64.
+# define CEL_SIZE 6
+# define SCREEN_WIDTH 1000
+# define SCREEN_HEIGHT 600
+# define TEX_WIDTH 64.
+# define TEX_HEIGHT 64.
 
-#define ROTATE_SPEED 0.3
-#define MOVE_SPEED 0.5
+# define ROTATE_SPEED 0.3
+# define MOVE_SPEED 0.5
 
-#define barrel_whole "textures/barrel_whole.xpm"
-#define barrel_ruined "textures/barrel_ruined.xpm"
-#define ellowlight "textures/ellowlight.xpm"
-#define redlight "textures/redlight.xpm"
-#define blacklight "textures/blacklight.xpm"
+# define BARREL_WHOLE "textures/barrel_whole.xpm"
+# define BARREL_RUINED "textures/barrel_ruined.xpm"
+# define ELLOW_LIGHT "textures/ellowlight.xpm"
+# define RED_LIGHT "textures/redlight.xpm"
+# define BLACK_LIGHT "textures/blacklight.xpm"
 
-enum    e_retvals
+enum	e_retvals
 {
-    ERROR = 1,
-    SUCCESS = 0,
+	ERROR = 1,
+	SUCCESS = 0,
 	TRUE = 1,
 	FALSE = 0
 };
 
-typedef struct	s_square_param
-{
-	int	x;
-	int	y;
-	int	size;
-	int	inside_color;
-	int	border_color;
-}	t_square_param;
-
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -63,7 +67,7 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
@@ -71,8 +75,6 @@ typedef struct	s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	moveSpeed;
-	double	rotSpeed;
 	char	start_side;
 	int		mouse_x;
 }	t_player;
@@ -90,10 +92,10 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
-enum    e_textures_name
+enum	e_textures_name
 {
-    BARREL = 1,
-    LIGHT = 2
+	BARREL = 1,
+	LIGHT = 2
 };
 
 typedef struct s_sprite_coordinate
@@ -120,7 +122,7 @@ typedef struct s_sprites
 	int				*distance;
 	int				*iterator;
 	double			*z_buffer;
-}   t_sprites;
+}	t_sprites;
 
 typedef struct s_fog
 {
@@ -149,27 +151,26 @@ typedef struct s_all
 	t_fog		fog;
 }	t_all;
 
-
 typedef struct s_raycast
 {
-	double camera_x;
-	double ray_dir_x;
-	double ray_dir_y;
-	int map_x;		//в какой ячейке карты мы находимся
-	int map_y;
-	double side_dist_x;		//длина луча от текущей позиции до следующей стороны x или y
-	double side_dist_y;
-	double delta_dist_x; //длина луча от одной стороны x или y до следующей стороны x или y
-	double delta_dist_y;
-	double perp_wall_dist;
-	int step_x; 		//в каком направлении делать шаг в направлении x или y (либо +1, либо -1)
-	int step_y;
-	int hit; //был ли удар по стене?
-    int side;//был удар по стороне стены x или y?
-	int draw_start;
-	int draw_end;
-	int line_height;
-} t_raycast;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+}	t_raycast;
 
 void	ft_print_cchar(char **mas);
 
@@ -185,30 +186,25 @@ char	**ft_realloc(char **mas, char *new_line);
 int		checking_map_for_closure(char **map);
 
 //utils1.c
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    draw_ver_line(t_all *all, int x, int draw_start, int draw_end, int color);
-int	    destroy(t_all *all);
-void image_load(t_all *all, t_data *data, char	*path);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		destroy(t_all *all);
+void	image_load(t_all *all, t_data *data, char	*path);
 
 //utils2
-int	create_trgb(int t, int r, int g, int b);
-int	my_mlx_pixel_get(t_data *data, int x, int y);
-void	draw_square(t_data *img, int y, int x, int color);
-void	draw_border_square(t_data *img, t_square_param param);
-void	draw_border_centre_square(t_data *img, t_square_param param);
+int		my_mlx_pixel_get(t_data *data, int x, int y);
 
 //utils3
 int		free_2d_int(int **p, size_t size);
 char	*my_strjoin(char *s1, char *s2, char *s3);
+int		free_2d_char(char **p);
 
-//motion.c
-void move_straight(int key, t_all *all);
-void move_side(int key, t_all *all);
+//motion
+void	move_straight(int key, t_all *all);
+void	move_side(int key, t_all *all);
 
-void rotate(int key, t_all *all, double rotSpeed);
+void	rotate(int key, t_all *all, double rotSpeed);
 
-
-//draw_map.c
+//draw_.c
 void	draw_minimap(t_all *all);
 
 //draw_screen
@@ -216,20 +212,17 @@ void	draw_screen(t_all *all);
 
 void image_load(t_all *all, t_data *data, char	*path);
 
-void draw_wall(t_all *all, t_raycast *raycast, int x);
-
-void draw_sprites(t_all *all);
-void sprites_init(t_all *all);
-
 
 int loop_hook(t_all *all);
 int mouse_hook(int x, int y, t_all *all);
 int my_hook(int key, t_all *all);
 
+// utils4
 unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
 unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
+int		create_trgb(int t, int r, int g, int b);
 
 // fog
 int fog_init(t_all *all);
@@ -241,5 +234,11 @@ void screenshot(t_all *all);
 
 void cub_destroy(t_all *all);
 
+//sprites
+void	draw_sprites(t_all *all);
+void	sprites_init(t_all *all);
+
+//texture
+void	draw_wall(t_all *all, t_raycast *raycast, int x);
 
 #endif

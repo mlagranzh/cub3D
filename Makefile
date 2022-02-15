@@ -2,7 +2,7 @@ NAME			=	cub3d
 
 HEADER			=	cub3d.h
 
-GCC				=	gcc -g3#-Wall -Wextra -Werror
+GCC				=	gcc -g3 #-Wall -Wextra -Werror
 
 DIR_LIBA		=	libft/
 DIR_MINILIBX	=	mlx/
@@ -39,11 +39,9 @@ $(NAME)			:	$(OBJ)
 #					@echo "\033[0;35mКомпилю cub3d...\033[0;32m"
 #					@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
 					$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
-#					@echo "DONE! Запускаю..."
-#					@./cub3d
 
-xpm				: mlx
-				$(GCC) xpm_viewer.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
+xpm				:	mlx
+					$(GCC) xpm_viewer.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 map				:	clean $(MAP_OBJ)
 					$(GCC) -o $(NAME) $(MAP_OBJ) libft/libft.a

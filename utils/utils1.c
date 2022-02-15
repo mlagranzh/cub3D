@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:49:09 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 17:51:12 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/15 17:54:07 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	image_load(t_all *all, t_data *data, char	*path)
 {
-	void	*img;
 	int		img_width;
 	int		img_height;
 

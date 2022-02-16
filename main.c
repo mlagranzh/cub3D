@@ -86,18 +86,18 @@ int	main(int argc, char **argv)
 	cub_init(&all);
 	draw_screen(&all);
 
-	draw_sprites(&all);
-	draw_minimap(&all);
-
-	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
-	// mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
-	// mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
-	// mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
-	// mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
-	// mlx_loop(all.mlx);
+	// draw_sprites(&all);
+	// draw_minimap(&all);
 
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
-	cub_destroy(&all);
-	sleep(100000000);
+	mlx_hook(all.win, 2, 1L << 2, my_hook, (void *)&all);
+	mlx_hook(all.win, 17, 0L, destroy, (void *)&all);
+	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
+	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
+	mlx_loop(all.mlx);
+
+	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
+	// cub_destroy(&all);
+	// sleep(100000000);
 	return (SUCCESS);
 }

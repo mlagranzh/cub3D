@@ -71,6 +71,10 @@ void	cub_destroy(t_all *all)
 	free(all->sprites.distance);
 	free(all->sprites.iterator);
 	free_2d_char(all->map.map);
+	free(all->map.no_texture);
+	free(all->map.so_texture);
+	free(all->map.we_texture);
+	free(all->map.ea_texture);
 }
 
 int	main(int argc, char **argv)

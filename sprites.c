@@ -1,5 +1,19 @@
 #include "cub3d.h"
 
+typedef struct s_var
+{
+	double	transform_y;
+	double	transform_x;
+	int		draw_start_x;
+	int		draw_end_x;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		sprite_screen_x;
+	int		sprite_width;
+	int		sprite_height;
+	int		v_move_screen;
+}	t_var;
+
 int	perpendicular_walls(char **map, int i, int j)
 {
 	int	retval;
@@ -36,6 +50,62 @@ int	empty_lines(char **map, int i, int j)
 	return (0);
 }
 
+// static int	put(t_all *all, int i, int j)
+// {
+// 	static int	if_there_are = 0;
+// 	static int	fact_sprites_num = 0;
+// 	int 		ret;
+
+// 	ret = 0;
+// 	if (all->map.map[i][j] == '0')
+// 	{
+// 		if_there_are += perpendicular_walls(all->map.map, i, j);
+// 		if_there_are += empty_lines(all->map.map, i, j);
+// 		if (if_there_are > 0)
+// 		{
+// 			all->sprites.coordinates[fact_sprites_num].texture_name = \
+// 															if_there_are;
+// 			all->sprites.coordinates[fact_sprites_num].x = i + 0.5;
+// 			all->sprites.coordinates[fact_sprites_num].y = j + 0.5;
+// 			all->sprites.coordinates[fact_sprites_num].u_div = 1;
+// 			all->sprites.coordinates[fact_sprites_num].v_div = 1;
+// 			all->sprites.coordinates[fact_sprites_num].v_move = 0.0;
+// 			all->sprites.coordinates[fact_sprites_num].texture_flag = 0;
+// 			if_there_are = 0;
+// 			fact_sprites_num++;
+// 			ret++;
+// 		}
+// 		if_there_are = 0;
+// 		fact_sprites_num++;
+// 		ret++;
+// 	}
+// 	return (ret);
+// }
+
+// void	put_sprites_on_map(t_all *all, t_map *map)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	fact_sprites_num;
+// 	int	if_there_are;
+
+// 	i = -1;
+// 	fact_sprites_num = 0;
+// 	if_there_are = 0;
+// 	while (map->map[++i])
+// 	{
+// 		j = 0;
+// 		while (map->map[i][j] != '\0')
+// 		{
+// 			fact_sprites_num += put(all, i, j);
+// 				if (fact_sprites_num == all->sprites.num)
+// 					return ;
+// 			j++;
+// 		}
+// 	}
+// 	all->sprites.num = fact_sprites_num;
+// }
+
 void	put_sprites_on_map(t_all *all, t_map *map)
 {
 	int	i;
@@ -59,8 +129,8 @@ void	put_sprites_on_map(t_all *all, t_map *map)
 				{
 					all->sprites.coordinates[fact_sprites_num].texture_name = \
 																if_there_are;
-					all->sprites.coordinates[fact_sprites_num].x = (double)i + 0.5;
-					all->sprites.coordinates[fact_sprites_num].y = (double)j + 0.5;
+					all->sprites.coordinates[fact_sprites_num].x = i + 0.5;
+					all->sprites.coordinates[fact_sprites_num].y = j + 0.5;
 					all->sprites.coordinates[fact_sprites_num].u_div = 1;
 					all->sprites.coordinates[fact_sprites_num].v_div = 1;
 					all->sprites.coordinates[fact_sprites_num].v_move = 0.0;
@@ -125,110 +195,115 @@ void	bubble_sort(int *nums, int *itrs, int size)
 	}
 }
 
-void draw_sprites(t_all *all)
+void 	funct(t_all *all)
 {
-	int	i;
-	int	j;
+	int		i;
+	double	x;
+	double	y;
 
-    i = 0;
-    while (i < all->sprites.num)
-    {
-		all->sprites.distance[i] = (all->player.pos_x - all->sprites.coordinates[i].x) * (all->player.pos_x - all->sprites.coordinates[i].x)
-            + (all->player.pos_y - all->sprites.coordinates[i].y) * (all->player.pos_y - all->sprites.coordinates[i].y);
-        all->sprites.iterator[i] = i;
-        i++;
-    }
+	i = -1;
+	while (++i < all->sprites.num)
+	{
+		x = pow((all->player.pos_x - all->sprites.coordinates[i].x), 2);
+		y = pow((all->player.pos_y - all->sprites.coordinates[i].y), 2);
+		all->sprites.distance[i] = x + y;
+		all->sprites.iterator[i] = i;
+	}
+	bubble_sort(all->sprites.distance, all->sprites.iterator, all->sprites.num);
+	all->sprites.coller++;
+	if (all->sprites.coller >= all->sprites.coller_max)
+		all->sprites.coller = all->sprites.coller_min;
+}
 
-    bubble_sort(all->sprites.distance, all->sprites.iterator, all->sprites.num);
+void	draw(t_all *all, t_var *vars, int i)
+{
+	int	stripe;
+	int	tex_x;
+	int	tex_y;
+	int	y;
+	int	d;
+	int color;
 
-    all->sprites.coller++;
-    if (all->sprites.coller >= all->sprites.coller_max)
-        all->sprites.coller = all->sprites.coller_min;
-    // printf("coller = %i\n", all->sprites.coller / all->sprites.coller_mod);
-    j = all->sprites.num;
-    while (--j >= 0)
-    {
-        i = all->sprites.iterator[j];
-        // printf("\n\n-------FACK-------\n");
-        double sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;//sprites[i].x - all->player.pos_x;
-        double sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;//sprites[i].y - all->player.pos_y;
+	stripe = vars->draw_start_x - 1;
+	while (++stripe < vars->draw_end_x)
+	{
+		tex_x = (int)(256 * (stripe - (-vars->sprite_width / 2 + \
+			vars->sprite_screen_x)) * TEX_WIDTH / vars->sprite_width) / 256;
+		if (vars->transform_y > 0 && \
+				vars->transform_y < all->sprites.z_buffer[stripe])
+		{
+			y = vars->draw_start_y - 1;
+			while (++y < vars->draw_end_y)
+			{
+				d = (y - vars->v_move_screen) * 256 - SCREEN_HEIGHT * 128 + vars->sprite_height * 128;
+				tex_y = ((d * TEX_HEIGHT) / vars->sprite_height) / 256;
+				color = 0x000000;
+				if (all->sprites.coordinates[i].texture_name == BARREL)
+					color = my_mlx_pixel_get(&all->sprites.texture_barrel[all->sprites.coordinates[i].texture_flag], tex_x, tex_y);
+				if (all->sprites.coordinates[i].texture_name == LIGHT)
+                	color = my_mlx_pixel_get(&all->sprites.texture_light[all->sprites.coller / all->sprites.coller_mod], tex_x, tex_y);
+				if (color != 0x000000)
+					my_mlx_pixel_put(&all->img, stripe, y, color);
+			}
+		}
+	}
+}
 
-        if (fabs(sprite_x) < 0.2 && fabs(sprite_y) < 0.2)
-        {
-            if (all->sprites.coordinates[i].texture_name == BARREL)
-                all->sprites.coordinates[i].texture_flag = 1;
-            continue ;
-        }
-        // printf("sprite x/y = %f/%f\n", sprite_x, sprite_y);
+void	init(t_all *all, t_var *vars, int i)
+{
+	double	inv_det;
+	double	sprite_x;
+	double	sprite_y;
 
-        double inv_det = 1.0 / (all->player.plane_x * all->player.dir_y
-            - all->player.dir_x * all->player.plane_y);
+	sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;
+	sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;
+	if (fabs(sprite_x) < 0.2 && fabs(sprite_y) < 0.2)
+	{
+		if (all->sprites.coordinates[i].texture_name == BARREL)
+			all->sprites.coordinates[i].texture_flag = 1;
+	}
+	inv_det = 1.0 / (all->player.plane_x * all->player.dir_y - \
+					all->player.dir_x * all->player.plane_y);
+	vars->transform_x = inv_det * \
+		(all->player.dir_y * sprite_x - all->player.dir_x * sprite_y);
+	vars->transform_y = inv_det * \
+		(-all->player.plane_y * sprite_x + all->player.plane_x * sprite_y);
+	vars->sprite_screen_x = (int)((SCREEN_WIDTH / 2) * \
+						(1 + vars->transform_x / vars->transform_y));
+	vars->v_move_screen = (int)(all->sprites.coordinates[i].v_move / \
+							vars->transform_y);
+	vars->sprite_height = abs((int)(SCREEN_HEIGHT / vars->transform_y)) / \
+								all->sprites.coordinates[i].v_div;
+	vars->draw_start_y = -vars->sprite_height / 2 + \
+						SCREEN_HEIGHT / 2 + vars->v_move_screen;
+	if (vars->draw_start_y < 0)
+		vars->draw_start_y = 0;
+	vars->draw_end_y = vars->sprite_height / 2 + SCREEN_HEIGHT / 2 + \
+							vars->v_move_screen;
+	if (vars->draw_end_y >= SCREEN_HEIGHT)
+		vars->draw_end_y = SCREEN_HEIGHT - 1;
+	vars->sprite_width = abs((int)(SCREEN_HEIGHT / vars->transform_y)) / \
+			all->sprites.coordinates[i].u_div;
+	vars->draw_start_x = -vars->sprite_width / 2 + vars->sprite_screen_x;
+	if (vars->draw_start_x < 0)
+		vars->draw_start_x = 0;
+	vars->draw_end_x = vars->sprite_width / 2 + vars->sprite_screen_x;
+	if (vars->draw_end_x > SCREEN_WIDTH)
+		vars->draw_end_x = SCREEN_WIDTH;
+}
 
-        // printf("inv_det = %f\n", inv_det);
-        
-        double transform_x = inv_det * (all->player.dir_y * sprite_x - all->player.dir_x * sprite_y);
-        double transform_y = inv_det * (-all->player.plane_y * sprite_x + all->player.plane_x * sprite_y);
+void	draw_sprites(t_all *all)
+{
+	int		j;
+	int 	i;
+	t_var	vars;
 
-        // printf("transofrm x/y = %f/%f\n", transform_x, transform_y);
-
-        int sprite_screen_x = (int)((SCREEN_WIDTH / 2) * (1 + transform_x / transform_y));
-
-        // printf("screen_x = %i\n", sprite_screen_x);
-
-        int v_move_screen = (int)(all->sprites.coordinates[i].v_move / transform_y);
-
-        // printf("v_move_screen = %i\n", v_move_screen);
-
-        int sprite_height = abs((int)(SCREEN_HEIGHT / transform_y)) / all->sprites.coordinates[i].v_div;
-
-        // printf("sprite_height = %i\n", sprite_height);
-
-        int draw_start_y = -sprite_height / 2 + SCREEN_HEIGHT / 2 + v_move_screen;
-        if (draw_start_y < 0)
-            draw_start_y = 0;
-        int draw_end_y = sprite_height / 2 + SCREEN_HEIGHT / 2 + v_move_screen;
-        if (draw_end_y >= SCREEN_HEIGHT)
-            draw_end_y = SCREEN_HEIGHT - 1;
-
-        // printf("start/end y = %i/%i\n", draw_start_y, draw_end_y);
-
-        int sprite_width = abs((int)(SCREEN_HEIGHT / transform_y)) / all->sprites.coordinates[i].u_div;
-
-        // printf("sprite_width = %i\n", sprite_width);
-
-        int draw_start_x = -sprite_width / 2 + sprite_screen_x;
-        if (draw_start_x < 0)
-            draw_start_x = 0;
-        int draw_end_x = sprite_width / 2 + sprite_screen_x;
-        if (draw_end_x > SCREEN_WIDTH)
-            draw_end_x = SCREEN_WIDTH;
-
-        // printf("start/end x = %i/%i\n", draw_start_x, draw_end_x);
-        
-        int stripe = draw_start_x;
-        while (stripe < draw_end_x)
-        {
-            int tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x))
-                * TEX_WIDTH / sprite_width) / 256;
-            
-            if (transform_y > 0 && transform_y < all->sprites.z_buffer[stripe])
-            {
-                int y = draw_start_y;
-                while (y < draw_end_y)
-                {
-                    int d = (y - v_move_screen) * 256 - SCREEN_HEIGHT * 128 + sprite_height * 128;
-                    int tex_y = ((d * TEX_HEIGHT) / sprite_height) / 256;
-                    int color = 0x000000;
-                    if (all->sprites.coordinates[i].texture_name == BARREL)
-                        color = my_mlx_pixel_get(&all->sprites.texture_barrel[all->sprites.coordinates[i].texture_flag], tex_x, tex_y);
-                    if (all->sprites.coordinates[i].texture_name == LIGHT)
-                        color = my_mlx_pixel_get(&all->sprites.texture_light[all->sprites.coller / all->sprites.coller_mod], tex_x, tex_y);
-                    if (color != 0x000000)
-                        my_mlx_pixel_put(&all->img, stripe, y, color);
-                    y++;
-                }
-            }
-            stripe++;
-        }
-    }
+	funct(all);
+	j = all->sprites.num;
+	while (--j >= 0)
+	{
+		i = all->sprites.iterator[j];
+		init(all, &vars, i);
+		draw(all, &vars, i);
+	}
 }

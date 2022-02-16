@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:32:20 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:17:04 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 21:33:29 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char		*skip_space(char *str);
 int			str_empty(char *str);
 int			free_data(void *data, int retval);
 int			free_map_list(t_map_mas *map_list, int retval);
-t_map_mas	initial_map_list(void); 
+t_map_mas	initial_map_list(void);
 
 #endif

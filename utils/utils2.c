@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 17:29:52 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 07:37:03 by celys            ###   ########.fr       */
+/*   Created: 2022/02/15 17:32:10 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/15 17:32:11 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	my_mlx_pixel_get(t_data *data, int x, int y)
+unsigned char	get_t(int trgb)
 {
-	char	*dst;
+	return (((unsigned char *)&trgb)[3]);
+}
 
-	dst = data->addr + (y * data->line_length + x
-			* (data->bits_per_pixel / 8));
-	return (*(unsigned int *)dst);
+unsigned char	get_r(int trgb)
+{
+	return (((unsigned char *)&trgb)[2]);
+}
+
+unsigned char	get_g(int trgb)
+{
+	return (((unsigned char *)&trgb)[1]);
+}
+
+unsigned char	get_b(int trgb)
+{
+	return (((unsigned char *)&trgb)[0]);
+}
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }

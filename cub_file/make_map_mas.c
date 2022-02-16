@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:13:59 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:03:03 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 21:33:15 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 
 	struct_map->map = (char **)ft_calloc(sizeof(char *),
 			(map_list.line_num + 1));
-	// printf("%p\n", struct_map->map);
 	if (!struct_map->map)
 		return (ERROR);
 	struct_map->map[map_list.line_num] = NULL;
@@ -27,7 +26,6 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 	{
 		struct_map->map[i] = (char *)ft_calloc(sizeof(char),
 				(map_list.max_line_len + 1));
-		// printf("%p\n", struct_map->map[i]);
 		if (!struct_map->map[i])
 		{
 			while (--i >= 0)

@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:13:59 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 05:14:32 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 21:33:15 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	get_memory_for_map_mas(t_map *struct_map, t_map_mas map_list)
 {
 	int	i;
 
-	struct_map->map = (char **)malloc(sizeof(char *)
-			* (map_list.line_num + 1));
+	struct_map->map = (char **)ft_calloc(sizeof(char *),
+			(map_list.line_num + 1));
 	if (!struct_map->map)
 		return (ERROR);
 	struct_map->map[map_list.line_num] = NULL;
 	i = -1;
 	while (++i < map_list.line_num)
 	{
-		struct_map->map[i] = (char *)malloc(sizeof(char)
-				* (map_list.max_line_len + 1));
+		struct_map->map[i] = (char *)ft_calloc(sizeof(char),
+				(map_list.max_line_len + 1));
 		if (!struct_map->map[i])
 		{
 			while (--i >= 0)
@@ -57,7 +57,7 @@ int	write_list_in_ccmas(t_map *struct_map, t_map_mas map_list)
 	}
 	struct_map->width = map_list.line_num;
 	struct_map->height = map_list.max_line_len;
-	return (free_map_list(map_list, SUCCESS));
+	return (SUCCESS);
 }
 
 int	make_map_mas(t_map *struct_map, int fd)
@@ -68,9 +68,10 @@ int	make_map_mas(t_map *struct_map, int fd)
 	if (map_list.line_num == -1)
 		return (ERROR);
 	if (write_map_list(&map_list, fd) == ERROR)
-		return (ERROR);
+		return (free_map_list(&map_list, ERROR));
 	map_list.line = map_list.first_line;
 	if (write_list_in_ccmas(struct_map, map_list) == ERROR)
-		return (ERROR);
+		return (free_map_list(&map_list, ERROR));
+	free_map_list(&map_list, 1);
 	return (SUCCESS);
 }

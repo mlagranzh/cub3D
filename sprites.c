@@ -1,18 +1,37 @@
 #include "cub3d.h"
 
-typedef struct s_var
+// typedef struct s_var
+// {
+// 	double	transform_y;
+// 	double	transform_x;
+// 	int		draw_start_x;
+// 	int		draw_end_x;
+// 	int		draw_start_y;
+// 	int		draw_end_y;
+// 	int		sprite_screen_x;
+// 	int		sprite_width;
+// 	int		sprite_height;
+// 	int		v_move_screen;
+// }	t_var;
+typedef struct s_sprites_param
 {
-	double	transform_y;
+	double	sprite_x;
+	double	sprite_y;
+	double	inv_det;
 	double	transform_x;
-	int		draw_start_x;
-	int		draw_end_x;
+	double	transform_y;
+	int		sprite_screen_x;
+	int		sprite_height;
 	int		draw_start_y;
 	int		draw_end_y;
-	int		sprite_screen_x;
 	int		sprite_width;
-	int		sprite_height;
-	int		v_move_screen;
-}	t_var;
+	int		draw_start_x;
+	int		draw_end_x;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_sprites_param;
+
 
 int	perpendicular_walls(char **map, int i, int j)
 {
@@ -144,7 +163,7 @@ void	put_sprites_on_map(t_all *all, t_map *map)
 			j++;
 		}
 	}
-    all->sprites.num = fact_sprites_num;
+	all->sprites.num = fact_sprites_num;
 }
 
 void	sprites_init(t_all *all)
@@ -168,7 +187,7 @@ void	sprites_init(t_all *all)
 	all->sprites.iterator = malloc(sizeof(int) * all->sprites.num);
 }
 
-void	bubble_sort(int *nums, int *itrs, int size)
+void	sort_distance(int *nums, int *itrs, int size)
 {
 	int	temp;
 	int	i;
@@ -195,115 +214,121 @@ void	bubble_sort(int *nums, int *itrs, int size)
 	}
 }
 
-void 	funct(t_all *all)
-{
-	int		i;
-	double	x;
-	double	y;
+// void	calculation_distance(t_sprites *sprites, t_player *player)
+// {
+// 	int i;
 
-	i = -1;
-	while (++i < all->sprites.num)
+// 	i = -1;
+// 	while (++i < sprites->num)
+// 	{
+// 		sprites->distance[i] = (player->pos_x - sprites->coordinates[i].x)
+// 			* (player->pos_x - sprites->coordinates[i].x)
+// 			+ (player->pos_y - sprites->coordinates[i].y)
+// 			* (player->pos_y - sprites->coordinates[i].y);
+// 		sprites->iterator[i] = i;
+// 	}
+// }
+
+// void	calculation_coller(t_sprites *sprites)
+// {
+// 	sprites->coller++;
+// 	if (sprites->coller >= sprites->coller_max)
+// 		sprites->coller = sprites->coller_min;
+// }
+
+// int	calculation_general_parameters(t_all *all, t_sprites_param *param, int i)
+// {
+// 	param->sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;
+// 	param->sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;
+// 	if (fabs(param->sprite_x) < 0.2 && fabs(param->sprite_y) < 0.2)
+// 	{
+// 		if (all->sprites.coordinates[i].texture_name == BARREL)
+// 			all->sprites.coordinates[i].texture_flag = 1;
+// 		return (FALSE);
+// 	}
+// 	param->inv_det = 1.0 / (all->player.plane_x * all->player.dir_y
+// 		- all->player.dir_x * all->player.plane_y);
+// 	param->transform_x = param->inv_det * (all->player.dir_y * param->sprite_x
+// 		- all->player.dir_x * param->sprite_y);
+// 	param->transform_y = param->inv_det * (-all->player.plane_y * param->sprite_x
+// 		+ all->player.plane_x * param->sprite_y);
+// 	param->sprite_screen_x = (int)((SCREEN_WIDTH / 2)
+// 		* (1 + param->transform_x / param->transform_y));
+// 	param->sprite_height = abs((int)(SCREEN_HEIGHT / param->transform_y));
+// 	return (TRUE);
+// }
+
+// void	calculation_start_end(t_sprites_param *param)
+// {
+// 	param->draw_start_y = -param->sprite_height / 2 + SCREEN_HEIGHT / 2;
+// 	if (param->draw_start_y < 0)
+// 		param->draw_start_y = 0;
+// 	param->draw_end_y = param->sprite_height / 2 + SCREEN_HEIGHT / 2;
+// 	if (param->draw_end_y >= SCREEN_HEIGHT)
+// 		param->draw_end_y = SCREEN_HEIGHT - 1;
+// 	param->sprite_width = abs((int)(SCREEN_HEIGHT / param->transform_y));
+// 	param->draw_start_x = -param->sprite_width / 2 + param->sprite_screen_x;
+// 	if (param->draw_start_x < 0)
+// 		param->draw_start_x = 0;
+// 	param->draw_end_x = param->sprite_width / 2 + param->sprite_screen_x;
+// 	if (param->draw_end_x > SCREEN_WIDTH)
+// 		param->draw_end_x = SCREEN_WIDTH;
+// }
+/*
+static void	draw_line(t_all *all, t_sprites_param *param, int y, t_data *pic)
+{
+	while (y < param->draw_end_y)
 	{
-		x = pow((all->player.pos_x - all->sprites.coordinates[i].x), 2);
-		y = pow((all->player.pos_y - all->sprites.coordinates[i].y), 2);
-		all->sprites.distance[i] = x + y;
-		all->sprites.iterator[i] = i;
+		param->tex_y = (((y * 2 - (SCREEN_HEIGHT - param->sprite_height))
+			* 128 * TEX_HEIGHT) / param->sprite_height) / 256;
+		param->color = 0x000000;
+		if (pic)
+			param->color = my_mlx_pixel_get(pic, param->tex_x, param->tex_y);
+		if (param->color != 0x000000)
+			my_mlx_pixel_put(&all->img, param->draw_start_x, y, param->color);
+		y++;
 	}
-	bubble_sort(all->sprites.distance, all->sprites.iterator, all->sprites.num);
-	all->sprites.coller++;
-	if (all->sprites.coller >= all->sprites.coller_max)
-		all->sprites.coller = all->sprites.coller_min;
 }
 
-void	draw(t_all *all, t_var *vars, int i)
+static void	draw(t_all *all, t_sprites_param *param, int i)
 {
-	int	stripe;
-	int	tex_x;
-	int	tex_y;
-	int	y;
-	int	d;
-	int color;
+	t_data	*picture;
+	int		y;
 
-	stripe = vars->draw_start_x - 1;
-	while (++stripe < vars->draw_end_x)
+	while (param->draw_start_x < param->draw_end_x)
 	{
-		tex_x = (int)(256 * (stripe - (-vars->sprite_width / 2 + \
-			vars->sprite_screen_x)) * TEX_WIDTH / vars->sprite_width) / 256;
-		if (vars->transform_y > 0 && \
-				vars->transform_y < all->sprites.z_buffer[stripe])
-		{
-			y = vars->draw_start_y - 1;
-			while (++y < vars->draw_end_y)
-			{
-				d = (y - vars->v_move_screen) * 256 - SCREEN_HEIGHT * 128 + vars->sprite_height * 128;
-				tex_y = ((d * TEX_HEIGHT) / vars->sprite_height) / 256;
-				color = 0x000000;
-				if (all->sprites.coordinates[i].texture_name == BARREL)
-					color = my_mlx_pixel_get(&all->sprites.texture_barrel[all->sprites.coordinates[i].texture_flag], tex_x, tex_y);
-				if (all->sprites.coordinates[i].texture_name == LIGHT)
-                	color = my_mlx_pixel_get(&all->sprites.texture_light[all->sprites.coller / all->sprites.coller_mod], tex_x, tex_y);
-				if (color != 0x000000)
-					my_mlx_pixel_put(&all->img, stripe, y, color);
-			}
-		}
-	}
-}
-
-void	init(t_all *all, t_var *vars, int i)
-{
-	double	inv_det;
-	double	sprite_x;
-	double	sprite_y;
-
-	sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;
-	sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;
-	if (fabs(sprite_x) < 0.2 && fabs(sprite_y) < 0.2)
-	{
+		y = param->draw_start_y;
+		param->tex_x = (int)(256 * (param->draw_start_x - (-param->sprite_width / 2 + param->sprite_screen_x))
+			* TEX_WIDTH / param->sprite_width) / 256;
+		picture = NULL;
 		if (all->sprites.coordinates[i].texture_name == BARREL)
-			all->sprites.coordinates[i].texture_flag = 1;
+			picture = &all->sprites.texture_barrel[all->sprites.coordinates[i].texture_flag];
+		if (all->sprites.coordinates[i].texture_name == LIGHT)
+			picture = &all->sprites.texture_light[all->sprites.coller / all->sprites.coller_mod];
+		if (param->transform_y > 0 && param->transform_y < all->sprites.z_buffer[param->draw_start_x])
+			draw_line(all, param, i, picture);
+		param->draw_start_x++;
 	}
-	inv_det = 1.0 / (all->player.plane_x * all->player.dir_y - \
-					all->player.dir_x * all->player.plane_y);
-	vars->transform_x = inv_det * \
-		(all->player.dir_y * sprite_x - all->player.dir_x * sprite_y);
-	vars->transform_y = inv_det * \
-		(-all->player.plane_y * sprite_x + all->player.plane_x * sprite_y);
-	vars->sprite_screen_x = (int)((SCREEN_WIDTH / 2) * \
-						(1 + vars->transform_x / vars->transform_y));
-	vars->v_move_screen = (int)(all->sprites.coordinates[i].v_move / \
-							vars->transform_y);
-	vars->sprite_height = abs((int)(SCREEN_HEIGHT / vars->transform_y)) / \
-								all->sprites.coordinates[i].v_div;
-	vars->draw_start_y = -vars->sprite_height / 2 + \
-						SCREEN_HEIGHT / 2 + vars->v_move_screen;
-	if (vars->draw_start_y < 0)
-		vars->draw_start_y = 0;
-	vars->draw_end_y = vars->sprite_height / 2 + SCREEN_HEIGHT / 2 + \
-							vars->v_move_screen;
-	if (vars->draw_end_y >= SCREEN_HEIGHT)
-		vars->draw_end_y = SCREEN_HEIGHT - 1;
-	vars->sprite_width = abs((int)(SCREEN_HEIGHT / vars->transform_y)) / \
-			all->sprites.coordinates[i].u_div;
-	vars->draw_start_x = -vars->sprite_width / 2 + vars->sprite_screen_x;
-	if (vars->draw_start_x < 0)
-		vars->draw_start_x = 0;
-	vars->draw_end_x = vars->sprite_width / 2 + vars->sprite_screen_x;
-	if (vars->draw_end_x > SCREEN_WIDTH)
-		vars->draw_end_x = SCREEN_WIDTH;
 }
-
+*/
 void	draw_sprites(t_all *all)
 {
-	int		j;
-	int 	i;
-	t_var	vars;
+	t_sprites_param	param;
+	int				i;
+	int				j;
 
-	funct(all);
+	calculation_distance(&all->sprites, &all->player);
+	sort_distance(all->sprites.distance,
+		all->sprites.iterator, all->sprites.num);
+	calculation_coller(&all->sprites);
+
 	j = all->sprites.num;
 	while (--j >= 0)
 	{
 		i = all->sprites.iterator[j];
-		init(all, &vars, i);
-		draw(all, &vars, i);
+		if (calculation_general_parameters(all, &param, i) == FALSE)
+			continue ;
+		calculation_start_end(&param);
+		// draw(all, &param, i);
 	}
 }

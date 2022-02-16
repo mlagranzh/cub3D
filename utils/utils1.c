@@ -3,21 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 17:49:09 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 04:54:50 by celys            ###   ########.fr       */
+/*   Created: 2022/02/15 17:29:20 by ChelseyLeon       #+#    #+#             */
+/*   Updated: 2022/02/16 21:43:30 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	free_2d_int(int **p, size_t size)
+{
+	size_t	i;
+
+	if (p == NULL)
+		return (ERROR);
+	i = 0;
+	while (i < size)
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
+	return (SUCCESS);
+}
+
+int	free_2d_char(char **p)
+{
+	size_t	i;
+
+	if (p == NULL)
+		return (ERROR);
+	i = 0;
+	while (p[i] != NULL)
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
+	return (SUCCESS);
+}
+
+char	*my_strjoin(char *s1, char *s2, char *s3)
+{
+	char	*p;
+	char	*tmp;
+
+	tmp = ft_strjoin(s1, s2);
+	p = ft_strjoin(tmp, s3);
+	free(tmp);
+	return (p);
+}
+
+int	my_mlx_pixel_get(t_data *data, int x, int y)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	dst = data->addr + (y * data->line_length + x
+			* (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
 }
 
 void	image_load(t_all *all, t_data *data, char	*path)

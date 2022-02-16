@@ -18,14 +18,17 @@ SRC_MAP			=	read_map.c read_map_param.c checking_map_for_closure.c \
 					cub_file.c color_param.c cub_file_utils.c make_map_mas.c write_map_list.c
 SRC_GNL			=	get_next_line.c get_next_line_utils.c
 
+SRC_LIBA		=	ft_split.c
+
 SRC_BONUS		=	fog.c screenshot.c
 
 UTILS			=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
 MAP				=	$(addprefix $(DIR_MAP), $(SRC_MAP))
 GNL				=	$(addprefix $(DIR_GNL), $(SRC_GNL))
 BONUS			=	$(addprefix $(DIR_BONUS), $(SRC_BONUS))
+LIBA 			=	$(addprefix $(DIR_LIBA), $(SRC_LIBA))
 
-OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(BONUS:.c=.o)
+OBJ				=	$(SRC:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(BONUS:.c=.o) $(LIBA:.c=.o)
 
 MAP_OBJ			=	$(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o)
 

@@ -26,7 +26,7 @@ SRCS	+=  ft_strchr.c
 SRCS	+=  ft_atoi.c
 SRCS	+=  ft_strjoin.c
 SRCS	+=  ft_strtrim.c
-SRCS	+=  ft_split.c
+# SRCS	+=  ft_split.c
 SRCS	+=  ft_itoa.c
 SRCS	+=  ft_strmapi.c
 SRCS	+=  ft_putstr_fd.c
@@ -61,7 +61,7 @@ all: $(NAME)
 
 OBJS	= $(SRCS:.c=.o)
 
-GCC	= gcc -Wall -Wextra -Werror
+GCC	= gcc -Wall -Wextra -Werror -g
 
 .c.o :	$(HEADER)
 	@${GCC} -I libft.h -c $< -o ${<:.c=.o}

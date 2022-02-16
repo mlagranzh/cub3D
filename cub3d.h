@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/16 07:35:39 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/16 19:51:50 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ typedef struct s_raycast
 }	t_raycast;
 
 void	ft_print_cchar(char **mas);
+
+char				**ft_split(char const *s, char c);
 
 //map functions
 int		cub_file(t_map *map, t_player *player, char *file_name);

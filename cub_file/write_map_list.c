@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:34:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 05:34:37 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 21:02:27 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ static int	write_line_in_map_list(t_map_mas *map_list, char *line)
 	map_list->line->line = line;
 	map_list->line->next = (t_line_list *)malloc(sizeof(t_line_list));
 	if (!map_list->line->next)
-		return (free_map_list(*map_list, ERROR));
+		return (free_map_list(map_list, ERROR));
 	map_list->line = map_list->line->next;
+	map_list->line->line = NULL;
 	map_list->line->next = NULL;
 	return (SUCCESS);
 }
@@ -54,7 +55,7 @@ int	write_map_list(t_map_mas *map_list, int fd)
 	{
 		retval = get_next_line(fd, &line);
 		if (retval == -1 || !line)
-			return (free_data(line, ERROR) + free_map_list(*map_list, 0));
+			return (free_data(line, ERROR));
 		if (str_empty(line) == TRUE)
 		{
 			free (line);
@@ -66,6 +67,6 @@ int	write_map_list(t_map_mas *map_list, int fd)
 			return (ERROR);
 	}
 	if (map_list->line_num == 0 || (retval != 0 && check_for_end(fd) == ERROR))
-		return (free_map_list(*map_list, ERROR));
+		return (ERROR);
 	return (SUCCESS);
 }

@@ -1,14 +1,6 @@
 #include "../cub3d.h"
 
-void	printf_array_int(int *arr, int size)
-{
-	int i = -1;
-
-	while (++i < size)
-		printf("%d\n", arr[i]);
-}
-
-int len_int(int *array)
+int	len_int(int *array)
 {
 	int	i;
 
@@ -20,12 +12,13 @@ int len_int(int *array)
 	return (i);
 }
 
-int search_in_array(int *array, int search)
+int	search_in_array(int *array, int search)
 {
-	int i = -1;
+	int	i;
 
+	i = -1;
 	if (array == NULL)
-		return -1;
+		return (-1);
 	while (array[++i] != -1)
 	{
 		if (search == array[i])
@@ -34,14 +27,12 @@ int search_in_array(int *array, int search)
 	return (-1);
 }
 
-
-int *add_to_dict(int *array, int number)
+int	*add_to_dict(int *array, int number)
 {
-	int	*new_array;
-    int i;
+	int		*new_array;
+	int		i;
 
 	new_array = malloc(sizeof(int) * len_int(array) + 5);
-
 	i = -1;
 	if (array != NULL)
 	{
@@ -56,15 +47,14 @@ int *add_to_dict(int *array, int number)
 	return (new_array);
 }
 
-int *create_dictionary(int **array)
+int	*create_dictionary(int **array)
 {
-	int x = -1;
-	int y = -1;
+	int	*dict;
+	int	x;
+	int	y;
 
-
-	int *dict;
 	dict = NULL;
-
+	y = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
@@ -77,9 +67,9 @@ int *create_dictionary(int **array)
 	return (dict);
 }
 
-int		ft_itoa_base_count(unsigned long int nb, unsigned int base)
+int	ft_itoa_base_count(unsigned long int nb, unsigned int base)
 {
-	int i;
+	int	i;
 
 	if (nb == 0)
 		return (1);
@@ -99,10 +89,8 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 	int		size;
 
 	numbers = ft_strdup("0123456789abcdef");
-	ret = NULL;
 	size = ft_itoa_base_count(nb, base);
-	if (!(ret = (char*)malloc(sizeof(char) * size + 1)))
-		return (NULL);
+	ret = malloc(sizeof(char) * size + 1);
 	ret[size--] = '\0';
 	while (size >= 0)
 	{
@@ -113,38 +101,48 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 	return (ret);
 }
 
-
-void create_file(int *dict, int **array)
+static void print_pixels(FILE *file, int *dict, int **map)
 {
-	FILE *file;
-	static int num = 0;
+	int	x;
+	int	y;
 
-	char *num_screenshot = ft_itoa(num);
-	char *name_screenshot = my_strjoin("screenshot/screenshot", num_screenshot, ".xpm");
-	num++;
-	file = fopen(name_screenshot, "w");
-	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
-	int i = -1;
-	while (++i < len_int(dict))
-	{
-		char *color = ft_itoa_base(dict[i],16);
-		fprintf(file, "\"%c c #%s\",\n", i + 35, color);
-		free(color);
-	}
+	y = -1;
 	fprintf(file, "/* pixels */\n");
-	int x = -1;
-	int y = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		fprintf(file, "\"");
 		while (++x < SCREEN_WIDTH)
 		{
-			fprintf(file, "%c", search_in_array(dict, array[y][x]) + 35);
+			fprintf(file, "%c", search_in_array(dict, map[y][x]) + 35);
 		}
 		fprintf(file, "\",\n");
 	}
-	free(num_screenshot);
+}
+
+void	create_file(int *dict, int **map)
+{
+	FILE	*file;
+	int		i;
+	char	*num_shots;
+	char	*name_screenshot;
+	char	*color;
+	static int num = 0;
+
+	num_shots = ft_itoa(num);
+	name_screenshot = my_strjoin("screenshot/screenshot", num_shots, ".xpm");
+	num++;
+	file = fopen(name_screenshot, "w");
+	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
+	i = -1;
+	while (++i < len_int(dict))
+	{
+		color = ft_itoa_base(dict[i], 16);
+		fprintf(file, "\"%c c #%s\",\n", i + 35, color);
+		free(color);
+	}
+	print_pixels(file, dict, map);
+	free(num_shots);
 	free(name_screenshot);
 }
 
@@ -153,7 +151,7 @@ void shot(t_all *all)
 {
 	int x;
 	int y;
-	
+
 	y = -1;
 	x = -1;
 	while (++y < SCREEN_HEIGHT)
@@ -161,23 +159,24 @@ void shot(t_all *all)
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-            my_mlx_pixel_put(all->img.img, x, y, 0);
+			my_mlx_pixel_put(all->img.img, x, y, 0);
 		}
 	}
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }
 
-static int **create_color_map(t_data *img)
+static int	**create_color_map(t_data *img)
 {
-	int i;
-	int **array;
+	int	i;
+	int	**array;
+	int	x;
+	int	y;
 
 	i = -1;
 	array = malloc(sizeof(int *) * SCREEN_HEIGHT);
-	while (++i < SCREEN_WIDTH)
+	while (++i < SCREEN_HEIGHT)
 		array[i] = malloc(sizeof(int) * SCREEN_WIDTH);
-	int x = -1;
-	int y = -1;
+	y = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
@@ -188,10 +187,11 @@ static int **create_color_map(t_data *img)
 	}
 	return (array);
 }
-void screenshot(t_all *all)
+
+void	screenshot(t_all *all)
 {
-	int **color_map;
-	int *dict;
+	int	**color_map;
+	int	*dict;
 
 	color_map = create_color_map(&all->img);
 	dict = create_dictionary(color_map);
@@ -200,4 +200,3 @@ void screenshot(t_all *all)
 	free_2d_int(color_map, SCREEN_HEIGHT);
 	free(dict);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/15 18:01:23 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 01:17:50 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # define KEY_D				2
 # define KEY_A				0
 # define KEY_ESC			53
-# define DISTANCE			3
-# define SPACE				49
+# define KEY_SPACE			49
+# define KEY_ENTER			36
+# define KEY_FN_F12			111
 
 # define CEL_SIZE 6
 # define SCREEN_WIDTH 1000
@@ -176,14 +177,13 @@ void	ft_print_cchar(char **mas);
 
 //map functions
 int		cub_file(t_map *map, t_player *player, char *file_name);
+int		checking_map_for_closure(char **map);
 
 //utils0
 void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char);
 int		print_return(int retval, char *print_message);
-char	*delete_space_in_line(char *line);
 void	printf_array(char **arr);
-char	**ft_realloc(char **mas, char *new_line);
-int		checking_map_for_closure(char **map);
+void	replace(double *x, double x_new, double *y, double y_new);
 
 //utils1.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -198,25 +198,6 @@ int		free_2d_int(int **p, size_t size);
 char	*my_strjoin(char *s1, char *s2, char *s3);
 int		free_2d_char(char **p);
 
-//motion
-void	move_straight(int key, t_all *all);
-void	move_side(int key, t_all *all);
-
-void	rotate(int key, t_all *all, double rotSpeed);
-
-//draw_.c
-void	draw_minimap(t_all *all);
-
-//draw_screen
-void	draw_screen(t_all *all);
-
-void image_load(t_all *all, t_data *data, char	*path);
-
-
-int loop_hook(t_all *all);
-int mouse_hook(int x, int y, t_all *all);
-int my_hook(int key, t_all *all);
-
 // utils4
 unsigned char	get_t(int trgb);
 unsigned char	get_r(int trgb);
@@ -224,19 +205,35 @@ unsigned char	get_g(int trgb);
 unsigned char	get_b(int trgb);
 int		create_trgb(int t, int r, int g, int b);
 
-// fog
-int fog_init(t_all *all);
-void fog(t_all *all);
+//motion
+void	move_straight(int key, t_all *all);
+void	move_side(int key, t_all *all);
 
-//screenshot
-void screenshot(t_all *all);
+void	rotate(int key, t_all *all, double rotSpeed);
 
+//draw_minimap
+void	draw_minimap(t_all *all);
 
-void cub_destroy(t_all *all);
+//draw_screen
+void	draw_screen(t_all *all);
+
+//hook
+int		loop_hook(t_all *all);
+int		mouse_hook(int x, int y, t_all *all);
+int		my_hook(int key, t_all *all);
+void	cub_destroy(t_all *all);
+
 
 //sprites
 void	draw_sprites(t_all *all);
 void	sprites_init(t_all *all);
+
+// fog
+int		fog_init(t_all *all);
+void	fog(t_all *all);
+
+//screenshot
+void screenshot(t_all *all);
 
 //texture
 void	draw_wall(t_all *all, t_raycast *raycast, int x);

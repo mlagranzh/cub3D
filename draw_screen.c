@@ -6,9 +6,9 @@ void	dda_algorithm(t_all *all, t_raycast *raycast)
 	{
 		if (raycast->side_dist_x < raycast->side_dist_y)
 		{
-				raycast->side_dist_x += raycast->delta_dist_x;
-				raycast->map_x += raycast->step_x;
-				raycast->side = 0;
+			raycast->side_dist_x += raycast->delta_dist_x;
+			raycast->map_x += raycast->step_x;
+			raycast->side = 0;
 		}
 		else
 		{
@@ -41,11 +41,10 @@ static void	init(int x, t_all *all, t_raycast *raycast)
 	if (raycast->ray_dir_y == 0)
 		raycast->delta_dist_y = 1e30;
 	else
-			raycast->delta_dist_y = fabs(1 / raycast->ray_dir_y);
-		raycast->hit = 0;
+		raycast->delta_dist_y = fabs(1 / raycast->ray_dir_y);
+	raycast->hit = 0;
 }
 
-// вычисляем шаг и начальный side_dist
 static void	side_dist(t_all *all, t_raycast *raycast)
 {
 	if (raycast->ray_dir_x < 0)
@@ -74,7 +73,6 @@ static void	side_dist(t_all *all, t_raycast *raycast)
 	}
 }
 
-//Рассчитываем высоту линии для рисования на экране
 static void	where(t_raycast *raycast)
 {
 	raycast->line_height = (int)(SCREEN_HEIGHT / raycast->perp_wall_dist);
@@ -84,8 +82,6 @@ static void	where(t_raycast *raycast)
 	raycast->draw_end = raycast->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (raycast->draw_end >= SCREEN_HEIGHT)
 		raycast->draw_end = SCREEN_HEIGHT - 1;
-	// if (raycast->draw_end < 0)
-	// 	raycast->draw_end = SCREEN_HEIGHT - 1;
 }
 
 static void	draw_ceiling_floor(t_all *all, t_raycast *raycast, int x)

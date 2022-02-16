@@ -2,7 +2,7 @@ NAME			=	cub3d
 
 HEADER			=	cub3d.h
 
-GCC				=	gcc -g3 #-Wall -Wextra -Werror
+GCC				=	gcc -g3 -Wall -Wextra -Werror
 
 DIR_LIBA		=	libft/
 DIR_MINILIBX	=	mlx/

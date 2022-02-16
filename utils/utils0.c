@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:51:35 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 17:52:39 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 04:54:30 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	printf_array_int(int *arr, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size)
+		printf("%d\n", arr[i]);
+}
 
 void	printf_array(char **arr)
 {
@@ -28,7 +37,7 @@ int	print_return(int retval, char *print_message)
 }
 
 void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols,
-	char replacement_char)
+									char replacement_char)
 {
 	int	i;
 
@@ -43,4 +52,10 @@ void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols,
 		}
 		change_str++;
 	}
+}
+
+void	replace(double *x, double x_new, double *y, double y_new)
+{
+	*x = x_new;
+	*y = y_new;
 }

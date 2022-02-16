@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/14 20:12:56 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/16 00:12:43 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	light_on_off(t_all *all)
 {
 	if (all->sprites.coller_min == 0)
 	{
-			all->sprites.coller_min = all->sprites.coller_max;
-			all->sprites.coller = all->sprites.coller_max;
-			all->sprites.coller_mod = 30;
+		all->sprites.coller_min = all->sprites.coller_max;
+		all->sprites.coller = all->sprites.coller_max;
+		all->sprites.coller_mod = 30;
 	}
 	else
 	{
@@ -47,19 +47,16 @@ int	my_hook(int key, t_all *all)
 		rotate(key, all, ROTATE_SPEED);
 	if (key == KEY_ESC)
 		destroy(all);
-	if (key == SPACE)
+	if (key == KEY_SPACE)
 		light_on_off(all);
-	if (key == 36)
+	if (key == KEY_ENTER)
 		fog(all);
-	if (key == 111)
+	if (key == KEY_FN_F12)
 		screenshot(all);
- 	if (key == 13 || key == 1 || key == 0 || key == 2 || key == 123 || key == 124 || key == 49 || key == 36)
-	{
-		draw_screen(all);		
-		draw_sprites(all);
-		draw_minimap(all);
-		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	}
+	draw_screen(all);
+	draw_sprites(all);
+	draw_minimap(all);
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	return (0);
 }
 

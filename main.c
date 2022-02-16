@@ -2,33 +2,25 @@
 
 void	side_init(t_player *player)
 {
-	if (player->start_side == 'W')
+	int	flag;
+
+	if (player->start_side == 'N' || player->start_side == 'W')
+		flag = -1;
+	if (player->start_side == 'S' || player->start_side == 'E')
+		flag = 1;
+	if (player->start_side == 'N' || player->start_side == 'S')
 	{
-		player->dir_x = -1;
-		player->dir_y = 0;
+		player->dir_x = 0;
+		player->plane_y = 0;
+		player->dir_y = flag * 1;
+		player->plane_x = flag * 0.66;
+	}
+	if (player->start_side == 'W' || player->start_side == 'E')
+	{
 		player->plane_x = 0;
-		player->plane_y = 0.66;
-	}
-	if (player->start_side == 'N')
-	{
-		player->dir_x = 0.210796;
-		player->dir_y = -0.977530;
-		player->plane_x = -0.645170;
-		player->plane_y = -0.139125;
-	}
-	if (player->start_side == 'E')
-	{
-		player->dir_x = 0.989992;
-		player->dir_y = 0.141120;
-		player->plane_x = 0.093139;
-		player->plane_y = -0.653395;
-	}
-	if (player->start_side == 'S')
-	{
-		player->dir_x = 0.227202;
-		player->dir_y = 0.973848;
-		player->plane_x = 0.642739;
-		player->plane_y = -0.149953;
+		player->dir_y = 0;
+		player->dir_x = flag * 1;
+		player->plane_y = flag * 0.66;
 	}
 }
 
@@ -46,7 +38,6 @@ void	cub_init(t_all *all)
 	image_load(all, &all->wall[1], all->map.so_texture);
 	image_load(all, &all->wall[2], all->map.we_texture);
 	image_load(all, &all->wall[3], all->map.ea_texture);
-
 	if (fog_init(all) == ERROR)
 		return ;
 }

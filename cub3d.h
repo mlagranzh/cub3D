@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/16 01:17:50 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/16 07:35:39 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ int		cub_file(t_map *map, t_player *player, char *file_name);
 int		checking_map_for_closure(char **map);
 
 //utils0
-void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols, char replacement_char);
 int		print_return(int retval, char *print_message);
 void	printf_array(char **arr);
 void	replace(double *x, double x_new, double *y, double y_new);

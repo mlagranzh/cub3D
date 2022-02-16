@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:51:35 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 04:54:30 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/16 07:35:44 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,6 @@ int	print_return(int retval, char *print_message)
 	return (retval);
 }
 
-void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols,
-									char replacement_char)
-{
-	int	i;
-
-	i = 0;
-	while (change_str && *change_str)
-	{
-		while (change_sumbols[i] != '\0')
-		{
-			if (change_sumbols[i] == *change_str)
-				*change_str = replacement_char;
-			i++;
-		}
-		change_str++;
-	}
-}
 
 void	replace(double *x, double x_new, double *y, double y_new)
 {

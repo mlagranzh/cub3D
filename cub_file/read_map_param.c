@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map_param.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:03:44 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 05:04:16 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 07:35:56 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@ static int	write_file_path(char **path, char *str)
 	if (*str != '\0')
 		return (ERROR);
 	return (SUCCESS);
+}
+
+static void	ft_change_sumbols_in_str(char *change_str, char *change_sumbols,
+									char replacement_char)
+{
+	int	i;
+
+	i = 0;
+	while (change_str && *change_str)
+	{
+		while (change_sumbols[i] != '\0')
+		{
+			if (change_sumbols[i] == *change_str)
+				*change_str = replacement_char;
+			i++;
+		}
+		change_str++;
+	}
 }
 
 static int	write_map_param(t_map *map, char *param)

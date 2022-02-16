@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 		file_name = argv[1];
 	if (cub_file(&all.map, &all.player, file_name) != SUCCESS)
-		return (ERROR);
+		return (ERROR && sleep(100000000));
 	cub_init(&all);
 	draw_screen(&all);
 

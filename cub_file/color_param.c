@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:34:51 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/15 05:35:05 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/16 21:14:05 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	write_color_param(t_map *map, char *param, char key)
 	g = ft_atoi(param_mas[1]);
 	b = ft_atoi(param_mas[2]);
 	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
+	{
+		free_2d_char(param_mas);
 		return (ERROR);
+	}
 	if (key == 'F')
 		map->floor_color = create_trgb(0, r, g, b);
 	if (key == 'C')

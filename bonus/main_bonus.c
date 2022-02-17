@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 13:49:35 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 16:02:27 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,11 @@ void	mlx_destroy(t_all *all)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	char	*file_name;
 
-	file_name = "maps/map.cub";
-	if (argc == 2)
-		file_name = argv[1];
-	if (cub_file(&all.map, &all.player, file_name) != SUCCESS)
-		return (ERROR && sleep(100000000));
+	if (argc < 2)
+		return (print_return(ERROR, "argv error"));
+	if (cub_file(&all.map, &all.player, argv[1]) != SUCCESS)
+		return (ERROR);
 	cub_init(&all);
 	draw_screen(&all);
 	draw_sprites(&all);

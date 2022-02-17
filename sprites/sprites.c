@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:13:51 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 15:21:47 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 15:45:09 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	sprites_init(t_all *all)
 {
 	all->sprites.num = 20;
-	all->sprites.z_buffer = malloc(sizeof(double) * SCREEN_WIDTH);
-	all->sprites.coordinates = malloc(sizeof(t_coordinate) * all->sprites.num);
-	all->sprites.texture_barrel = (t_data *)malloc(sizeof(t_data) * 2);
+	all->sprites.z_buffer = (double *)xmalloc(sizeof(double) * SCREEN_WIDTH);
+	all->sprites.coordinates = (t_coordinate *)xmalloc(sizeof(t_coordinate)
+			* all->sprites.num);
+	all->sprites.texture_barrel = (t_data *)xmalloc(sizeof(t_data) * 2);
 	image_load(all, &all->sprites.texture_barrel[0], BARREL_WHOLE);
 	image_load(all, &all->sprites.texture_barrel[1], BARREL_RUINED);
-	all->sprites.texture_light = (t_data *)malloc(sizeof(t_data) * 3);
+	all->sprites.texture_light = (t_data *)xmalloc(sizeof(t_data) * 3);
 	image_load(all, &all->sprites.texture_light[0], ELLOW_LIGHT);
 	image_load(all, &all->sprites.texture_light[1], RED_LIGHT);
 	image_load(all, &all->sprites.texture_light[2], BLACK_LIGHT);
@@ -29,8 +30,8 @@ void	sprites_init(t_all *all)
 	all->sprites.coller_min = 0;
 	all->sprites.coller_mod = 45;
 	put_sprites_on_map(all, &all->map);
-	all->sprites.distance = malloc(sizeof(int) * all->sprites.num);
-	all->sprites.iterator = malloc(sizeof(int) * all->sprites.num);
+	all->sprites.distance = (int *)xmalloc(sizeof(int) * all->sprites.num);
+	all->sprites.iterator = (int *)xmalloc(sizeof(int) * all->sprites.num);
 }
 
 static void	sort_distance(int *nums, int *itrs, int size)

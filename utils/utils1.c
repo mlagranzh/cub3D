@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:29:20 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:43:30 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 12:48:17 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../mandatory/cub3d.h"
 
 int	free_2d_int(int **p, size_t size)
 {

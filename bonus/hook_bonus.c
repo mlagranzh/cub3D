@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/16 21:19:55 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 13:31:46 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	destroy(t_all *all)
 {
-	cub_destroy(all);
+	mlx_destroy(all);
+	cub_free(all);
 	exit(0);
 	return (0);
 }
 
-void	light_on_off(t_all *all)
+int	key_release(int key, t_all *all)
 {
-	if (all->sprites.coller_min == 0)
+	if (key == KEY_FN_F12)
 	{
-		all->sprites.coller_min = all->sprites.coller_max;
-		all->sprites.coller = all->sprites.coller_max;
-		all->sprites.coller_mod = 30;
-	}
-	else
-	{
-		all->sprites.coller_min = 0;
-		all->sprites.coller = 0;
-		all->sprites.coller_mod = 45;
-	}
+		draw_screen(all);
+		draw_sprites(all);
+		draw_minimap(all);
+		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	}	
+	return (SUCCESS);
 }
 
-int	my_hook(int key, t_all *all)
+int	key_press(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_S)
 		move_straight(key, all);
@@ -53,11 +50,14 @@ int	my_hook(int key, t_all *all)
 		fog(all);
 	if (key == KEY_FN_F12)
 		screenshot(all);
-	draw_screen(all);
-	draw_sprites(all);
-	draw_minimap(all);
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	return (0);
+	if (key != KEY_FN_F12)
+	{
+		draw_screen(all);
+		draw_sprites(all);
+		draw_minimap(all);
+		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	}
+	return (SUCCESS);
 }
 
 int	mouse_hook(int x, int y, t_all *all)

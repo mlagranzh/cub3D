@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_map_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:34:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:02:27 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 13:50:12 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	write_line_in_map_list(t_map_mas *map_list, char *line)
 	if (map_list->max_line_len < (int)ft_strlen(line))
 		map_list->max_line_len = ft_strlen(line);
 	map_list->line->line = line;
-	map_list->line->next = (t_line_list *)malloc(sizeof(t_line_list));
+	map_list->line->next = (t_line_list *)xmalloc(sizeof(t_line_list));
 	if (!map_list->line->next)
 		return (free_map_list(map_list, ERROR));
 	map_list->line = map_list->line->next;

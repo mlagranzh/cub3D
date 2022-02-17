@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:35:08 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:35:09 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 13:50:40 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

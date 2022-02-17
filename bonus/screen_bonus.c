@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_screen.c                                      :+:      :+:    :+:   */
+/*   screen_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:00:03 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 22:03:04 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 13:47:41 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	dda_algorithm(t_all *all, t_raycast *raycast)
 {
@@ -103,7 +103,7 @@ void	draw_screen(t_all *all)
 	t_raycast	*raycast;
 
 	x = -1;
-	raycast = malloc(sizeof(t_raycast));
+	raycast = xmalloc(sizeof(t_raycast));
 	while (++x < SCREEN_WIDTH)
 	{
 		init_raycast(x, all, raycast);

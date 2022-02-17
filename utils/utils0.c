@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:51:35 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:43:46 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 12:48:09 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../mandatory/cub3d.h"
 
 void	printf_array_int(int *arr, int size)
 {

@@ -6,16 +6,16 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/16 22:02:33 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 15:38:36 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx/mlx.h"
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
@@ -66,6 +66,9 @@ enum	e_textures_name
 	LIGHT = 2
 };
 
+void			cub_free(t_all *all);
+void			mlx_destroy(t_all *all);
+
 //utils0
 void			replace(double *x, double x_new, double *y, double y_new);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -89,6 +92,10 @@ int				create_trgb(int t, int r, int g, int b);
 
 //utils3
 void			init_raycast(int x, t_all *all, t_raycast *raycast);
+int				len_int(int *array);
+int				ft_itoa_base_count(unsigned long int nb, unsigned int base);
+char			*ft_itoa_base(unsigned long int nb, unsigned int base);
+void			*xmalloc(size_t size);
 
 //map functions
 int				cub_file(t_map *map, t_player *player, char *file_name);
@@ -100,23 +107,19 @@ void			move_side(int key, t_all *all);
 void			rotate(int key, t_all *all, double rotSpeed);
 
 //hook
-void			cub_destroy(t_all *all);
 int				mouse_hook(int x, int y, t_all *all);
-int				my_hook(int key, t_all *all);
+int				key_press(int key, t_all *all);
 int				loop_hook(t_all *all);
 int				destroy(t_all *all);
+int				key_release(int key, t_all *all);
 
 //sprites
-void			draw_sprites(t_all *all);
 void			sprites_init(t_all *all);
-
-//fog
-void			fog(t_all *all);
-int				fog_init(t_all *all);
+void			draw_sprites(t_all *all);
+void			light_on_off(t_all *all);
 
 void			draw_wall(t_all *all, t_raycast *raycast, int x);
 void			draw_minimap(t_all *all);
 void			draw_screen(t_all *all);
-void			screenshot(t_all *all);
 
 #endif

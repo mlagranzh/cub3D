@@ -6,14 +6,14 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:32:20 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:33:29 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 15:37:32 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_FILE_H
 # define CUB_FILE_H
 
-# include "../cub3d.h"
+# include "../mandatory/cub3d.h"
 
 typedef struct s_line_list
 {

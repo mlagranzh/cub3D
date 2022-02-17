@@ -6,14 +6,14 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:22:50 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 15:23:22 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 15:39:15 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_H
 # define SPRITE_H
 
-# include "../cub3d.h"
+# include "../mandatory/cub3d.h"
 
 typedef struct s_sprites_param
 {

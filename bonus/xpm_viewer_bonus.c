@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xpm_viewer.c                                       :+:      :+:    :+:   */
+/*   xpm_viewer_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:49:30 by celys             #+#    #+#             */
-/*   Updated: 2022/02/14 20:42:13 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 12:21:17 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	include <stdio.h>
-#	include "mlx/mlx.h"
+#	include "../mlx/mlx.h"
 #	include <unistd.h>
 #	include <stdlib.h>
 
@@ -28,7 +28,7 @@ typedef struct s_all
 	int			height;
 }	t_viewer;
 
-int	my_hook(int key, t_viewer *xpm)
+int	key_press(int key, t_viewer *xpm)
 {
 	if (key == 53)
 	{
@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 	image_load(&xpm, argv[1]);
 	xpm.win = mlx_new_window(xpm.mlx, xpm.width, xpm.height, "XPM_VIEWER");
 	mlx_put_image_to_window(xpm.mlx, xpm.win, xpm.img, 0, 0);
-	mlx_hook(xpm.win, 2, 1L << 2, my_hook, (void *)&xpm);
+	mlx_hook(xpm.win, 2, 1L << 2, key_press, (void *)&xpm);
 	mlx_hook(xpm.win, 17, 0L, destroy, (void *)&xpm);
 	mlx_loop(xpm.mlx);
 	return (0);

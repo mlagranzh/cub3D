@@ -6,16 +6,16 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 03:20:37 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 12:47:19 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx/mlx.h"
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
@@ -66,6 +66,9 @@ enum	e_textures_name
 	LIGHT = 2
 };
 
+void			cub_free(t_all *all);
+void			mlx_destroy(t_all *all);
+
 //utils0
 void			replace(double *x, double x_new, double *y, double y_new);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -103,7 +106,6 @@ void			move_side(int key, t_all *all);
 void			rotate(int key, t_all *all, double rotSpeed);
 
 //hook
-void			cub_destroy(t_all *all);
 int				mouse_hook(int x, int y, t_all *all);
 int				key_press(int key, t_all *all);
 int				loop_hook(t_all *all);
@@ -111,16 +113,12 @@ int				destroy(t_all *all);
 int				key_release(int key, t_all *all);
 
 //sprites
-void			draw_sprites(t_all *all);
 void			sprites_init(t_all *all);
-
-//fog
-void			fog(t_all *all);
-int				fog_init(t_all *all);
+void			draw_sprites(t_all *all);
+void			light_on_off(t_all *all);
 
 void			draw_wall(t_all *all, t_raycast *raycast, int x);
 void			draw_minimap(t_all *all);
 void			draw_screen(t_all *all);
-void			screenshot(t_all *all);
 
 #endif

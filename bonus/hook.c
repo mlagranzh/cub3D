@@ -6,33 +6,18 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 03:06:46 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:00:40 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	destroy(t_all *all)
 {
-	cub_destroy(all);
+	// mlx_destroy(all);
+	// cub_free(all);
 	exit(0);
 	return (0);
-}
-
-void	light_on_off(t_all *all)
-{
-	if (all->sprites.coller_min == 0)
-	{
-		all->sprites.coller_min = all->sprites.coller_max;
-		all->sprites.coller = all->sprites.coller_max;
-		all->sprites.coller_mod = 30;
-	}
-	else
-	{
-		all->sprites.coller_min = 0;
-		all->sprites.coller = 0;
-		all->sprites.coller_mod = 45;
-	}
 }
 
 int	key_release(int key, t_all *all)
@@ -101,7 +86,7 @@ int	mouse_hook(int x, int y, t_all *all)
 int	loop_hook(t_all *all)
 {
 	draw_sprites(all);
-	// draw_minimap(all);
+	draw_minimap(all);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	return (0);
 }

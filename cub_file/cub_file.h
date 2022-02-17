@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub_file.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:32:20 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:33:29 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 12:48:49 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_FILE_H
 # define CUB_FILE_H
 
-# include "../cub3d.h"
+#include "../mandatory/cub3d.h"
 
 typedef struct s_line_list
 {

@@ -19,6 +19,21 @@ typedef struct s_sprites_param
 	int		color;
 }	t_sprites_param;
 
+void	light_on_off(t_all *all)
+{
+	if (all->sprites.coller_min == 0)
+	{
+		all->sprites.coller_min = all->sprites.coller_max;
+		all->sprites.coller = all->sprites.coller_max;
+		all->sprites.coller_mod = 30;
+	}
+	else
+	{
+		all->sprites.coller_min = 0;
+		all->sprites.coller = 0;
+		all->sprites.coller_mod = 45;
+	}
+}
 
 int	perpendicular_walls(char **map, int i, int j)
 {

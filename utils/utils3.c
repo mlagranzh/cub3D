@@ -6,11 +6,11 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:03:31 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 03:20:21 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 12:48:23 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../mandatory/cub3d.h"
 
 void	init_raycast(int x, t_all *all, t_raycast *raycast)
 {

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
+/*   Updated: 2022/02/17 12:34:32 by celys            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	side_init(t_player *player)
+static void	side_init(t_player *player)
 {
 	int	flag;
 
@@ -24,7 +36,7 @@ void	side_init(t_player *player)
 	}
 }
 
-void	cub_init(t_all *all)
+static void	cub_init(t_all *all)
 {
 	all->mlx = mlx_init();
 	all->win = mlx_new_window(all->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
@@ -38,30 +50,11 @@ void	cub_init(t_all *all)
 	image_load(all, &all->wall[1], all->map.so_texture);
 	image_load(all, &all->wall[2], all->map.we_texture);
 	image_load(all, &all->wall[3], all->map.ea_texture);
-	if (fog_init(all) == ERROR)
-		return ;
 }
 
-void	cub_destroy(t_all *all)
+void	cub_free(t_all *all)
 {
-	mlx_destroy_image(all->mlx, all->img.img);
-	mlx_destroy_window(all->mlx, all->win);
-	mlx_destroy_image(all->mlx, all->wall[0].img);
-	mlx_destroy_image(all->mlx, all->wall[1].img);
-	mlx_destroy_image(all->mlx, all->wall[2].img);
-	mlx_destroy_image(all->mlx, all->wall[3].img);
 	free(all->wall);
-	mlx_destroy_image(all->mlx, all->sprites.texture_light[0].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_light[1].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_light[2].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[0].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[1].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[0].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[1].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[2].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[3].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_barrel[0].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_barrel[1].img);
 	free(all->fog.fog_wall);
 	free(all->fog.fog_barrel);
 	free(all->sprites.z_buffer);
@@ -75,6 +68,27 @@ void	cub_destroy(t_all *all)
 	free(all->map.so_texture);
 	free(all->map.we_texture);
 	free(all->map.ea_texture);
+}
+
+void	mlx_destroy(t_all *all)
+{
+	mlx_destroy_image(all->mlx, all->img.img);
+	mlx_destroy_window(all->mlx, all->win);
+	mlx_destroy_image(all->mlx, all->wall[0].img);
+	mlx_destroy_image(all->mlx, all->wall[1].img);
+	mlx_destroy_image(all->mlx, all->wall[2].img);
+	mlx_destroy_image(all->mlx, all->wall[3].img);
+	mlx_destroy_image(all->mlx, all->sprites.texture_light[0].img);
+	mlx_destroy_image(all->mlx, all->sprites.texture_light[1].img);
+	mlx_destroy_image(all->mlx, all->sprites.texture_light[2].img);
+	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[0].img);
+	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[1].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_wall[0].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_wall[1].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_wall[2].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_wall[3].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_barrel[0].img);
+	mlx_destroy_image(all->mlx, all->fog.fog_barrel[1].img);
 }
 
 int	main(int argc, char **argv)
@@ -98,7 +112,5 @@ int	main(int argc, char **argv)
 	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
 	mlx_loop(all.mlx);
-	// cub_destroy(&all);
-	// sleep(100000000);
 	return (SUCCESS);
 }

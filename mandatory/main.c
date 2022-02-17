@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 13:33:24 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:50:56 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	cub_init(t_all *all)
 									&all->img.line_length, &all->img.endian);
 	side_init(&all->player);
 	sprites_init(all);
-	all->wall = (t_data *)malloc(sizeof(t_data) * 4);
+	all->wall = (t_data *)xmalloc(sizeof(t_data) * 4);
 	image_load(all, &all->wall[0], all->map.no_texture);
 	image_load(all, &all->wall[1], all->map.so_texture);
 	image_load(all, &all->wall[2], all->map.we_texture);

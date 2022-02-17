@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:25:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 13:16:09 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:49:28 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static void	put_fog_on_texture(t_data *data)
 
 static int	fog_get_memory(t_all *all)
 {
-	all->fog.fog_wall = (t_data *)malloc(sizeof(t_data) * 4);
+	all->fog.fog_wall = xmalloc(sizeof(t_data) * 4);
 	if (!all->fog.fog_wall)
 		return (ERROR);
-	all->fog.fog_barrel = (t_data *)malloc(sizeof(t_data) * 2);
+	all->fog.fog_barrel = xmalloc(sizeof(t_data) * 2);
 	if (!all->fog.fog_barrel)
 	{
 		free (all->fog.fog_wall);

@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:43:16 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 11:57:58 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:49:45 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	**create_color_map(t_data *img)
 	int	y;
 
 	i = -1;
-	array = malloc(sizeof(int *) * SCREEN_HEIGHT);
+	array = xmalloc(sizeof(int *) * SCREEN_HEIGHT);
 	while (++i < SCREEN_HEIGHT)
-		array[i] = malloc(sizeof(int) * SCREEN_WIDTH);
+		array[i] = xmalloc(sizeof(int) * SCREEN_WIDTH);
 	y = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
@@ -55,7 +55,7 @@ int	*add_to_dict(int *array, int number)
 	int		*new_array;
 	int		i;
 
-	new_array = malloc(sizeof(int) * len_int(array) + 5);
+	new_array = xmalloc(sizeof(int) * len_int(array) + 5);
 	i = -1;
 	if (array != NULL)
 	{

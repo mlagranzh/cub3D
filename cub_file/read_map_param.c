@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:03:44 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 07:35:56 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:50:06 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	write_file_path(char **path, char *str)
 	if (*str == '\n')
 		return (ERROR);
 	len = ft_strlen(str) + 1;
-	*path = (char *)malloc(sizeof(char) * len);
+	*path = (char *)xmalloc(sizeof(char) * len);
 	if (*path == NULL)
 		return (ERROR);
 	i = -1;

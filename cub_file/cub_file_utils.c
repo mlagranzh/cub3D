@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_file_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 05:14:46 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/16 21:01:40 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/17 13:49:54 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_map_mas	initial_map_list(void)
 {
 	t_map_mas	map_list;
 
-	map_list.first_line = (t_line_list *)malloc(sizeof(t_line_list));
+	map_list.first_line = xmalloc(sizeof(t_line_list));
 	if (map_list.first_line)
 	{
 		map_list.first_line->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 12:47:19 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:51:44 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void			init_raycast(int x, t_all *all, t_raycast *raycast);
 int				len_int(int *array);
 int				ft_itoa_base_count(unsigned long int nb, unsigned int base);
 char			*ft_itoa_base(unsigned long int nb, unsigned int base);
+void			*xmalloc(size_t size);
 
 //map functions
 int				cub_file(t_map *map, t_player *player, char *file_name);

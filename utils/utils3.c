@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:03:31 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 12:48:23 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:51:08 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 
 	numbers = ft_strdup("0123456789abcdef");
 	size = ft_itoa_base_count(nb, base);
-	ret = malloc(sizeof(char) * size + 1);
+	ret = xmalloc(sizeof(char) * size + 1);
 	ret[size--] = '\0';
 	while (size >= 0)
 	{
@@ -76,4 +76,14 @@ char	*ft_itoa_base(unsigned long int nb, unsigned int base)
 	}
 	free(numbers);
 	return (ret);
+}
+
+void	*xmalloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (ptr == 0)
+		exit(1);
+	return (ptr);
 }

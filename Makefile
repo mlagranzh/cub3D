@@ -39,44 +39,45 @@ all				:	mlx libft $(NAME)
 
 bonus			:	mlx libft $(NAME_BONUS) 
 					
-%.o				:	%.c $(HEADERS) $(BONUS_HEADER)
+%.o				:	%.c
 					$(GCC) -I mlx -c $< -o $@
 
-$(NAME)			:	$(OBJ)
-					make -C mlx/
+$(NAME)			:	$(OBJ) $(HEADERS)
+					@make -C mlx/
 #					@echo "\033[0;35mКомпилю cub3d...\033[0;32m"
 #					@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
 					$(GCC) -o $(NAME) $(OBJ) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-$(NAME_BONUS)	:	$(OBJ_BONUS)
-					make -C mlx/
+$(NAME_BONUS)	:	$(OBJ_BONUS) $(HEADERS) $(BONUS_HEADER)
+					@make -C mlx/
+#					@echo "\033[0;35mКомпилю cub3d_bonus...\033[0;32m"
+#					@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
 					$(GCC) -o $(NAME_BONUS) $(OBJ_BONUS) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 xpm				:	mlx
 					$(GCC) bonus/xpm_viewer_bonus.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 mlx				:
-#					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
-					make -C mlx/
+					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"
+					@make -C mlx/
 libft			:
-#					@echo "\033[0;35mКомпилю libft... \033[0;32m"
-					make -C $(DIR_LIBA)
+					@echo "\033[0;35mКомпилю libft... \033[0;32m"
+					@make -C $(DIR_LIBA)
 
 
 clean			:
-#					@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"
-					make clean -C $(DIR_LIBA)
-					make clean -C $(DIR_MINILIBX)
-#					@echo "\033[0;35mcub3d: ЧИСТКА ОБЪЕКТНИКОВ...\033[0;31m"
-					rm -f $(OBJ)
-					rm -f $(OBJ_BONUS)
+					@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"
+					@make clean -C $(DIR_LIBA)
+					@make clean -C $(DIR_MINILIBX)
+					@echo "\033[0;35mcub3d: ЧИСТКА ОБЪЕКТНИКОВ...\033[0;31m"
+					@rm -f $(OBJ)
+					@rm -f $(OBJ_BONUS)
 
 fclean			:	clean
-#					@echo "\033[0;35mУдаляю исполняемый файл...\033[0;31m"
-					rm -f $(NAME)
-					rm -f $(NAME_BONUS)
-#					make fclean -C $(DIR_LIBA)
-#					make clean -C $(DIR_MINILIBX)
+					@echo "\033[0;35mУдаляю исполняемый файл...\033[0;31m"
+					@rm -f $(NAME)
+					@rm -f $(NAME_BONUS)
+					@rm -f $(DIR_LIBA)/libft.a
 
 re				:	fclean all
 

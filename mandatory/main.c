@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 12:34:32 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:33:24 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static void	cub_init(t_all *all)
 void	cub_free(t_all *all)
 {
 	free(all->wall);
-	free(all->fog.fog_wall);
-	free(all->fog.fog_barrel);
 	free(all->sprites.z_buffer);
 	free(all->sprites.coordinates);
 	free(all->sprites.texture_barrel);
@@ -83,12 +81,6 @@ void	mlx_destroy(t_all *all)
 	mlx_destroy_image(all->mlx, all->sprites.texture_light[2].img);
 	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[0].img);
 	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[1].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[0].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[1].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[2].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_wall[3].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_barrel[0].img);
-	mlx_destroy_image(all->mlx, all->fog.fog_barrel[1].img);
 }
 
 int	main(int argc, char **argv)

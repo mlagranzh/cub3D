@@ -19,7 +19,8 @@ SRC_MAP			=	read_map.c read_map_param.c checking_map_for_closure.c \
 					cub_file.c color_param.c cub_file_utils.c make_map_mas.c write_map_list.c
 SRC_GNL			=	get_next_line.c get_next_line_utils.c
 
-SRC_BONUS		=	main.c screen.c minimap.c texture.c motion.c sprites.c hook.c fog_bonus.c screenshot_bonus.c screenshot_utils_bonus.c
+SRC_BONUS		=	main_bonus.c screen_bonus.c minimap_bonus.c texture_bonus.c motion_bonus.c \
+					sprites_bonus.c hook_bonus.c fog_bonus.c screenshot_bonus.c screenshot_utils_bonus.c
 
 UTILS			=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
 MAP				=	$(addprefix $(DIR_MAP), $(SRC_MAP))
@@ -48,7 +49,7 @@ $(NAME_BONUS)	:	$(OBJ_BONUS)
 					$(GCC) -o $(NAME_BONUS) $(OBJ_BONUS) libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 xpm				:	mlx
-					$(GCC) xpm_viewer.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
+					$(GCC) bonus/xpm_viewer_bonus.c -o xpm_viewer -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 mlx				:
 #					@echo "\033[0;35mКомпилю minilibx... \033[0;32m"

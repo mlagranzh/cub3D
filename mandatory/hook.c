@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 12:43:30 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 13:33:12 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	destroy(t_all *all)
 {
-	(void) all;
-	// mlx_destroy(all);
-	// cub_free(all);
+	mlx_destroy(all);
+	cub_free(all);
 	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 01:46:46 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 03:20:37 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int				create_trgb(int t, int r, int g, int b);
 
 //utils3
 void			init_raycast(int x, t_all *all, t_raycast *raycast);
+int				len_int(int *array);
+int				ft_itoa_base_count(unsigned long int nb, unsigned int base);
+char			*ft_itoa_base(unsigned long int nb, unsigned int base);
 
 //map functions
 int				cub_file(t_map *map, t_player *player, char *file_name);
@@ -102,9 +105,10 @@ void			rotate(int key, t_all *all, double rotSpeed);
 //hook
 void			cub_destroy(t_all *all);
 int				mouse_hook(int x, int y, t_all *all);
-int				my_hook(int key, t_all *all);
+int				key_press(int key, t_all *all);
 int				loop_hook(t_all *all);
 int				destroy(t_all *all);
+int				key_release(int key, t_all *all);
 
 //sprites
 void			draw_sprites(t_all *all);

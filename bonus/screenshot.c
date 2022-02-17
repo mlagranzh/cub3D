@@ -1,17 +1,5 @@
 #include "../cub3d.h"
 
-int	len_int(int *array)
-{
-	int	i;
-
-	i = 0;
-	if (array == NULL)
-		return (0);
-	while (array[i] != -1)
-		i++;
-	return (i);
-}
-
 int	search_in_array(int *array, int search)
 {
 	int	i;
@@ -67,41 +55,7 @@ int	*create_dictionary(int **array)
 	return (dict);
 }
 
-int	ft_itoa_base_count(unsigned long int nb, unsigned int base)
-{
-	int	i;
-
-	if (nb == 0)
-		return (1);
-	i = 0;
-	while (nb)
-	{
-		nb = nb / base;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_itoa_base(unsigned long int nb, unsigned int base)
-{
-	char	*ret;
-	char	*numbers;
-	int		size;
-
-	numbers = ft_strdup("0123456789abcdef");
-	size = ft_itoa_base_count(nb, base);
-	ret = malloc(sizeof(char) * size + 1);
-	ret[size--] = '\0';
-	while (size >= 0)
-	{
-		ret[size--] = numbers[nb % base];
-		nb /= base;
-	}
-	free(numbers);
-	return (ret);
-}
-
-static void print_pixels(FILE *file, int *dict, int **map)
+static void	print_pixels(FILE *file, int *dict, int **map)
 {
 	int	x;
 	int	y;
@@ -120,20 +74,13 @@ static void print_pixels(FILE *file, int *dict, int **map)
 	}
 }
 
-void	create_file(int *dict, int **map)
+void	create_file(FILE *file, int *dict, int **map)
 {
-	FILE	*file;
 	int		i;
-	char	*num_shots;
-	char	*name_screenshot;
 	char	*color;
-	static int num = 0;
 
-	num_shots = ft_itoa(num);
-	name_screenshot = my_strjoin("screenshot/screenshot", num_shots, ".xpm");
-	num++;
-	file = fopen(name_screenshot, "w");
-	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, SCREEN_HEIGHT, len_int(dict), 1);
+	fprintf(file, "\"%d %d %d %d\",\n", SCREEN_WIDTH, \
+					SCREEN_HEIGHT, len_int(dict), 1);
 	i = -1;
 	while (++i < len_int(dict))
 	{
@@ -142,25 +89,19 @@ void	create_file(int *dict, int **map)
 		free(color);
 	}
 	print_pixels(file, dict, map);
-	free(num_shots);
-	free(name_screenshot);
 }
 
-//why not work???!?!?
-void shot(t_all *all)
+void	shot(t_all *all)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = -1;
-	x = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
-		{
-			my_mlx_pixel_put(all->img.img, x, y, 0);
-		}
+			my_mlx_pixel_put(&all->img, x, y, 0x4d4a4a);
 	}
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }
@@ -188,14 +129,30 @@ static int	**create_color_map(t_data *img)
 	return (array);
 }
 
+static FILE	*open_file()
+{
+	static int	num = 0;
+	char		*num_shots;
+	char		*name_screenshot;
+	FILE		*file;
+
+	num_shots = ft_itoa(num);
+	name_screenshot = my_strjoin("screenshot/screenshot", num_shots, ".xpm");
+	file = fopen(name_screenshot, "w");
+	num++;
+	free(num_shots);
+	free(name_screenshot);
+	return (file);
+}
+
 void	screenshot(t_all *all)
 {
-	int	**color_map;
-	int	*dict;
+	int			**color_map;
+	int			*dict;
 
 	color_map = create_color_map(&all->img);
 	dict = create_dictionary(color_map);
-	create_file(dict, color_map);
+	create_file(open_file(), dict, color_map);
 	shot(all);
 	free_2d_int(color_map, SCREEN_HEIGHT);
 	free(dict);

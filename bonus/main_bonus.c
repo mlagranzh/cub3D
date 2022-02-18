@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 16:02:27 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 11:06:44 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static void	cub_init(t_all *all)
 
 void	cub_free(t_all *all)
 {
-	free(all->wall);
 	free(all->fog.fog_wall);
+	free(all->fog.clear_wall);
 	free(all->fog.fog_barrel);
+	free(all->fog.clear_barrel);
 	free(all->sprites.z_buffer);
 	free(all->sprites.coordinates);
-	free(all->sprites.texture_barrel);
 	free(all->sprites.texture_light);
 	free(all->sprites.distance);
 	free(all->sprites.iterator);
@@ -76,21 +76,21 @@ void	mlx_destroy(t_all *all)
 {
 	mlx_destroy_image(all->mlx, all->img.img);
 	mlx_destroy_window(all->mlx, all->win);
-	mlx_destroy_image(all->mlx, all->wall[0].img);
-	mlx_destroy_image(all->mlx, all->wall[1].img);
-	mlx_destroy_image(all->mlx, all->wall[2].img);
-	mlx_destroy_image(all->mlx, all->wall[3].img);
 	mlx_destroy_image(all->mlx, all->sprites.texture_light[0].img);
 	mlx_destroy_image(all->mlx, all->sprites.texture_light[1].img);
 	mlx_destroy_image(all->mlx, all->sprites.texture_light[2].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[0].img);
-	mlx_destroy_image(all->mlx, all->sprites.texture_barrel[1].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_wall[0].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_wall[1].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_wall[2].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_wall[3].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_wall[0].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_wall[1].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_wall[2].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_wall[3].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_barrel[0].img);
 	mlx_destroy_image(all->mlx, all->fog.fog_barrel[1].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_barrel[0].img);
+	mlx_destroy_image(all->mlx, all->fog.clear_barrel[1].img);
 }
 
 int	main(int argc, char **argv)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 12:36:06 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 14:30:12 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ int	main(int argc, char **argv)
 	draw_minimap(&all);
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L << 2, key_press, (void *)&all);
-	mlx_hook(all.win, 3, 0, key_release, (void *)&all);
 	mlx_hook(all.win, 17, 0, destroy, (void *)&all);
-	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
 	mlx_loop(all.mlx);
 	return (SUCCESS);
 }

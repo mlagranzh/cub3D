@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 12:30:07 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 13:38:21 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@ int	destroy(t_all *all)
 	cub_free(all);
 	exit(0);
 	return (0);
-}
-
-int	key_release(int key, t_all *all)
-{
-	if (key == KEY_FN_F12)
-	{
-		draw_screen(all);
-		draw_sprites(all);
-		draw_minimap(all);
-		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	}	
-	return (SUCCESS);
 }
 
 int	key_press(int key, t_all *all)
@@ -44,43 +32,9 @@ int	key_press(int key, t_all *all)
 		rotate(key, all, ROTATE_SPEED);
 	if (key == KEY_ESC)
 		destroy(all);
-	if (key != KEY_FN_F12)
-	{
-		draw_screen(all);
-		draw_sprites(all);
-		draw_minimap(all);
-		mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	}
-	return (SUCCESS);
-}
-
-int	mouse_hook(int x, int y, t_all *all)
-{
-	double	rot_speed;
-
-	(void) y;
-	mlx_mouse_hide();
-	if (x < 0 || x > SCREEN_WIDTH)
-		mlx_mouse_move(all->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-	if (x != all->player.mouse_x)
-	{
-		rot_speed = 0.03;
-		if (x > all->player.mouse_x)
-			rot_speed = -rot_speed;
-		rotate(KEY_LEFT, all, rot_speed);
-	}
-	all->player.mouse_x = x;
 	draw_screen(all);
 	draw_sprites(all);
 	draw_minimap(all);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	return (0);
-}
-
-int	loop_hook(t_all *all)
-{
-	draw_sprites(all);
-	draw_minimap(all);
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	return (0);
+	return (SUCCESS);
 }

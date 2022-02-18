@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 12:12:37 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 13:47:36 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,8 @@ void			move_side(int key, t_all *all);
 void			rotate(int key, t_all *all, double rotSpeed);
 
 //hook
-int				mouse_hook(int x, int y, t_all *all);
 int				key_press(int key, t_all *all);
-int				loop_hook(t_all *all);
 int				destroy(t_all *all);
-int				key_release(int key, t_all *all);
 
 //sprites
 void			sprites_init(t_all *all);

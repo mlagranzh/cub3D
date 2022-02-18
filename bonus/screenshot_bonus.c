@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   screenshot_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:42:25 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 13:00:55 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/18 10:40:59 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+
+#define SCREENSHOT_FOLDER "bonus/screenshot/screenshot"
 
 static void	print_pixels(FILE *file, int *dict, int **map)
 {
@@ -71,8 +73,13 @@ static FILE	*open_file(void)
 	FILE		*file;
 
 	num_shots = ft_itoa(num);
-	name_screenshot = my_strjoin("screenshot/screenshot", num_shots, ".xpm");
+	name_screenshot = my_strjoin(SCREENSHOT_FOLDER, num_shots, ".xpm");
 	file = fopen(name_screenshot, "w");
+	if (file == NULL)
+	{
+		printf("SCREENSHOT_FOLDER not found!");
+		exit(1);
+	}
 	num++;
 	free(num_shots);
 	free(name_screenshot);

@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:56:09 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 15:41:10 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 12:32:43 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int				*create_dictionary(int **array);
 //fog
 void			fog(t_all *all);
 int				fog_init(t_all *all);
+
 #endif

@@ -15,7 +15,7 @@ DIR_SPRITES		=	sprites/
 HEADERS			=	mandatory/cub3d.h mandatory/cub3d_structs.h sprites/sprite.h cub_file/cub_file.h
 BONUS_HEADER	=	bonus/cub3d_bonus.h
 
-SRC				=	main.c screen.c minimap.c texture.c motion.c hook.c
+SRC				=	main.c screen.c minimap.c texture.c motion.c hook.c sprites_approach_action.c
 SRC_UTILS		=	utils0.c utils1.c utils2.c utils3.c
 SRC_MAP			=	read_map.c read_map_param.c checking_map_for_closure.c \
 					cub_file.c color_param.c cub_file_utils.c make_map_mas.c write_map_list.c

@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 16:02:30 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 12:36:06 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	mlx_destroy(t_all *all)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	
+
 	if (argc < 2)
 		return (print_return(ERROR, "argv error"));
 	if (cub_file(&all.map, &all.player, argv[1]) != SUCCESS)
@@ -99,7 +99,6 @@ int	main(int argc, char **argv)
 	mlx_hook(all.win, 2, 1L << 2, key_press, (void *)&all);
 	mlx_hook(all.win, 3, 0, key_release, (void *)&all);
 	mlx_hook(all.win, 17, 0, destroy, (void *)&all);
-	mlx_hook(all.win, 6, 0, mouse_hook, (void *)&all);
 	mlx_loop_hook(all.mlx, loop_hook, (void *)&all);
 	mlx_loop(all.mlx);
 	return (SUCCESS);

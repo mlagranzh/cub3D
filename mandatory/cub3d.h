@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/17 15:38:36 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 12:12:37 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int				key_release(int key, t_all *all);
 void			sprites_init(t_all *all);
 void			draw_sprites(t_all *all);
 void			light_on_off(t_all *all);
+int				sprites_approach_action(t_all *all, double x, double y, int i);
 
 void			draw_wall(t_all *all, t_raycast *raycast, int x);
 void			draw_minimap(t_all *all);

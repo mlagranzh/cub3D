@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:22:23 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 15:22:24 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 12:38:39 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ int	calculation_general_parameters(t_all *all, t_sprites_param *param, int i)
 {
 	param->sprite_x = all->sprites.coordinates[i].x - all->player.pos_x;
 	param->sprite_y = all->sprites.coordinates[i].y - all->player.pos_y;
-	if (fabs(param->sprite_x) < 0.2 && fabs(param->sprite_y) < 0.2)
-	{
-		if (all->sprites.coordinates[i].texture_name == BARREL)
-			all->sprites.coordinates[i].texture_flag = 1;
+	if (sprites_approach_action(all, param->sprite_x,
+			param->sprite_y, i) == FALSE)
 		return (FALSE);
-	}
 	param->inv_det = 1.0 / (all->player.plane_x * all->player.dir_y
 			- all->player.dir_x * all->player.plane_y);
 	param->transform_x = param->inv_det * (all->player.dir_y * param->sprite_x

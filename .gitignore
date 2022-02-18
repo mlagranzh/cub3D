@@ -3,5 +3,7 @@
 */*.a
 .vscode
 cub3d
+cub3d_bonus
 mlx/libmlx.a
 cleonia/
+.DS_Store

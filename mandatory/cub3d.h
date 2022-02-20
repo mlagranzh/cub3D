@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Cleonia <1-d_x_d-1@mail.ru>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:16:40 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 13:47:36 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 14:14:37 by Cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,7 @@ void			rotate(int key, t_all *all, double rotSpeed);
 int				key_press(int key, t_all *all);
 int				destroy(t_all *all);
 
-//sprites
-void			sprites_init(t_all *all);
-void			draw_sprites(t_all *all);
-void			light_on_off(t_all *all);
-int				sprites_approach_action(t_all *all, double x, double y, int i);
-
 void			draw_wall(t_all *all, t_raycast *raycast, int x);
-void			draw_minimap(t_all *all);
 void			draw_screen(t_all *all);
 
 #endif

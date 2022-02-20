@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: Cleonia <1-d_x_d-1@mail.ru>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:56:09 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 15:25:55 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/20 14:40:27 by Cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int				key_release(int key, t_all *all);
 int				mouse_hook(int x, int y, t_all *all);
 
 //sprites
-void			sprites_init_coller(t_all *all);
+void			draw_sprites(t_all *all);
+void			sprites_init(t_all *all);
+void			light_on_off(t_all *all);
+
+//minimap
+void			draw_minimap(t_all *all);
 
 #endif

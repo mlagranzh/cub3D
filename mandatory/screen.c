@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: Cleonia <1-d_x_d-1@mail.ru>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:00:03 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 13:51:00 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 14:09:11 by Cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	draw_screen(t_all *all)
 		where(raycast);
 		draw_ceiling_floor(all, raycast, x);
 		draw_wall(all, raycast, x);
-		all->sprites.z_buffer[x] = raycast->perp_wall_dist;
 	}
 	free(raycast);
 }

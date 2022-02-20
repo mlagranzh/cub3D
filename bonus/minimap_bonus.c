@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: Cleonia <1-d_x_d-1@mail.ru>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:59:44 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 13:00:45 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 14:31:49 by Cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	draw_border_square(t_data *img, int y, int x, int type)
 	}
 }
 
-void	draw_player(t_data *img)
+static void	draw_player(t_data *img)
 {
 	int	i;
 	int	j;

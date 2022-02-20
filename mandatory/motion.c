@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:17 by celys             #+#    #+#             */
-/*   Updated: 2022/02/20 14:24:54 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/17 11:33:22 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,25 @@ void	move_side(int key, t_all *all)
 	double	step_x;
 	double	step_y;
 
-	if (all->player.move_flag && key == KEY_A)
-		key = KEY_D;
-	else if (all->player.move_flag && key == KEY_D)
-		key = KEY_A;
 	move_speed = MOVE_SPEED;
 	if (key == KEY_A)
-		move_speed = -MOVE_SPEED;
+		move_speed = -move_speed;
 	step_x = all->player.dir_y * move_speed;
 	step_y = -all->player.dir_x * move_speed;
 	if (key == KEY_A)
-		replace(&all->player.dir_x, -all->player.dir_x, \
-				&all->player.dir_y, -all->player.dir_y);
+	{
+		all->player.dir_x *= -1;
+		all->player.dir_y *= -1;
+	}
 	replace(&all->player.dir_x, all->player.dir_y, \
-		&all->player.dir_y, -all->player.dir_x);
+				&all->player.dir_y, -all->player.dir_x);
 	all->player.pos_x = get_raise_x(all, step_x);
 	all->player.pos_y = get_raise_y(all, step_y);
 	if (key == KEY_A)
-		replace(&all->player.dir_x, -all->player.dir_x, \
-				&all->player.dir_y, -all->player.dir_y);
+	{
+		all->player.dir_x *= -1;
+		all->player.dir_y *= -1;
+	}
 	replace(&all->player.dir_x, -all->player.dir_y, \
 				&all->player.dir_y, all->player.dir_x);
 }

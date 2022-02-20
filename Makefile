@@ -4,42 +4,43 @@ NAME_BONUS		=	cub3d_bonus
 GCC				=	gcc -g3 -Wall -Wextra -Werror
 
 DIR_LIBA		=	libft/
-DIR_MINILIBX		=	mlx/
+DIR_MINILIBX	=	mlx/
 DIR_UTILS		=	utils/
 DIR_MAP			=	cub_file/
 DIR_GNL			=	get_next_line/
-DIR_MANDATORY		=	mandatory/
+DIR_MANDATORY	=	mandatory/
 DIR_BONUS		=	bonus/
-DIR_SPRITES		=	sprites/
+DIR_SPRITES		=	sprites_bonus/
 
-HEADERS			=	mandatory/cub3d.h mandatory/cub3d_structs.h sprites/sprite.h cub_file/cub_file.h
-BONUS_HEADER		=	bonus/cub3d_bonus.h
+HEADERS			=	mandatory/cub3d.h mandatory/cub3d_structs.h cub_file/cub_file.h
+BONUS_HEADER	=	bonus/cub3d_bonus.h bonus/sprites_bonus/sprite.h
 
-SRC			=	main.c screen.c minimap.c texture.c motion.c hook.c sprites_approach_action.c
+SRC				=	main.c screen.c texture.c motion.c hook.c
 SRC_UTILS		=	utils0.c utils1.c utils2.c utils3.c
 SRC_MAP			=	read_map.c read_map_param.c checking_map_for_closure.c \
 					cub_file.c color_param.c cub_file_utils.c make_map_mas.c write_map_list.c
-SRC_SPRITES		=	sprites.c put_on_map.c calculation.c
 SRC_GNL			=	get_next_line.c get_next_line_utils.c
 
+SRC_SPRITES		=	sprites.c put_on_map.c sprite_utils.c
 SRC_BONUS		=	main_bonus.c screen_bonus.c minimap_bonus.c texture_bonus.c motion_bonus.c \
-					sprites_bonus.c hook_bonus.c fog_bonus.c screenshot_bonus.c screenshot_utils_bonus.c
+					hook_bonus.c fog_bonus.c screenshot_bonus.c screenshot_utils_bonus.c
 
 UTILS			=	$(addprefix $(DIR_UTILS), $(SRC_UTILS))
-MAP			=	$(addprefix $(DIR_MAP), $(SRC_MAP))
-SPRITES			=	$(addprefix $(DIR_SPRITES), $(SRC_SPRITES))
-GNL			=	$(addprefix $(DIR_GNL), $(SRC_GNL))
-BONUS			=	$(addprefix $(DIR_BONUS), $(SRC_BONUS))
+MAP				=	$(addprefix $(DIR_MAP), $(SRC_MAP))
+GNL				=	$(addprefix $(DIR_GNL), $(SRC_GNL))
 MANDATORY		=	$(addprefix $(DIR_MANDATORY), $(SRC))
 
-OBJ			=	$(MANDATORY:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(LIBA:.c=.o) $(SPRITES:.c=.o)
+BONUS			=	$(addprefix $(DIR_BONUS), $(SRC_BONUS))
+SPRITES			=	$(addprefix $(DIR_BONUS), $(addprefix $(DIR_SPRITES), $(SRC_SPRITES)))
+
+OBJ				=	$(MANDATORY:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(LIBA:.c=.o)
 OBJ_BONUS		=	$(BONUS:.c=.o) $(UTILS:.c=.o) $(MAP:.c=.o) $(GNL:.c=.o) $(LIBA:.c=.o) $(SPRITES:.c=.o)
 
-all			:	mlx libft $(NAME) 
+all				:	mlx libft $(NAME) 
 
 bonus			:	mlx libft $(NAME_BONUS) 
 					
-%.o			:	%.c
+%.o				:	%.c
 				$(GCC) -I mlx -c $< -o $@
 
 $(NAME)			:	$(OBJ) $(HEADERS)

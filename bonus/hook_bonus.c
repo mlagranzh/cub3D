@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:20:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 10:42:10 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 15:31:51 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ int	key_press(int key, t_all *all)
 		move_straight(key, all);
 	if (key == KEY_A || key == KEY_D)
 		move_side(key, all);
-	if (key == KEY_LEFT)
-		rotate(key, all, ROTATE_SPEED);
-	if (key == KEY_RIGHT)
-		rotate(key, all, ROTATE_SPEED);
+	if (key == KEY_LEFT || key == KEY_RIGHT)
+ 		rotate(key, all, all->player.rotate_speed);
 	if (key == KEY_ESC)
 		destroy(all);
 	if (key == KEY_SPACE)

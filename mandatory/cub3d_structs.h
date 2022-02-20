@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:58:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/20 15:34:02 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 17:07:05 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_player
 	char	start_side;
 	int		mouse_x;
 	double	move_flag;
-	double	rotate_speed;
 }	t_player;
 
 typedef struct s_map

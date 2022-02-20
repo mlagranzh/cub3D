@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/20 15:33:04 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 17:08:11 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ static void	cub_init(t_all *all)
 									&all->img.line_length, &all->img.endian);
 	side_init(&all->player);
 	all->player.move_flag = 0;
-	all->player.rotate_speed = ROTATE_SPEED;
 	if (all->player.start_side == 'S' || all->player.start_side == 'N')
 	{
+		all->player.plane_x *= -1;
+		all->player.plane_y *= -1;
 		all->player.move_flag = 1;
-		all->player.rotate_speed = -ROTATE_SPEED;
 	}
 	sprites_init(all);
 	all->wall = xmalloc(sizeof(t_data) * 4);

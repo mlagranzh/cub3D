@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:51:35 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/17 12:48:09 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 14:09:29 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	print_return(int retval, char *print_message)
 
 void	replace(double *x, double x_new, double *y, double y_new)
 {
-	*x = x_new;
-	*y = y_new;
+	if (x)
+		*x = x_new;
+	if (y)
+		*y = y_new;
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

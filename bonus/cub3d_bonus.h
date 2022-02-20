@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:56:09 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 13:47:38 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/18 15:25:55 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ int				fog_init(t_all *all);
 int				loop_hook(t_all *all);
 int				key_release(int key, t_all *all);
 int				mouse_hook(int x, int y, t_all *all);
+
+//sprites
+void			sprites_init_coller(t_all *all);
 
 #endif

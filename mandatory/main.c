@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/18 14:30:12 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/20 14:05:38 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void	side_init(t_player *player)
 		flag = -1;
 	if (player->start_side == 'S' || player->start_side == 'E')
 		flag = 1;
-	if (player->start_side == 'N' || player->start_side == 'S')
+	if (player->start_side == 'W' || player->start_side == 'E')
 	{
 		player->dir_x = 0;
 		player->plane_y = 0;
 		player->dir_y = flag * 1;
 		player->plane_x = flag * 0.66;
 	}
-	if (player->start_side == 'W' || player->start_side == 'E')
+	if (player->start_side == 'N' || player->start_side == 'S')
 	{
 		player->plane_x = 0;
 		player->dir_y = 0;
@@ -44,6 +44,13 @@ static void	cub_init(t_all *all)
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, \
 									&all->img.line_length, &all->img.endian);
 	side_init(&all->player);
+	all->player.move_flag = 0;
+	all->player.rotate_speed = ROTATE_SPEED;
+	if (all->player.start_side == 'S' || all->player.start_side == 'N')
+	{
+		all->player.move_flag = 1;
+		all->player.rotate_speed = -ROTATE_SPEED;
+	}
 	sprites_init(all);
 	all->wall = (t_data *)xmalloc(sizeof(t_data) * 4);
 	image_load(all, &all->wall[0], all->map.no_texture);
@@ -87,7 +94,7 @@ int	main(int argc, char **argv)
 {
 	t_all	all;
 
-	if (argc < 2)
+	if (argc != 2)
 		return (print_return(ERROR, "argv error"));
 	if (cub_file(&all.map, &all.player, argv[1]) != SUCCESS)
 		return (ERROR);

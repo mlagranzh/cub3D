@@ -6,7 +6,7 @@
 /*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:32:11 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/18 12:18:07 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/18 15:21:00 by ChelseyLeon      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,12 @@ int	sprites_approach_action(t_all *all, double x, double y, int i)
 		return (FALSE);
 	}
 	return (TRUE);
+}
+
+void	sprites_init_coller(t_all *all)
+{
+	all->sprites.coller = 0;
+	all->sprites.coller_max = 89;
+	all->sprites.coller_min = 0;
+	all->sprites.coller_mod = 45;
 }

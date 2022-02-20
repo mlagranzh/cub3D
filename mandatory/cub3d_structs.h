@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ChelseyLeonia <ChelseyLeonia@student.42    +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:58:36 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/18 11:13:42 by ChelseyLeon      ###   ########.fr       */
+/*   Updated: 2022/02/20 14:06:08 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_player
 	double	plane_y;
 	char	start_side;
 	int		mouse_x;
+	double	move_flag;
+	double	rotate_speed;
 }	t_player;
 
 typedef struct s_map

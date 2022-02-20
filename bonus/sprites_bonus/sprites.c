@@ -6,7 +6,7 @@
 /*   By: Cleonia <1-d_x_d-1@mail.ru>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:13:51 by ChelseyLeon       #+#    #+#             */
-/*   Updated: 2022/02/20 14:38:04 by Cleonia          ###   ########.fr       */
+/*   Updated: 2022/02/20 15:14:18 by Cleonia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	sprites_init(t_all *all)
 	image_load(all, &all->sprites.texture_light[0], ELLOW_LIGHT);
 	image_load(all, &all->sprites.texture_light[1], RED_LIGHT);
 	image_load(all, &all->sprites.texture_light[2], BLACK_LIGHT);
-	all->sprites.coller = 1;
+	all->sprites.coller = 0;
 	all->sprites.coller_max = 89;
-	all->sprites.coller_min = 1;
+	all->sprites.coller_min = 0;
 	all->sprites.coller_mod = 45;
 	put_sprites_on_map(all, &all->map);
 	all->sprites.distance = (int *)xmalloc(sizeof(int) * all->sprites.num);

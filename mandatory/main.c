@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:33:49 by celys             #+#    #+#             */
-/*   Updated: 2022/02/20 18:46:20 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/21 19:03:41 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	cub_init(t_all *all)
 	}
 	all->wall = (t_data *)xmalloc(sizeof(t_data) * 4);
 	image_load(all, &all->wall[0], all->map.no_texture);
-	image_load(all, &all->wall[1], all->map.ea_texture);
+	image_load(all, &all->wall[1], all->map.we_texture);
 	image_load(all, &all->wall[2], all->map.so_texture);
-	image_load(all, &all->wall[3], all->map.we_texture);
+	image_load(all, &all->wall[3], all->map.ea_texture);
 }
 
 void	cub_free(t_all *all)

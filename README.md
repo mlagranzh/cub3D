@@ -7,6 +7,8 @@
 
 ##### It's just a game template. You can simply walk around the map, control on/off lamp and break barrels with your body.
 
+ ![Cub3D](https://github.com/Cleonia21/Cub3d/raw/88f066af53fabc5c04cb5a5ecb832e778909fc74/preview.png)
+
 #### You can now create your own map by following this norm:
 
 | Object         | Code          |
@@ -34,8 +36,6 @@
 | `MOUSE`       | turn left     |
 | `ENTER`       | fog           |
 | `SPACE`       | lamp control  |
-
- ![Cub3D](https://github.com/Cleonia21/Cub3d/raw/88f066af53fabc5c04cb5a5ecb832e778909fc74/preview.png)
 
 ## 📦 Installation
   ```shell
